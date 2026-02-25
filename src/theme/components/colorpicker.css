@@ -1,0 +1,22 @@
+:root {
+  --mb-colorpicker-panel-shadow:var(--mb-overlay-popover-shadow);
+  --mb-colorpicker-panel-border-radius:var(--mb-overlay-popover-border-radius);
+  --mb-colorpicker-preview-width:1.5rem;
+  --mb-colorpicker-preview-height:1.5rem;
+  --mb-colorpicker-preview-border-radius:var(--mb-form-field-border-radius);
+  --mb-colorpicker-preview-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-colorpicker-preview-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-colorpicker-preview-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-colorpicker-preview-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-colorpicker-preview-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-colorpicker-transition-duration:var(--mb-transition-duration);
+  --mb-colorpicker-handle-color:var(--mb-surface-0);
+  --mb-colorpicker-panel-background:var(--mb-surface-800);
+  --mb-colorpicker-panel-border-color:var(--mb-surface-900);
+}
+
+[data-mb-theme="dark"] {
+  --mb-colorpicker-handle-color:var(--mb-surface-0);
+  --mb-colorpicker-panel-background:var(--mb-surface-900);
+  --mb-colorpicker-panel-border-color:var(--mb-surface-700);
+}

@@ -1,0 +1,14 @@
+:root {
+  --mb-dock-item-border-radius:var(--mb-content-border-radius);
+  --mb-dock-item-padding:0.5rem;
+  --mb-dock-item-size:3rem;
+  --mb-dock-item-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-dock-item-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-dock-item-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-dock-item-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-dock-item-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-dock-background:rgba(255, 255, 255, 0.1);
+  --mb-dock-border-color:rgba(255, 255, 255, 0.2);
+  --mb-dock-padding:0.5rem;
+  --mb-dock-border-radius:var(--mb-border-radius-xl);
+}

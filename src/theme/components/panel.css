@@ -1,0 +1,16 @@
+:root {
+  --mb-panel-footer-padding:0 1.125rem 1.125rem 1.125rem;
+  --mb-panel-content-padding:0 1.125rem 1.125rem 1.125rem;
+  --mb-panel-title-font-weight:600;
+  --mb-panel-toggleable-header-padding:0.375rem 1.125rem;
+  --mb-panel-header-background:transparent;
+  --mb-panel-header-color:var(--mb-text-color);
+  --mb-panel-header-padding:1.125rem;
+  --mb-panel-header-border-color:var(--mb-content-border-color);
+  --mb-panel-header-border-width:0;
+  --mb-panel-header-border-radius:0;
+  --mb-panel-background:var(--mb-content-background);
+  --mb-panel-border-color:var(--mb-content-border-color);
+  --mb-panel-color:var(--mb-content-color);
+  --mb-panel-border-radius:var(--mb-content-border-radius);
+}

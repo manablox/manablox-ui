@@ -1,0 +1,9 @@
+:root {
+  --mb-progressbar-label-color:var(--mb-primary-contrast-color);
+  --mb-progressbar-label-font-size:0.75rem;
+  --mb-progressbar-label-font-weight:600;
+  --mb-progressbar-value-background:var(--mb-primary-color);
+  --mb-progressbar-background:var(--mb-content-border-color);
+  --mb-progressbar-border-radius:var(--mb-content-border-radius);
+  --mb-progressbar-height:1.25rem;
+}

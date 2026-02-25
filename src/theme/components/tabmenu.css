@@ -1,0 +1,31 @@
+:root {
+  --mb-tabmenu-active-bar-height:1px;
+  --mb-tabmenu-active-bar-bottom:-1px;
+  --mb-tabmenu-active-bar-background:var(--mb-primary-color);
+  --mb-tabmenu-item-icon-color:var(--mb-text-muted-color);
+  --mb-tabmenu-item-icon-hover-color:var(--mb-text-color);
+  --mb-tabmenu-item-icon-active-color:var(--mb-primary-color);
+  --mb-tabmenu-item-background:transparent;
+  --mb-tabmenu-item-hover-background:transparent;
+  --mb-tabmenu-item-active-background:transparent;
+  --mb-tabmenu-item-border-width:0 0 1px 0;
+  --mb-tabmenu-item-border-color:var(--mb-content-border-color);
+  --mb-tabmenu-item-hover-border-color:var(--mb-content-border-color);
+  --mb-tabmenu-item-active-border-color:var(--mb-primary-color);
+  --mb-tabmenu-item-color:var(--mb-text-muted-color);
+  --mb-tabmenu-item-hover-color:var(--mb-text-color);
+  --mb-tabmenu-item-active-color:var(--mb-primary-color);
+  --mb-tabmenu-item-padding:1rem 1.125rem;
+  --mb-tabmenu-item-font-weight:600;
+  --mb-tabmenu-item-margin:0 0 -1px 0;
+  --mb-tabmenu-item-gap:0.5rem;
+  --mb-tabmenu-item-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-tabmenu-item-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-tabmenu-item-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-tabmenu-item-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-tabmenu-item-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-tabmenu-tablist-border-width:0 0 1px 0;
+  --mb-tabmenu-tablist-background:var(--mb-content-background);
+  --mb-tabmenu-tablist-border-color:var(--mb-content-border-color);
+  --mb-tabmenu-transition-duration:var(--mb-transition-duration);
+}

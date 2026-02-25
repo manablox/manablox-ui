@@ -1,0 +1,16 @@
+:root {
+  --mb-timeline-event-connector-color:var(--mb-content-border-color);
+  --mb-timeline-event-connector-size:2px;
+  --mb-timeline-event-marker-size:1.125rem;
+  --mb-timeline-event-marker-border-radius:50%;
+  --mb-timeline-event-marker-border-width:2px;
+  --mb-timeline-event-marker-background:var(--mb-content-background);
+  --mb-timeline-event-marker-border-color:var(--mb-content-border-color);
+  --mb-timeline-event-marker-content-border-radius:50%;
+  --mb-timeline-event-marker-content-size:0.375rem;
+  --mb-timeline-event-marker-content-background:var(--mb-primary-color);
+  --mb-timeline-event-marker-content-inset-shadow:0px 0.5px 0px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  --mb-timeline-vertical-event-content-padding:0 1rem;
+  --mb-timeline-horizontal-event-content-padding:1rem 0;
+  --mb-timeline-event-min-height:5rem;
+}

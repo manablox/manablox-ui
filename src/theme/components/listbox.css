@@ -1,0 +1,36 @@
+:root {
+  --mb-listbox-empty-message-padding:var(--mb-list-option-padding);
+  --mb-listbox-checkmark-color:var(--mb-list-option-color);
+  --mb-listbox-checkmark-gutter-start:-0.375rem;
+  --mb-listbox-checkmark-gutter-end:0.375rem;
+  --mb-listbox-option-group-background:var(--mb-list-option-group-background);
+  --mb-listbox-option-group-color:var(--mb-list-option-group-color);
+  --mb-listbox-option-group-font-weight:var(--mb-list-option-group-font-weight);
+  --mb-listbox-option-group-padding:var(--mb-list-option-group-padding);
+  --mb-listbox-option-focus-background:var(--mb-list-option-focus-background);
+  --mb-listbox-option-selected-background:var(--mb-list-option-selected-background);
+  --mb-listbox-option-selected-focus-background:var(--mb-list-option-selected-focus-background);
+  --mb-listbox-option-color:var(--mb-list-option-color);
+  --mb-listbox-option-focus-color:var(--mb-list-option-focus-color);
+  --mb-listbox-option-selected-color:var(--mb-list-option-selected-color);
+  --mb-listbox-option-selected-focus-color:var(--mb-list-option-selected-focus-color);
+  --mb-listbox-option-padding:var(--mb-list-option-padding);
+  --mb-listbox-option-border-radius:var(--mb-list-option-border-radius);
+  --mb-listbox-list-padding:var(--mb-list-padding);
+  --mb-listbox-list-gap:var(--mb-list-gap);
+  --mb-listbox-list-header-padding:var(--mb-list-header-padding);
+  --mb-listbox-background:var(--mb-form-field-background);
+  --mb-listbox-disabled-background:var(--mb-form-field-disabled-background);
+  --mb-listbox-border-color:var(--mb-form-field-border-color);
+  --mb-listbox-invalid-border-color:var(--mb-form-field-invalid-border-color);
+  --mb-listbox-color:var(--mb-form-field-color);
+  --mb-listbox-disabled-color:var(--mb-form-field-disabled-color);
+  --mb-listbox-shadow:var(--mb-form-field-shadow);
+  --mb-listbox-border-radius:var(--mb-form-field-border-radius);
+  --mb-listbox-transition-duration:var(--mb-form-field-transition-duration);
+  --mb-listbox-option-striped-background:var(--mb-surface-50);
+}
+
+[data-mb-theme="dark"] {
+  --mb-listbox-option-striped-background:var(--mb-surface-900);
+}

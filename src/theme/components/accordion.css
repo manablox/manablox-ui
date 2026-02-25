@@ -1,0 +1,36 @@
+:root {
+  --mb-accordion-content-border-width:0;
+  --mb-accordion-content-border-color:var(--mb-content-border-color);
+  --mb-accordion-content-background:var(--mb-content-background);
+  --mb-accordion-content-color:var(--mb-text-color);
+  --mb-accordion-content-padding:0 1.125rem 1.125rem 1.125rem;
+  --mb-accordion-header-color:var(--mb-text-muted-color);
+  --mb-accordion-header-hover-color:var(--mb-text-color);
+  --mb-accordion-header-active-color:var(--mb-text-color);
+  --mb-accordion-header-active-hover-color:var(--mb-text-color);
+  --mb-accordion-header-padding:1.125rem;
+  --mb-accordion-header-font-weight:600;
+  --mb-accordion-header-border-radius:0;
+  --mb-accordion-header-border-width:0;
+  --mb-accordion-header-border-color:var(--mb-content-border-color);
+  --mb-accordion-header-background:var(--mb-content-background);
+  --mb-accordion-header-hover-background:var(--mb-content-background);
+  --mb-accordion-header-active-background:var(--mb-content-background);
+  --mb-accordion-header-active-hover-background:var(--mb-content-background);
+  --mb-accordion-header-last-bottom-border-radius:var(--mb-content-border-radius);
+  --mb-accordion-header-last-active-bottom-border-radius:0;
+  --mb-accordion-header-first-top-border-radius:var(--mb-content-border-radius);
+  --mb-accordion-header-first-border-width:0;
+  --mb-accordion-header-toggle-icon-color:var(--mb-text-muted-color);
+  --mb-accordion-header-toggle-icon-hover-color:var(--mb-text-color);
+  --mb-accordion-header-toggle-icon-active-color:var(--mb-text-color);
+  --mb-accordion-header-toggle-icon-active-hover-color:var(--mb-text-color);
+  --mb-accordion-header-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-accordion-header-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-accordion-header-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-accordion-header-focus-ring-offset:-1px;
+  --mb-accordion-header-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-accordion-panel-border-width:0 0 1px 0;
+  --mb-accordion-panel-border-color:var(--mb-content-border-color);
+  --mb-accordion-transition-duration:var(--mb-transition-duration);
+}

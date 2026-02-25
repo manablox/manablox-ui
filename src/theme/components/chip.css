@@ -1,0 +1,27 @@
+:root {
+  --mb-chip-remove-icon-size:1rem;
+  --mb-chip-remove-icon-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-chip-remove-icon-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-chip-remove-icon-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-chip-remove-icon-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-chip-remove-icon-focus-ring-shadow:var(--mb-form-field-focus-ring-shadow);
+  --mb-chip-icon-size:1rem;
+  --mb-chip-image-width:2rem;
+  --mb-chip-image-height:2rem;
+  --mb-chip-border-radius:16px;
+  --mb-chip-padding-x:0.75rem;
+  --mb-chip-padding-y:0.5rem;
+  --mb-chip-gap:0.5rem;
+  --mb-chip-transition-duration:var(--mb-transition-duration);
+  --mb-chip-remove-icon-color:var(--mb-surface-800);
+  --mb-chip-icon-color:var(--mb-surface-800);
+  --mb-chip-background:var(--mb-surface-100);
+  --mb-chip-color:var(--mb-surface-800);
+}
+
+[data-mb-theme="dark"] {
+  --mb-chip-remove-icon-color:var(--mb-surface-0);
+  --mb-chip-icon-color:var(--mb-surface-0);
+  --mb-chip-background:var(--mb-surface-800);
+  --mb-chip-color:var(--mb-surface-0);
+}

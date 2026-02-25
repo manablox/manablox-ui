@@ -1,0 +1,49 @@
+:root {
+  --mb-badge-xl-font-size:1rem;
+  --mb-badge-xl-min-width:2rem;
+  --mb-badge-xl-height:2rem;
+  --mb-badge-lg-font-size:0.875rem;
+  --mb-badge-lg-min-width:1.75rem;
+  --mb-badge-lg-height:1.75rem;
+  --mb-badge-sm-font-size:0.625rem;
+  --mb-badge-sm-min-width:1.25rem;
+  --mb-badge-sm-height:1.25rem;
+  --mb-badge-dot-size:0.5rem;
+  --mb-badge-border-radius:var(--mb-border-radius-md);
+  --mb-badge-padding:0 0.5rem;
+  --mb-badge-font-size:0.75rem;
+  --mb-badge-font-weight:700;
+  --mb-badge-min-width:1.5rem;
+  --mb-badge-height:1.5rem;
+  --mb-badge-contrast-background:var(--mb-surface-950);
+  --mb-badge-contrast-color:var(--mb-surface-0);
+  --mb-badge-danger-background:var(--mb-red-500);
+  --mb-badge-danger-color:var(--mb-surface-0);
+  --mb-badge-warn-background:var(--mb-orange-500);
+  --mb-badge-warn-color:var(--mb-surface-0);
+  --mb-badge-info-background:var(--mb-sky-500);
+  --mb-badge-info-color:var(--mb-surface-0);
+  --mb-badge-success-background:var(--mb-green-500);
+  --mb-badge-success-color:var(--mb-surface-0);
+  --mb-badge-secondary-background:var(--mb-surface-100);
+  --mb-badge-secondary-color:var(--mb-surface-600);
+  --mb-badge-primary-background:var(--mb-primary-color);
+  --mb-badge-primary-color:var(--mb-primary-contrast-color);
+}
+
+[data-mb-theme="dark"] {
+  --mb-badge-contrast-background:var(--mb-surface-0);
+  --mb-badge-contrast-color:var(--mb-surface-950);
+  --mb-badge-danger-background:var(--mb-red-400);
+  --mb-badge-danger-color:var(--mb-red-950);
+  --mb-badge-warn-background:var(--mb-orange-400);
+  --mb-badge-warn-color:var(--mb-orange-950);
+  --mb-badge-info-background:var(--mb-sky-400);
+  --mb-badge-info-color:var(--mb-sky-950);
+  --mb-badge-success-background:var(--mb-green-400);
+  --mb-badge-success-color:var(--mb-green-950);
+  --mb-badge-secondary-background:var(--mb-surface-800);
+  --mb-badge-secondary-color:var(--mb-surface-300);
+  --mb-badge-primary-background:var(--mb-primary-color);
+  --mb-badge-primary-color:var(--mb-primary-contrast-color);
+}

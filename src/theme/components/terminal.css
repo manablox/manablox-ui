@@ -1,0 +1,10 @@
+:root {
+  --mb-terminal-command-response-margin:2px 0;
+  --mb-terminal-prompt-gap:0.25rem;
+  --mb-terminal-background:var(--mb-form-field-background);
+  --mb-terminal-border-color:var(--mb-form-field-border-color);
+  --mb-terminal-color:var(--mb-form-field-color);
+  --mb-terminal-height:18rem;
+  --mb-terminal-padding:var(--mb-form-field-padding-y) var(--mb-form-field-padding-x);
+  --mb-terminal-border-radius:var(--mb-form-field-border-radius);
+}

@@ -1,0 +1,8 @@
+:root {
+  --mb-inputgroup-addon-background:var(--mb-form-field-background);
+  --mb-inputgroup-addon-border-color:var(--mb-form-field-border-color);
+  --mb-inputgroup-addon-color:var(--mb-form-field-icon-color);
+  --mb-inputgroup-addon-border-radius:var(--mb-form-field-border-radius);
+  --mb-inputgroup-addon-padding:0.5rem;
+  --mb-inputgroup-addon-min-width:2.5rem;
+}

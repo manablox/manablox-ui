@@ -1,0 +1,10 @@
+:root {
+  --mb-popover-content-padding:var(--mb-overlay-popover-padding);
+  --mb-popover-background:var(--mb-overlay-popover-background);
+  --mb-popover-border-color:var(--mb-overlay-popover-border-color);
+  --mb-popover-color:var(--mb-overlay-popover-color);
+  --mb-popover-border-radius:var(--mb-overlay-popover-border-radius);
+  --mb-popover-shadow:var(--mb-overlay-popover-shadow);
+  --mb-popover-gutter:10px;
+  --mb-popover-arrow-offset:1.25rem;
+}

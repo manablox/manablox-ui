@@ -1,0 +1,13 @@
+:root {
+  --mb-rating-icon-size:1rem;
+  --mb-rating-icon-color:var(--mb-text-muted-color);
+  --mb-rating-icon-hover-color:var(--mb-primary-color);
+  --mb-rating-icon-active-color:var(--mb-primary-color);
+  --mb-rating-gap:0.25rem;
+  --mb-rating-transition-duration:var(--mb-transition-duration);
+  --mb-rating-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-rating-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-rating-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-rating-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-rating-focus-ring-shadow:var(--mb-focus-ring-shadow);
+}

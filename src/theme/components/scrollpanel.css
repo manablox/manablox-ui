@@ -1,0 +1,15 @@
+:root {
+  --mb-scrollpanel-bar-size:9px;
+  --mb-scrollpanel-bar-border-radius:var(--mb-border-radius-sm);
+  --mb-scrollpanel-bar-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-scrollpanel-bar-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-scrollpanel-bar-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-scrollpanel-bar-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-scrollpanel-bar-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-scrollpanel-transition-duration:var(--mb-transition-duration);
+  --mb-scrollpanel-bar-background:var(--mb-surface-100);
+}
+
+[data-mb-theme="dark"] {
+  --mb-scrollpanel-bar-background:var(--mb-surface-800);
+}

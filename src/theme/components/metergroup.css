@@ -1,0 +1,11 @@
+:root {
+  --mb-metergroup-label-list-vertical-gap:0.5rem;
+  --mb-metergroup-label-list-horizontal-gap:1rem;
+  --mb-metergroup-label-icon-size:1rem;
+  --mb-metergroup-label-marker-size:0.5rem;
+  --mb-metergroup-label-gap:0.5rem;
+  --mb-metergroup-meters-background:var(--mb-content-border-color);
+  --mb-metergroup-meters-size:0.5rem;
+  --mb-metergroup-border-radius:var(--mb-content-border-radius);
+  --mb-metergroup-gap:1rem;
+}

@@ -1,0 +1,4 @@
+:root {
+  --mb-speeddial-gap:0.5rem;
+  --mb-speeddial-transition-duration:var(--mb-transition-duration);
+}

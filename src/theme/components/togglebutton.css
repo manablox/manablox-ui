@@ -1,0 +1,53 @@
+:root {
+  --mb-togglebutton-content-padding:0.25rem 0.75rem;
+  --mb-togglebutton-content-border-radius:var(--mb-content-border-radius);
+  --mb-togglebutton-content-checked-shadow:0px 1px 2px 0px rgba(0, 0, 0, 0.02), 0px 1px 2px 0px rgba(0, 0, 0, 0.04);
+  --mb-togglebutton-content-lg-padding:0.25rem 0.75rem;
+  --mb-togglebutton-content-sm-padding:0.25rem 0.75rem;
+  --mb-togglebutton-icon-disabled-color:var(--mb-form-field-disabled-color);
+  --mb-togglebutton-padding:0.25rem;
+  --mb-togglebutton-border-radius:var(--mb-content-border-radius);
+  --mb-togglebutton-gap:0.5rem;
+  --mb-togglebutton-font-weight:500;
+  --mb-togglebutton-disabled-background:var(--mb-form-field-disabled-background);
+  --mb-togglebutton-disabled-border-color:var(--mb-form-field-disabled-background);
+  --mb-togglebutton-disabled-color:var(--mb-form-field-disabled-color);
+  --mb-togglebutton-invalid-border-color:var(--mb-form-field-invalid-border-color);
+  --mb-togglebutton-transition-duration:var(--mb-form-field-transition-duration);
+  --mb-togglebutton-lg-font-size:var(--mb-form-field-lg-font-size);
+  --mb-togglebutton-lg-padding:0.25rem;
+  --mb-togglebutton-sm-font-size:var(--mb-form-field-sm-font-size);
+  --mb-togglebutton-sm-padding:0.25rem;
+  --mb-togglebutton-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-togglebutton-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-togglebutton-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-togglebutton-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-togglebutton-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-togglebutton-icon-color:var(--mb-surface-500);
+  --mb-togglebutton-icon-hover-color:var(--mb-surface-700);
+  --mb-togglebutton-icon-checked-color:var(--mb-surface-900);
+  --mb-togglebutton-content-checked-background:var(--mb-surface-0);
+  --mb-togglebutton-background:var(--mb-surface-100);
+  --mb-togglebutton-checked-background:var(--mb-surface-100);
+  --mb-togglebutton-hover-background:var(--mb-surface-100);
+  --mb-togglebutton-border-color:var(--mb-surface-100);
+  --mb-togglebutton-color:var(--mb-surface-500);
+  --mb-togglebutton-hover-color:var(--mb-surface-700);
+  --mb-togglebutton-checked-color:var(--mb-surface-900);
+  --mb-togglebutton-checked-border-color:var(--mb-surface-100);
+}
+
+[data-mb-theme="dark"] {
+  --mb-togglebutton-icon-color:var(--mb-surface-400);
+  --mb-togglebutton-icon-hover-color:var(--mb-surface-300);
+  --mb-togglebutton-icon-checked-color:var(--mb-surface-0);
+  --mb-togglebutton-content-checked-background:var(--mb-surface-800);
+  --mb-togglebutton-background:var(--mb-surface-950);
+  --mb-togglebutton-checked-background:var(--mb-surface-950);
+  --mb-togglebutton-hover-background:var(--mb-surface-950);
+  --mb-togglebutton-border-color:var(--mb-surface-950);
+  --mb-togglebutton-color:var(--mb-surface-400);
+  --mb-togglebutton-hover-color:var(--mb-surface-300);
+  --mb-togglebutton-checked-color:var(--mb-surface-0);
+  --mb-togglebutton-checked-border-color:var(--mb-surface-950);
+}

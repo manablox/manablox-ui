@@ -1,0 +1,13 @@
+:root {
+  --mb-progressspinner-color-one:var(--mb-red-500);
+  --mb-progressspinner-color-two:var(--mb-blue-500);
+  --mb-progressspinner-color-three:var(--mb-green-500);
+  --mb-progressspinner-color-four:var(--mb-yellow-500);
+}
+
+[data-mb-theme="dark"] {
+  --mb-progressspinner-color-one:var(--mb-red-400);
+  --mb-progressspinner-color-two:var(--mb-blue-400);
+  --mb-progressspinner-color-three:var(--mb-green-400);
+  --mb-progressspinner-color-four:var(--mb-yellow-400);
+}

@@ -1,0 +1,40 @@
+:root {
+  --mb-tag-icon-size:0.75rem;
+  --mb-tag-font-size:0.875rem;
+  --mb-tag-font-weight:700;
+  --mb-tag-padding:0.25rem 0.5rem;
+  --mb-tag-gap:0.25rem;
+  --mb-tag-border-radius:var(--mb-content-border-radius);
+  --mb-tag-rounded-border-radius:var(--mb-border-radius-xl);
+  --mb-tag-contrast-background:var(--mb-surface-950);
+  --mb-tag-contrast-color:var(--mb-surface-0);
+  --mb-tag-danger-background:var(--mb-red-100);
+  --mb-tag-danger-color:var(--mb-red-700);
+  --mb-tag-warn-background:var(--mb-orange-100);
+  --mb-tag-warn-color:var(--mb-orange-700);
+  --mb-tag-info-background:var(--mb-sky-100);
+  --mb-tag-info-color:var(--mb-sky-700);
+  --mb-tag-success-background:var(--mb-green-100);
+  --mb-tag-success-color:var(--mb-green-700);
+  --mb-tag-secondary-background:var(--mb-surface-100);
+  --mb-tag-secondary-color:var(--mb-surface-600);
+  --mb-tag-primary-background:var(--mb-primary-100);
+  --mb-tag-primary-color:var(--mb-primary-700);
+}
+
+[data-mb-theme="dark"] {
+  --mb-tag-contrast-background:var(--mb-surface-0);
+  --mb-tag-contrast-color:var(--mb-surface-950);
+  --mb-tag-danger-background:color-mix(in srgb, var(--mb-red-500), transparent 84%);
+  --mb-tag-danger-color:var(--mb-red-300);
+  --mb-tag-warn-background:color-mix(in srgb, var(--mb-orange-500), transparent 84%);
+  --mb-tag-warn-color:var(--mb-orange-300);
+  --mb-tag-info-background:color-mix(in srgb, var(--mb-sky-500), transparent 84%);
+  --mb-tag-info-color:var(--mb-sky-300);
+  --mb-tag-success-background:color-mix(in srgb, var(--mb-green-500), transparent 84%);
+  --mb-tag-success-color:var(--mb-green-300);
+  --mb-tag-secondary-background:var(--mb-surface-800);
+  --mb-tag-secondary-color:var(--mb-surface-300);
+  --mb-tag-primary-background:color-mix(in srgb, var(--mb-primary-500), transparent 84%);
+  --mb-tag-primary-color:var(--mb-primary-300);
+}

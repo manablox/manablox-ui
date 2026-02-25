@@ -1,0 +1,5 @@
+:root {
+  --mb-confirmdialog-content-gap:1rem;
+  --mb-confirmdialog-icon-size:2rem;
+  --mb-confirmdialog-icon-color:var(--mb-overlay-modal-color);
+}

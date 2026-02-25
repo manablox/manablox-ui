@@ -1,0 +1,23 @@
+:root {
+  --mb-carousel-indicator-width:2rem;
+  --mb-carousel-indicator-height:0.5rem;
+  --mb-carousel-indicator-border-radius:var(--mb-content-border-radius);
+  --mb-carousel-indicator-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-carousel-indicator-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-carousel-indicator-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-carousel-indicator-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-carousel-indicator-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-carousel-indicator-list-padding:1rem;
+  --mb-carousel-indicator-list-gap:0.5rem;
+  --mb-carousel-content-gap:0.25rem;
+  --mb-carousel-transition-duration:var(--mb-transition-duration);
+  --mb-carousel-indicator-background:var(--mb-surface-200);
+  --mb-carousel-indicator-hover-background:var(--mb-surface-300);
+  --mb-carousel-indicator-active-background:var(--mb-primary-color);
+}
+
+[data-mb-theme="dark"] {
+  --mb-carousel-indicator-background:var(--mb-surface-700);
+  --mb-carousel-indicator-hover-background:var(--mb-surface-600);
+  --mb-carousel-indicator-active-background:var(--mb-primary-color);
+}

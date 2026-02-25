@@ -1,0 +1,27 @@
+:root {
+  --mb-inputnumber-button-width:2.5rem;
+  --mb-inputnumber-button-border-radius:var(--mb-form-field-border-radius);
+  --mb-inputnumber-button-vertical-padding:var(--mb-form-field-padding-y);
+  --mb-inputnumber-transition-duration:var(--mb-transition-duration);
+  --mb-inputnumber-button-background:transparent;
+  --mb-inputnumber-button-hover-background:var(--mb-surface-100);
+  --mb-inputnumber-button-active-background:var(--mb-surface-200);
+  --mb-inputnumber-button-border-color:var(--mb-form-field-border-color);
+  --mb-inputnumber-button-hover-border-color:var(--mb-form-field-border-color);
+  --mb-inputnumber-button-active-border-color:var(--mb-form-field-border-color);
+  --mb-inputnumber-button-color:var(--mb-surface-400);
+  --mb-inputnumber-button-hover-color:var(--mb-surface-500);
+  --mb-inputnumber-button-active-color:var(--mb-surface-600);
+}
+
+[data-mb-theme="dark"] {
+  --mb-inputnumber-button-background:transparent;
+  --mb-inputnumber-button-hover-background:var(--mb-surface-800);
+  --mb-inputnumber-button-active-background:var(--mb-surface-700);
+  --mb-inputnumber-button-border-color:var(--mb-form-field-border-color);
+  --mb-inputnumber-button-hover-border-color:var(--mb-form-field-border-color);
+  --mb-inputnumber-button-active-border-color:var(--mb-form-field-border-color);
+  --mb-inputnumber-button-color:var(--mb-surface-400);
+  --mb-inputnumber-button-hover-color:var(--mb-surface-300);
+  --mb-inputnumber-button-active-color:var(--mb-surface-200);
+}

@@ -1,0 +1,24 @@
+:root {
+  --mb-fileupload-basic-gap:0.5rem;
+  --mb-fileupload-progressbar-height:0.25rem;
+  --mb-fileupload-file-list-gap:0.5rem;
+  --mb-fileupload-file-padding:1rem;
+  --mb-fileupload-file-gap:1rem;
+  --mb-fileupload-file-border-color:var(--mb-content-border-color);
+  --mb-fileupload-file-info-gap:0.5rem;
+  --mb-fileupload-content-highlight-border-color:var(--mb-primary-color);
+  --mb-fileupload-content-padding:0 1.125rem 1.125rem 1.125rem;
+  --mb-fileupload-content-gap:1rem;
+  --mb-fileupload-header-background:transparent;
+  --mb-fileupload-header-color:var(--mb-text-color);
+  --mb-fileupload-header-padding:1.125rem;
+  --mb-fileupload-header-border-color:unset;
+  --mb-fileupload-header-border-width:0;
+  --mb-fileupload-header-border-radius:0;
+  --mb-fileupload-header-gap:0.5rem;
+  --mb-fileupload-background:var(--mb-content-background);
+  --mb-fileupload-border-color:var(--mb-content-border-color);
+  --mb-fileupload-color:var(--mb-content-color);
+  --mb-fileupload-border-radius:var(--mb-content-border-radius);
+  --mb-fileupload-transition-duration:var(--mb-transition-duration);
+}

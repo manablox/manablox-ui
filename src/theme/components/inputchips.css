@@ -1,0 +1,31 @@
+:root {
+  --mb-inputchips-chip-border-radius:var(--mb-border-radius-sm);
+  --mb-inputchips-background:var(--mb-form-field-background);
+  --mb-inputchips-disabled-background:var(--mb-form-field-disabled-background);
+  --mb-inputchips-filled-background:var(--mb-form-field-filled-background);
+  --mb-inputchips-filled-focus-background:var(--mb-form-field-filled-focus-background);
+  --mb-inputchips-border-color:var(--mb-form-field-border-color);
+  --mb-inputchips-hover-border-color:var(--mb-form-field-hover-border-color);
+  --mb-inputchips-focus-border-color:var(--mb-form-field-focus-border-color);
+  --mb-inputchips-invalid-border-color:var(--mb-form-field-invalid-border-color);
+  --mb-inputchips-color:var(--mb-form-field-color);
+  --mb-inputchips-disabled-color:var(--mb-form-field-disabled-color);
+  --mb-inputchips-placeholder-color:var(--mb-form-field-placeholder-color);
+  --mb-inputchips-shadow:var(--mb-form-field-shadow);
+  --mb-inputchips-padding-x:var(--mb-form-field-padding-x);
+  --mb-inputchips-padding-y:var(--mb-form-field-padding-y);
+  --mb-inputchips-border-radius:var(--mb-form-field-border-radius);
+  --mb-inputchips-transition-duration:var(--mb-form-field-transition-duration);
+  --mb-inputchips-focus-ring-width:var(--mb-form-field-focus-ring-width);
+  --mb-inputchips-focus-ring-style:var(--mb-form-field-focus-ring-style);
+  --mb-inputchips-focus-ring-color:var(--mb-form-field-focus-ring-color);
+  --mb-inputchips-focus-ring-offset:var(--mb-form-field-focus-ring-offset);
+  --mb-inputchips-focus-ring-shadow:var(--mb-form-field-focus-ring-shadow);
+  --mb-inputchips-chip-focus-background:var(--mb-surface-200);
+  --mb-inputchips-chip-color:var(--mb-surface-800);
+}
+
+[data-mb-theme="dark"] {
+  --mb-inputchips-chip-focus-background:var(--mb-surface-700);
+  --mb-inputchips-chip-color:var(--mb-surface-0);
+}

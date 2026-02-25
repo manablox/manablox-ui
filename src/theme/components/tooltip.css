@@ -1,0 +1,14 @@
+:root {
+  --mb-tooltip-max-width:12.5rem;
+  --mb-tooltip-gutter:0.25rem;
+  --mb-tooltip-shadow:var(--mb-overlay-popover-shadow);
+  --mb-tooltip-padding:0.5rem 0.75rem;
+  --mb-tooltip-border-radius:var(--mb-overlay-popover-border-radius);
+  --mb-tooltip-background:var(--mb-surface-700);
+  --mb-tooltip-color:var(--mb-surface-0);
+}
+
+[data-mb-theme="dark"] {
+  --mb-tooltip-background:var(--mb-surface-700);
+  --mb-tooltip-color:var(--mb-surface-0);
+}

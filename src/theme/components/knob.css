@@ -1,0 +1,11 @@
+:root {
+  --mb-knob-text-color:var(--mb-text-muted-color);
+  --mb-knob-range-background:var(--mb-content-border-color);
+  --mb-knob-value-background:var(--mb-primary-color);
+  --mb-knob-transition-duration:var(--mb-transition-duration);
+  --mb-knob-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-knob-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-knob-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-knob-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-knob-focus-ring-shadow:var(--mb-focus-ring-shadow);
+}

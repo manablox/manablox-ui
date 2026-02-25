@@ -1,0 +1,14 @@
+:root {
+  --mb-dialog-footer-padding:0 var(--mb-overlay-modal-padding) var(--mb-overlay-modal-padding) var(--mb-overlay-modal-padding);
+  --mb-dialog-footer-gap:0.5rem;
+  --mb-dialog-content-padding:0 var(--mb-overlay-modal-padding) var(--mb-overlay-modal-padding) var(--mb-overlay-modal-padding);
+  --mb-dialog-title-font-size:1.25rem;
+  --mb-dialog-title-font-weight:600;
+  --mb-dialog-header-padding:var(--mb-overlay-modal-padding);
+  --mb-dialog-header-gap:0.5rem;
+  --mb-dialog-background:var(--mb-overlay-modal-background);
+  --mb-dialog-border-color:var(--mb-overlay-modal-border-color);
+  --mb-dialog-color:var(--mb-overlay-modal-color);
+  --mb-dialog-border-radius:var(--mb-overlay-modal-border-radius);
+  --mb-dialog-shadow:var(--mb-overlay-modal-shadow);
+}

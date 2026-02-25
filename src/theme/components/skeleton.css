@@ -1,0 +1,10 @@
+:root {
+  --mb-skeleton-border-radius:var(--mb-content-border-radius);
+  --mb-skeleton-background:var(--mb-surface-200);
+  --mb-skeleton-animation-background:rgba(255,255,255,0.4);
+}
+
+[data-mb-theme="dark"] {
+  --mb-skeleton-background:rgba(255, 255, 255, 0.06);
+  --mb-skeleton-animation-background:rgba(255, 255, 255, 0.04);
+}

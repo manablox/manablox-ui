@@ -1,0 +1,4 @@
+:root {
+  --mb-overlaybadge-outline-width:2px;
+  --mb-overlaybadge-outline-color:var(--mb-content-background);
+}

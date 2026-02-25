@@ -1,0 +1,24 @@
+:root {
+  --mb-paginator-jump-to-page-input-max-width:2.5rem;
+  --mb-paginator-current-page-report-color:var(--mb-text-muted-color);
+  --mb-paginator-nav-button-background:transparent;
+  --mb-paginator-nav-button-hover-background:var(--mb-content-hover-background);
+  --mb-paginator-nav-button-selected-background:var(--mb-highlight-background);
+  --mb-paginator-nav-button-color:var(--mb-text-muted-color);
+  --mb-paginator-nav-button-hover-color:var(--mb-text-hover-muted-color);
+  --mb-paginator-nav-button-selected-color:var(--mb-highlight-color);
+  --mb-paginator-nav-button-width:2.5rem;
+  --mb-paginator-nav-button-height:2.5rem;
+  --mb-paginator-nav-button-border-radius:50%;
+  --mb-paginator-nav-button-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-paginator-nav-button-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-paginator-nav-button-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-paginator-nav-button-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-paginator-nav-button-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-paginator-padding:0.5rem 1rem;
+  --mb-paginator-gap:0.25rem;
+  --mb-paginator-border-radius:var(--mb-content-border-radius);
+  --mb-paginator-background:var(--mb-content-background);
+  --mb-paginator-color:var(--mb-content-color);
+  --mb-paginator-transition-duration:var(--mb-transition-duration);
+}

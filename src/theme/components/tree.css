@@ -1,0 +1,38 @@
+:root {
+  --mb-tree-filter-margin:0 0 0.5rem 0;
+  --mb-tree-loading-icon-size:2rem;
+  --mb-tree-node-toggle-button-border-radius:50%;
+  --mb-tree-node-toggle-button-size:1.75rem;
+  --mb-tree-node-toggle-button-hover-background:var(--mb-content-hover-background);
+  --mb-tree-node-toggle-button-selected-hover-background:var(--mb-content-background);
+  --mb-tree-node-toggle-button-color:var(--mb-text-muted-color);
+  --mb-tree-node-toggle-button-hover-color:var(--mb-text-hover-muted-color);
+  --mb-tree-node-toggle-button-selected-hover-color:var(--mb-primary-color);
+  --mb-tree-node-toggle-button-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-tree-node-toggle-button-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-tree-node-toggle-button-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-tree-node-toggle-button-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-tree-node-toggle-button-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-tree-node-icon-color:var(--mb-text-muted-color);
+  --mb-tree-node-icon-hover-color:var(--mb-text-hover-muted-color);
+  --mb-tree-node-icon-selected-color:var(--mb-highlight-color);
+  --mb-tree-node-padding:0.25rem 0.5rem;
+  --mb-tree-node-border-radius:var(--mb-content-border-radius);
+  --mb-tree-node-hover-background:var(--mb-content-hover-background);
+  --mb-tree-node-selected-background:var(--mb-highlight-background);
+  --mb-tree-node-color:var(--mb-text-color);
+  --mb-tree-node-hover-color:var(--mb-text-hover-color);
+  --mb-tree-node-selected-color:var(--mb-highlight-color);
+  --mb-tree-node-gap:0.25rem;
+  --mb-tree-node-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-tree-node-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-tree-node-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-tree-node-focus-ring-offset:-1px;
+  --mb-tree-node-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-tree-background:var(--mb-content-background);
+  --mb-tree-color:var(--mb-content-color);
+  --mb-tree-padding:1rem;
+  --mb-tree-gap:2px;
+  --mb-tree-indent:1rem;
+  --mb-tree-transition-duration:var(--mb-transition-duration);
+}

@@ -1,0 +1,21 @@
+:root {
+  --mb-avatar-xl-width:4rem;
+  --mb-avatar-xl-height:4rem;
+  --mb-avatar-xl-font-size:2rem;
+  --mb-avatar-xl-group-offset:-1.5rem;
+  --mb-avatar-xl-icon-size:2rem;
+  --mb-avatar-lg-width:3rem;
+  --mb-avatar-lg-height:3rem;
+  --mb-avatar-lg-font-size:1.5rem;
+  --mb-avatar-lg-group-offset:-1rem;
+  --mb-avatar-lg-icon-size:1.5rem;
+  --mb-avatar-group-border-color:var(--mb-content-background);
+  --mb-avatar-group-offset:-0.75rem;
+  --mb-avatar-icon-size:1rem;
+  --mb-avatar-width:2rem;
+  --mb-avatar-height:2rem;
+  --mb-avatar-font-size:1rem;
+  --mb-avatar-background:var(--mb-content-border-color);
+  --mb-avatar-color:var(--mb-content-color);
+  --mb-avatar-border-radius:var(--mb-content-border-radius);
+}

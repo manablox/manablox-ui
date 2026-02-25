@@ -1,0 +1,58 @@
+:root {
+  --mb-inlinemessage-icon-size:1rem;
+  --mb-inlinemessage-text-font-weight:500;
+  --mb-inlinemessage-padding:var(--mb-form-field-padding-y) var(--mb-form-field-padding-x);
+  --mb-inlinemessage-border-radius:var(--mb-content-border-radius);
+  --mb-inlinemessage-gap:0.5rem;
+  --mb-inlinemessage-contrast-background:var(--mb-surface-900);
+  --mb-inlinemessage-contrast-border-color:var(--mb-surface-950);
+  --mb-inlinemessage-contrast-color:var(--mb-surface-50);
+  --mb-inlinemessage-contrast-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-surface-950), transparent 96%);
+  --mb-inlinemessage-secondary-background:var(--mb-surface-100);
+  --mb-inlinemessage-secondary-border-color:var(--mb-surface-200);
+  --mb-inlinemessage-secondary-color:var(--mb-surface-600);
+  --mb-inlinemessage-secondary-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-surface-500), transparent 96%);
+  --mb-inlinemessage-error-background:color-mix(in srgb, var(--mb-red-50), transparent 5%);
+  --mb-inlinemessage-error-border-color:var(--mb-red-200);
+  --mb-inlinemessage-error-color:var(--mb-red-600);
+  --mb-inlinemessage-error-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-red-500), transparent 96%);
+  --mb-inlinemessage-warn-background:color-mix(in srgb,var(--mb-yellow-50), transparent 5%);
+  --mb-inlinemessage-warn-border-color:var(--mb-yellow-200);
+  --mb-inlinemessage-warn-color:var(--mb-yellow-600);
+  --mb-inlinemessage-warn-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-yellow-500), transparent 96%);
+  --mb-inlinemessage-success-background:color-mix(in srgb, var(--mb-green-50), transparent 5%);
+  --mb-inlinemessage-success-border-color:var(--mb-green-200);
+  --mb-inlinemessage-success-color:var(--mb-green-600);
+  --mb-inlinemessage-success-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-green-500), transparent 96%);
+  --mb-inlinemessage-info-background:color-mix(in srgb, var(--mb-blue-50), transparent 5%);
+  --mb-inlinemessage-info-border-color:var(--mb-blue-200);
+  --mb-inlinemessage-info-color:var(--mb-blue-600);
+  --mb-inlinemessage-info-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-blue-500), transparent 96%);
+}
+
+[data-mb-theme="dark"] {
+  --mb-inlinemessage-contrast-background:var(--mb-surface-0);
+  --mb-inlinemessage-contrast-border-color:var(--mb-surface-100);
+  --mb-inlinemessage-contrast-color:var(--mb-surface-950);
+  --mb-inlinemessage-contrast-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-surface-950), transparent 96%);
+  --mb-inlinemessage-secondary-background:var(--mb-surface-800);
+  --mb-inlinemessage-secondary-border-color:var(--mb-surface-700);
+  --mb-inlinemessage-secondary-color:var(--mb-surface-300);
+  --mb-inlinemessage-secondary-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-surface-500), transparent 96%);
+  --mb-inlinemessage-error-background:color-mix(in srgb, var(--mb-red-500), transparent 84%);
+  --mb-inlinemessage-error-border-color:color-mix(in srgb, var(--mb-red-700), transparent 64%);
+  --mb-inlinemessage-error-color:var(--mb-red-500);
+  --mb-inlinemessage-error-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-red-500), transparent 96%);
+  --mb-inlinemessage-warn-background:color-mix(in srgb, var(--mb-yellow-500), transparent 84%);
+  --mb-inlinemessage-warn-border-color:color-mix(in srgb, var(--mb-yellow-700), transparent 64%);
+  --mb-inlinemessage-warn-color:var(--mb-yellow-500);
+  --mb-inlinemessage-warn-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-yellow-500), transparent 96%);
+  --mb-inlinemessage-success-background:color-mix(in srgb, var(--mb-green-500), transparent 84%);
+  --mb-inlinemessage-success-border-color:color-mix(in srgb, var(--mb-green-700), transparent 64%);
+  --mb-inlinemessage-success-color:var(--mb-green-500);
+  --mb-inlinemessage-success-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-green-500), transparent 96%);
+  --mb-inlinemessage-info-background:color-mix(in srgb, var(--mb-blue-500), transparent 84%);
+  --mb-inlinemessage-info-border-color:color-mix(in srgb, var(--mb-blue-700), transparent 64%);
+  --mb-inlinemessage-info-color:var(--mb-blue-500);
+  --mb-inlinemessage-info-shadow:0px 4px 8px 0px color-mix(in srgb, var(--mb-blue-500), transparent 96%);
+}

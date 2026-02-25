@@ -1,0 +1,8 @@
+:root {
+  --mb-toolbar-background:var(--mb-content-background);
+  --mb-toolbar-border-color:var(--mb-content-border-color);
+  --mb-toolbar-border-radius:var(--mb-content-border-radius);
+  --mb-toolbar-color:var(--mb-content-color);
+  --mb-toolbar-gap:0.5rem;
+  --mb-toolbar-padding:0.75rem;
+}

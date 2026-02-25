@@ -1,0 +1,19 @@
+:root {
+  --mb-floatlabel-on-border-radius:var(--mb-border-radius-xs);
+  --mb-floatlabel-on-active-background:var(--mb-form-field-background);
+  --mb-floatlabel-on-active-padding:0 0.125rem;
+  --mb-floatlabel-in-active-top:var(--mb-form-field-padding-y);
+  --mb-floatlabel-in-input-padding-top:1.5rem;
+  --mb-floatlabel-in-input-padding-bottom:var(--mb-form-field-padding-y);
+  --mb-floatlabel-over-active-top:-1.25rem;
+  --mb-floatlabel-color:var(--mb-form-field-float-label-color);
+  --mb-floatlabel-focus-color:var(--mb-form-field-float-label-focus-color);
+  --mb-floatlabel-active-color:var(--mb-form-field-float-label-active-color);
+  --mb-floatlabel-invalid-color:var(--mb-form-field-float-label-invalid-color);
+  --mb-floatlabel-transition-duration:0.2s;
+  --mb-floatlabel-position-x:var(--mb-form-field-padding-x);
+  --mb-floatlabel-position-y:var(--mb-form-field-padding-y);
+  --mb-floatlabel-font-weight:500;
+  --mb-floatlabel-active-font-size:0.75rem;
+  --mb-floatlabel-active-font-weight:400;
+}

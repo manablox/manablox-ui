@@ -1,0 +1,26 @@
+:root {
+  --mb-fieldset-content-padding:0;
+  --mb-fieldset-toggle-icon-color:var(--mb-text-muted-color);
+  --mb-fieldset-toggle-icon-hover-color:var(--mb-text-hover-muted-color);
+  --mb-fieldset-legend-background:var(--mb-content-background);
+  --mb-fieldset-legend-hover-background:var(--mb-content-hover-background);
+  --mb-fieldset-legend-color:var(--mb-content-color);
+  --mb-fieldset-legend-hover-color:var(--mb-content-hover-color);
+  --mb-fieldset-legend-border-radius:var(--mb-content-border-radius);
+  --mb-fieldset-legend-border-width:1px;
+  --mb-fieldset-legend-border-color:transparent;
+  --mb-fieldset-legend-padding:0.5rem 0.75rem;
+  --mb-fieldset-legend-gap:0.5rem;
+  --mb-fieldset-legend-font-weight:600;
+  --mb-fieldset-legend-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-fieldset-legend-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-fieldset-legend-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-fieldset-legend-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-fieldset-legend-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-fieldset-background:var(--mb-content-background);
+  --mb-fieldset-border-color:var(--mb-content-border-color);
+  --mb-fieldset-border-radius:var(--mb-content-border-radius);
+  --mb-fieldset-color:var(--mb-content-color);
+  --mb-fieldset-padding:0 1.125rem 1.125rem 1.125rem;
+  --mb-fieldset-transition-duration:var(--mb-transition-duration);
+}

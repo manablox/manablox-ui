@@ -1,0 +1,23 @@
+:root {
+  --mb-menu-separator-border-color:var(--mb-content-border-color);
+  --mb-menu-submenu-label-padding:var(--mb-navigation-submenu-label-padding);
+  --mb-menu-submenu-label-font-weight:var(--mb-navigation-submenu-label-font-weight);
+  --mb-menu-submenu-label-background:var(--mb-navigation-submenu-label-background);
+  --mb-menu-submenu-label-color:var(--mb-navigation-submenu-label-color);
+  --mb-menu-item-focus-background:var(--mb-navigation-item-focus-background);
+  --mb-menu-item-color:var(--mb-navigation-item-color);
+  --mb-menu-item-focus-color:var(--mb-navigation-item-focus-color);
+  --mb-menu-item-padding:var(--mb-navigation-item-padding);
+  --mb-menu-item-border-radius:var(--mb-navigation-item-border-radius);
+  --mb-menu-item-gap:var(--mb-navigation-item-gap);
+  --mb-menu-item-icon-color:var(--mb-navigation-item-icon-color);
+  --mb-menu-item-icon-focus-color:var(--mb-navigation-item-icon-focus-color);
+  --mb-menu-list-padding:var(--mb-navigation-list-padding);
+  --mb-menu-list-gap:var(--mb-navigation-list-gap);
+  --mb-menu-background:var(--mb-content-background);
+  --mb-menu-border-color:var(--mb-content-border-color);
+  --mb-menu-color:var(--mb-content-color);
+  --mb-menu-border-radius:var(--mb-content-border-radius);
+  --mb-menu-shadow:var(--mb-overlay-navigation-shadow);
+  --mb-menu-transition-duration:var(--mb-transition-duration);
+}

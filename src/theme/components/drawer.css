@@ -1,0 +1,11 @@
+:root {
+  --mb-drawer-footer-padding:var(--mb-overlay-modal-padding);
+  --mb-drawer-content-padding:0 var(--mb-overlay-modal-padding) var(--mb-overlay-modal-padding) var(--mb-overlay-modal-padding);
+  --mb-drawer-title-font-size:1.5rem;
+  --mb-drawer-title-font-weight:600;
+  --mb-drawer-header-padding:var(--mb-overlay-modal-padding);
+  --mb-drawer-background:var(--mb-overlay-modal-background);
+  --mb-drawer-border-color:var(--mb-overlay-modal-border-color);
+  --mb-drawer-color:var(--mb-overlay-modal-color);
+  --mb-drawer-shadow:var(--mb-overlay-modal-shadow);
+}

@@ -1,0 +1,15 @@
+:root {
+  --mb-confirmpopup-footer-gap:0.5rem;
+  --mb-confirmpopup-footer-padding:0 var(--mb-overlay-popover-padding) var(--mb-overlay-popover-padding) var(--mb-overlay-popover-padding);
+  --mb-confirmpopup-icon-size:1.5rem;
+  --mb-confirmpopup-icon-color:var(--mb-overlay-popover-color);
+  --mb-confirmpopup-content-padding:var(--mb-overlay-popover-padding);
+  --mb-confirmpopup-content-gap:1rem;
+  --mb-confirmpopup-background:var(--mb-overlay-popover-background);
+  --mb-confirmpopup-border-color:var(--mb-overlay-popover-border-color);
+  --mb-confirmpopup-color:var(--mb-overlay-popover-color);
+  --mb-confirmpopup-border-radius:var(--mb-overlay-popover-border-radius);
+  --mb-confirmpopup-shadow:var(--mb-overlay-popover-shadow);
+  --mb-confirmpopup-gutter:10px;
+  --mb-confirmpopup-arrow-offset:1.25rem;
+}

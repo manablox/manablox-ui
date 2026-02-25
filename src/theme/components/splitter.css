@@ -1,0 +1,15 @@
+:root {
+  --mb-splitter-handle-size:24px;
+  --mb-splitter-handle-background:transparent;
+  --mb-splitter-handle-border-radius:var(--mb-content-border-radius);
+  --mb-splitter-handle-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-splitter-handle-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-splitter-handle-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-splitter-handle-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-splitter-handle-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-splitter-gutter-background:var(--mb-content-border-color);
+  --mb-splitter-background:var(--mb-content-background);
+  --mb-splitter-border-color:var(--mb-content-border-color);
+  --mb-splitter-color:var(--mb-content-color);
+  --mb-splitter-transition-duration:var(--mb-transition-duration);
+}

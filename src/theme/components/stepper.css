@@ -1,0 +1,36 @@
+:root {
+  --mb-stepper-steppanel-background:var(--mb-content-background);
+  --mb-stepper-steppanel-color:var(--mb-content-color);
+  --mb-stepper-steppanel-padding:0;
+  --mb-stepper-steppanel-indent:1rem;
+  --mb-stepper-steppanels-padding:0.875rem 0.5rem 1.125rem 0.5rem;
+  --mb-stepper-step-number-background:var(--mb-content-background);
+  --mb-stepper-step-number-active-background:var(--mb-content-background);
+  --mb-stepper-step-number-border-color:var(--mb-content-border-color);
+  --mb-stepper-step-number-active-border-color:var(--mb-content-border-color);
+  --mb-stepper-step-number-color:var(--mb-text-muted-color);
+  --mb-stepper-step-number-active-color:var(--mb-primary-color);
+  --mb-stepper-step-number-size:2rem;
+  --mb-stepper-step-number-font-size:1.143rem;
+  --mb-stepper-step-number-font-weight:500;
+  --mb-stepper-step-number-border-radius:50%;
+  --mb-stepper-step-number-shadow:0px 0.5px 0px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  --mb-stepper-step-title-color:var(--mb-text-muted-color);
+  --mb-stepper-step-title-active-color:var(--mb-primary-color);
+  --mb-stepper-step-title-font-weight:500;
+  --mb-stepper-step-header-padding:0;
+  --mb-stepper-step-header-border-radius:var(--mb-content-border-radius);
+  --mb-stepper-step-header-gap:0.5rem;
+  --mb-stepper-step-header-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-stepper-step-header-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-stepper-step-header-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-stepper-step-header-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-stepper-step-header-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-stepper-step-padding:0.5rem;
+  --mb-stepper-step-gap:1rem;
+  --mb-stepper-separator-background:var(--mb-content-border-color);
+  --mb-stepper-separator-active-background:var(--mb-primary-color);
+  --mb-stepper-separator-margin:0 0 0 1.625rem;
+  --mb-stepper-separator-size:2px;
+  --mb-stepper-transition-duration:var(--mb-transition-duration);
+}

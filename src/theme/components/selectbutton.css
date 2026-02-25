@@ -1,0 +1,8 @@
+:root {
+  --mb-selectbutton-border-radius:var(--mb-form-field-border-radius);
+  --mb-selectbutton-invalid-border-color:var(--mb-form-field-invalid-border-color);
+}
+
+[data-mb-theme="dark"] {
+  --mb-selectbutton-invalid-border-color:var(--mb-form-field-invalid-border-color);
+}

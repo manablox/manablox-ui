@@ -1,0 +1,18 @@
+:root {
+  --mb-breadcrumb-separator-color:var(--mb-navigation-item-icon-color);
+  --mb-breadcrumb-item-color:var(--mb-text-muted-color);
+  --mb-breadcrumb-item-hover-color:var(--mb-text-color);
+  --mb-breadcrumb-item-border-radius:var(--mb-content-border-radius);
+  --mb-breadcrumb-item-gap:var(--mb-navigation-item-gap);
+  --mb-breadcrumb-item-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-breadcrumb-item-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-breadcrumb-item-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-breadcrumb-item-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-breadcrumb-item-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-breadcrumb-item-icon-color:var(--mb-navigation-item-icon-color);
+  --mb-breadcrumb-item-icon-hover-color:var(--mb-navigation-item-icon-focus-color);
+  --mb-breadcrumb-padding:1rem;
+  --mb-breadcrumb-background:var(--mb-content-background);
+  --mb-breadcrumb-gap:0.5rem;
+  --mb-breadcrumb-transition-duration:var(--mb-transition-duration);
+}

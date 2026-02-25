@@ -1,0 +1,12 @@
+:root {
+  --mb-inplace-display-hover-background:var(--mb-content-hover-background);
+  --mb-inplace-display-hover-color:var(--mb-content-hover-color);
+  --mb-inplace-padding:var(--mb-form-field-padding-y) var(--mb-form-field-padding-x);
+  --mb-inplace-border-radius:var(--mb-content-border-radius);
+  --mb-inplace-transition-duration:var(--mb-transition-duration);
+  --mb-inplace-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-inplace-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-inplace-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-inplace-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-inplace-focus-ring-shadow:var(--mb-focus-ring-shadow);
+}

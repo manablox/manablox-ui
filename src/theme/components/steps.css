@@ -1,0 +1,25 @@
+:root {
+  --mb-steps-item-number-background:var(--mb-content-background);
+  --mb-steps-item-number-active-background:var(--mb-content-background);
+  --mb-steps-item-number-border-color:var(--mb-content-border-color);
+  --mb-steps-item-number-active-border-color:var(--mb-content-border-color);
+  --mb-steps-item-number-color:var(--mb-text-muted-color);
+  --mb-steps-item-number-active-color:var(--mb-primary-color);
+  --mb-steps-item-number-size:2rem;
+  --mb-steps-item-number-font-size:1.143rem;
+  --mb-steps-item-number-font-weight:500;
+  --mb-steps-item-number-border-radius:50%;
+  --mb-steps-item-number-shadow:0px 0.5px 0px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  --mb-steps-item-label-color:var(--mb-text-muted-color);
+  --mb-steps-item-label-active-color:var(--mb-primary-color);
+  --mb-steps-item-label-font-weight:500;
+  --mb-steps-item-link-border-radius:var(--mb-content-border-radius);
+  --mb-steps-item-link-gap:0.5rem;
+  --mb-steps-item-link-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-steps-item-link-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-steps-item-link-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-steps-item-link-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-steps-item-link-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-steps-separator-background:var(--mb-content-border-color);
+  --mb-steps-transition-duration:var(--mb-transition-duration);
+}

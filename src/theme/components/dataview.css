@@ -1,0 +1,28 @@
+:root {
+  --mb-dataview-paginator-bottom-border-color:var(--mb-content-border-color);
+  --mb-dataview-paginator-bottom-border-width:1px 0 0 0;
+  --mb-dataview-paginator-top-border-color:var(--mb-content-border-color);
+  --mb-dataview-paginator-top-border-width:0 0 1px 0;
+  --mb-dataview-footer-background:var(--mb-content-background);
+  --mb-dataview-footer-color:var(--mb-content-color);
+  --mb-dataview-footer-border-color:var(--mb-content-border-color);
+  --mb-dataview-footer-border-width:1px 0 0 0;
+  --mb-dataview-footer-padding:0.75rem 1rem;
+  --mb-dataview-footer-border-radius:0;
+  --mb-dataview-content-background:var(--mb-content-background);
+  --mb-dataview-content-color:var(--mb-content-color);
+  --mb-dataview-content-border-color:transparent;
+  --mb-dataview-content-border-width:0;
+  --mb-dataview-content-padding:0;
+  --mb-dataview-content-border-radius:0;
+  --mb-dataview-header-background:var(--mb-content-background);
+  --mb-dataview-header-color:var(--mb-content-color);
+  --mb-dataview-header-border-color:var(--mb-content-border-color);
+  --mb-dataview-header-border-width:0 0 1px 0;
+  --mb-dataview-header-padding:0.75rem 1rem;
+  --mb-dataview-header-border-radius:0;
+  --mb-dataview-border-color:transparent;
+  --mb-dataview-border-width:0;
+  --mb-dataview-border-radius:0;
+  --mb-dataview-padding:0;
+}

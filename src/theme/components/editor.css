@@ -1,0 +1,23 @@
+:root {
+  --mb-editor-content-background:var(--mb-content-background);
+  --mb-editor-content-border-color:var(--mb-content-border-color);
+  --mb-editor-content-color:var(--mb-content-color);
+  --mb-editor-content-border-radius:var(--mb-content-border-radius);
+  --mb-editor-overlay-option-focus-background:var(--mb-list-option-focus-background);
+  --mb-editor-overlay-option-color:var(--mb-list-option-color);
+  --mb-editor-overlay-option-focus-color:var(--mb-list-option-focus-color);
+  --mb-editor-overlay-option-padding:var(--mb-list-option-padding);
+  --mb-editor-overlay-option-border-radius:var(--mb-list-option-border-radius);
+  --mb-editor-overlay-background:var(--mb-overlay-select-background);
+  --mb-editor-overlay-border-color:var(--mb-overlay-select-border-color);
+  --mb-editor-overlay-border-radius:var(--mb-overlay-select-border-radius);
+  --mb-editor-overlay-color:var(--mb-overlay-select-color);
+  --mb-editor-overlay-shadow:var(--mb-overlay-select-shadow);
+  --mb-editor-overlay-padding:var(--mb-list-padding);
+  --mb-editor-toolbar-item-color:var(--mb-text-muted-color);
+  --mb-editor-toolbar-item-hover-color:var(--mb-text-color);
+  --mb-editor-toolbar-item-active-color:var(--mb-primary-color);
+  --mb-editor-toolbar-background:var(--mb-content-background);
+  --mb-editor-toolbar-border-color:var(--mb-content-border-color);
+  --mb-editor-toolbar-border-radius:var(--mb-content-border-radius);
+}

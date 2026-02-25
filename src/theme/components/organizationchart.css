@@ -1,0 +1,29 @@
+:root {
+  --mb-organizationchart-connector-color:var(--mb-content-border-color);
+  --mb-organizationchart-connector-border-radius:var(--mb-content-border-radius);
+  --mb-organizationchart-connector-height:24px;
+  --mb-organizationchart-node-toggle-button-background:var(--mb-content-background);
+  --mb-organizationchart-node-toggle-button-hover-background:var(--mb-content-hover-background);
+  --mb-organizationchart-node-toggle-button-border-color:var(--mb-content-border-color);
+  --mb-organizationchart-node-toggle-button-color:var(--mb-text-muted-color);
+  --mb-organizationchart-node-toggle-button-hover-color:var(--mb-text-color);
+  --mb-organizationchart-node-toggle-button-size:1.5rem;
+  --mb-organizationchart-node-toggle-button-border-radius:50%;
+  --mb-organizationchart-node-toggle-button-focus-ring-width:var(--mb-focus-ring-width);
+  --mb-organizationchart-node-toggle-button-focus-ring-style:var(--mb-focus-ring-style);
+  --mb-organizationchart-node-toggle-button-focus-ring-color:var(--mb-focus-ring-color);
+  --mb-organizationchart-node-toggle-button-focus-ring-offset:var(--mb-focus-ring-offset);
+  --mb-organizationchart-node-toggle-button-focus-ring-shadow:var(--mb-focus-ring-shadow);
+  --mb-organizationchart-node-background:var(--mb-content-background);
+  --mb-organizationchart-node-hover-background:var(--mb-content-hover-background);
+  --mb-organizationchart-node-selected-background:var(--mb-highlight-background);
+  --mb-organizationchart-node-border-color:var(--mb-content-border-color);
+  --mb-organizationchart-node-color:var(--mb-content-color);
+  --mb-organizationchart-node-selected-color:var(--mb-highlight-color);
+  --mb-organizationchart-node-hover-color:var(--mb-content-hover-color);
+  --mb-organizationchart-node-padding:0.75rem 1rem;
+  --mb-organizationchart-node-toggleable-padding:0.75rem 1rem 1.25rem 1rem;
+  --mb-organizationchart-node-border-radius:var(--mb-content-border-radius);
+  --mb-organizationchart-gutter:0.75rem;
+  --mb-organizationchart-transition-duration:var(--mb-transition-duration);
+}
