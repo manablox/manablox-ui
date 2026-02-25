@@ -24,10 +24,6 @@ function normalizeOptions(value: unknown): SelectOption[] {
 	return value.filter((item): item is SelectOption => typeof item === 'object' && item !== null);
 }
 
-function normalizeValueArray(value: unknown): unknown[] {
-	return Array.isArray(value) ? value : [];
-}
-
 export class MbMultiSelect extends MbBaseComponent {
 	static readonly _componentName = 'mb-multiselect';
 	static readonly _componentStyles = MULTISELECT_STYLES;
@@ -35,6 +31,7 @@ export class MbMultiSelect extends MbBaseComponent {
 	protected static get attributeConverters(): Map<string, AttributeConverter> {
 		return new Map([
 			['options', 'object'],
+			['value', 'string'],
 			['option-label', 'string'],
 			['option-value', 'string'],
 			['option-disabled', 'string'],
@@ -84,13 +81,13 @@ export class MbMultiSelect extends MbBaseComponent {
 		const onKeydown = (event: KeyboardEvent) => this.#handleKeydown(event);
 		const onFocusIn = () => {
 			this.#isFocused = true;
-			this._scheduleRender();
+			this.shadowRoot?.querySelector('.mb-multiselect')?.classList.add('mb-focused');
 		};
 		const onFocusOut = (event: FocusEvent) => {
 			const next = event.relatedTarget as Node | null;
 			if (next && (this.contains(next) || this.#portalHost?.contains(next))) return;
 			this.#isFocused = false;
-			this._scheduleRender();
+			this.shadowRoot?.querySelector('.mb-multiselect')?.classList.remove('mb-focused');
 		};
 
 		this.addEventListener('click', onClick);
@@ -118,7 +115,12 @@ export class MbMultiSelect extends MbBaseComponent {
 	}
 
 	get modelValue(): unknown[] {
-		return normalizeValueArray(this._obj<unknown>('model-value'));
+		const modelValue = this.#parseAttributeValue('model-value');
+		if (modelValue !== undefined) return this.#normalizeModelValue(modelValue);
+
+		const legacyValue = this.#parseAttributeValue('value');
+		if (legacyValue === undefined) return [];
+		return this.#normalizeModelValue(legacyValue);
 	}
 	set modelValue(value: unknown[]) {
 		this.setAttribute('model-value', JSON.stringify(value ?? []));
@@ -240,15 +242,31 @@ export class MbMultiSelect extends MbBaseComponent {
 
 	#handleRootClick(event: Event): void {
 		if (this.disabled) return;
-		const target = event.target as HTMLElement;
+		const composedPath = event.composedPath();
+		const findInPathByClass = (className: string): HTMLElement | null => {
+			for (const node of composedPath) {
+				if (node instanceof HTMLElement && node.classList.contains(className)) {
+					return node;
+				}
+			}
+			return null;
+		};
+		const findInPathByAttr = (attrName: string): HTMLElement | null => {
+			for (const node of composedPath) {
+				if (node instanceof HTMLElement && node.hasAttribute(attrName)) {
+					return node;
+				}
+			}
+			return null;
+		};
 
-		if (target.closest('.mb-multiselect-clear')) {
+		if (findInPathByClass('mb-multiselect-clear')) {
 			event.preventDefault();
 			this.#updateSelection([], true);
 			return;
 		}
 
-		const chipRemove = target.closest<HTMLElement>('[data-chip-remove]');
+		const chipRemove = findInPathByAttr('data-chip-remove');
 		if (chipRemove) {
 			event.preventDefault();
 			const index = Number(chipRemove.getAttribute('data-chip-remove'));
@@ -260,10 +278,8 @@ export class MbMultiSelect extends MbBaseComponent {
 			return;
 		}
 
-		if (target.closest('.mb-multiselect-trigger') || target.closest('.mb-multiselect-dropdown')) {
-			event.preventDefault();
-			this.#togglePanel();
-		}
+		event.preventDefault();
+		this.#togglePanel();
 	}
 
 	#handleKeydown(event: KeyboardEvent): void {
@@ -311,15 +327,6 @@ export class MbMultiSelect extends MbBaseComponent {
 		this.#isOpen = true;
 		this.#portalHost = createPortal(this.#portalKey, this, 'overlay');
 		this.#renderOverlay();
-
-		const trigger = this._qs<HTMLElement>('.mb-multiselect') ?? this;
-		const panel = this.#portalHost.querySelector<HTMLElement>('.mb-multiselect-overlay');
-		if (trigger && panel) {
-			this.#positionCleanup = startAutoPosition(trigger, panel, {
-				placement: 'bottom-start',
-				offsetDistance: 4,
-			});
-		}
 
 		const onDocDown = (event: MouseEvent) => {
 			const target = event.target as Node;
@@ -399,6 +406,23 @@ export class MbMultiSelect extends MbBaseComponent {
 		`;
 
 		this.#bindOverlayListeners();
+		this.#syncOverlayPosition();
+	}
+
+	#syncOverlayPosition(): void {
+		if (!this.#isOpen || !this.#portalHost) return;
+
+		const panel = this.#portalHost.querySelector<HTMLElement>('.mb-multiselect-overlay');
+		if (!panel) return;
+
+		const rect = this.getBoundingClientRect();
+		panel.style.minWidth = `${rect.width}px`;
+
+		this.#positionCleanup?.();
+		this.#positionCleanup = startAutoPosition(this, panel, {
+			placement: 'bottom-start',
+			offsetDistance: 4,
+		});
 	}
 
 	#bindOverlayListeners(): void {
@@ -409,9 +433,19 @@ export class MbMultiSelect extends MbBaseComponent {
 
 		if (filterInput) {
 			const onInput = (event: Event) => {
-				this.#filterValue = (event.target as HTMLInputElement).value;
+				const sourceInput = event.target as HTMLInputElement;
+				const selectionStart = sourceInput.selectionStart;
+				const selectionEnd = sourceInput.selectionEnd;
+				this.#filterValue = sourceInput.value;
 				this.emit('mb-filter', { value: this.#filterValue });
 				this.#renderOverlay();
+
+				const nextInput = this.#portalHost?.querySelector<HTMLInputElement>('.mb-multiselect-filter');
+				if (!nextInput) return;
+				nextInput.focus();
+				if (selectionStart != null && selectionEnd != null) {
+					nextInput.setSelectionRange(selectionStart, selectionEnd);
+				}
 			};
 			filterInput.addEventListener('input', onInput);
 			this._addCleanup(() => filterInput.removeEventListener('input', onInput));
@@ -593,6 +627,32 @@ export class MbMultiSelect extends MbBaseComponent {
 			return JSON.stringify(a) === JSON.stringify(b);
 		} catch {
 			return false;
+		}
+	}
+
+	#normalizeModelValue(value: unknown): unknown[] {
+		const entries = Array.isArray(value) ? value : value == null ? [] : [value];
+		return entries.map(entry => {
+			if (entry && typeof entry === 'object' && !Array.isArray(entry)) {
+				const objectValue = entry as Record<string, unknown>;
+				if (this.optionValue in objectValue) {
+					return objectValue[this.optionValue];
+				}
+				if ('value' in objectValue) {
+					return objectValue.value;
+				}
+			}
+			return entry;
+		});
+	}
+
+	#parseAttributeValue(attrName: string): unknown | undefined {
+		const raw = this.getAttribute(attrName);
+		if (raw === null) return undefined;
+		try {
+			return JSON.parse(raw);
+		} catch {
+			return raw;
 		}
 	}
 }

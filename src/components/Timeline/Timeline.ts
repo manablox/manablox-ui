@@ -69,19 +69,19 @@ export class MbTimeline extends MbBaseComponent {
 				const content = this.#resolveContent(item);
 
 				return this._html`
-					<li class="mb-timeline-event" data-key="${this._escape(key)}" data-index="${index}">
-						<div class="mb-timeline-event-opposite">${opposite}</div>
-						<div class="mb-timeline-event-separator">
-							<div class="mb-timeline-event-marker" ${this.#markerStyle(item)}>${marker}</div>
-							${index < items.length - 1 ? '<div class="mb-timeline-event-connector"></div>' : ''}
+					<li part="event" class="mb-timeline-event" data-key="${this._escape(key)}" data-index="${index}">
+						<div part="opposite" class="mb-timeline-event-opposite">${opposite}</div>
+						<div part="separator" class="mb-timeline-event-separator">
+							<div part="marker" class="mb-timeline-event-marker" ${this.#markerStyle(item)}>${marker}</div>
+							${index < items.length - 1 ? '<div part="connector" class="mb-timeline-event-connector"></div>' : ''}
 						</div>
-						<div class="mb-timeline-event-content">${content}</div>
+						<div part="content" class="mb-timeline-event-content">${content}</div>
 					</li>
 				`;
 			})
 			.join('');
 
-		return this._html`<ol class="${classes}">${events}</ol>`;
+		return this._html`<ol part="root" class="${classes}">${events || '<slot></slot>'}</ol>`;
 	}
 
 	#resolveKey(item: TimelineItem, index: number): string {

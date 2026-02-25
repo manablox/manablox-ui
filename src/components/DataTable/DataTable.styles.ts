@@ -1,4 +1,8 @@
 export const DATATABLE_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-datatable {
 	position: relative;
 	display: flex;

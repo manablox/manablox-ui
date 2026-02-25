@@ -1,4 +1,8 @@
 export const AVATAR_STYLES = `
+:host {
+  display: inline-block;
+}
+
 .mb-avatar {
   display: flex;
   align-items: center;

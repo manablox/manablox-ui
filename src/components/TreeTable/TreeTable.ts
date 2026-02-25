@@ -180,7 +180,7 @@ export class MbTreeTable extends MbBaseComponent {
 					.filter(Boolean)
 					.join(' ');
 
-				return `<tr class="${rowClasses}" data-key="${this._escape(row.key)}" role="row" aria-selected="${selected ? 'true' : 'false'}">
+				return `<tr class="${rowClasses}" part="row" data-key="${this._escape(row.key)}" role="row" aria-selected="${selected ? 'true' : 'false'}">
 					${columns.map((column, colIndex) => this.#renderCell(row, column, colIndex === 0)).join('')}
 				</tr>`;
 			})
@@ -189,17 +189,18 @@ export class MbTreeTable extends MbBaseComponent {
 		const emptyMessage = this._escape(this._str('empty-message', 'No records found'));
 
 		return this._html`
-			<div class="${tableClasses}">
-				${this.loading ? '<div class="mb-treetable-loading-overlay" aria-live="polite">Loading...</div>' : ''}
-				<div class="mb-treetable-wrapper" style="${wrapperStyle}">
-					<table class="mb-treetable-table" role="treegrid" aria-busy="${this.loading ? 'true' : 'false'}">
+			<div class="${tableClasses}" part="root">
+				<slot part="templates" hidden></slot>
+				${this.loading ? '<div class="mb-treetable-loading-overlay" part="loading" aria-live="polite">Loading...</div>' : ''}
+				<div class="mb-treetable-wrapper" part="wrapper" style="${wrapperStyle}">
+					<table class="mb-treetable-table" part="table" role="treegrid" aria-busy="${this.loading ? 'true' : 'false'}">
 						<thead>
-							<tr role="row">
+							<tr part="header-row" role="row">
 								${columns.map(column => this.#renderHeader(column)).join('')}
 							</tr>
 						</thead>
-						<tbody>
-							${body || `<tr><td colspan="${Math.max(columns.length, 1)}"><div class="mb-treetable-empty">${emptyMessage}</div></td></tr>`}
+						<tbody part="body">
+							${body || `<tr part="row"><td part="cell" colspan="${Math.max(columns.length, 1)}"><div class="mb-treetable-empty" part="empty">${emptyMessage}</div></td></tr>`}
 						</tbody>
 					</table>
 				</div>
@@ -220,19 +221,19 @@ export class MbTreeTable extends MbBaseComponent {
 				: '';
 		const className = [sortable, column.className ?? ''].filter(Boolean).join(' ');
 
-		return `<th class="${this._escape(className)}" data-action="sort" data-field="${this._escape(column.field)}" style="${this._escape(column.style ?? '')}">${this._escape(column.header ?? column.field)}${sortIcon}</th>`;
+		return `<th part="header-cell" class="${this._escape(className)}" data-action="sort" data-field="${this._escape(column.field)}" style="${this._escape(column.style ?? '')}">${this._escape(column.header ?? column.field)}${sortIcon}</th>`;
 	}
 
 	#renderCell(row: FlattenedRow, column: ColumnDef, firstColumn: boolean): string {
 		const selected = this.selectionKeys[row.key] === true;
 		const checkbox =
 			this.selectionMode === 'checkbox' && firstColumn
-				? `<input type="checkbox" data-action="select-checkbox" data-key="${this._escape(row.key)}" ${selected ? 'checked' : ''} aria-label="Select row" />`
+				? `<input part="checkbox" type="checkbox" data-action="select-checkbox" data-key="${this._escape(row.key)}" ${selected ? 'checked' : ''} aria-label="Select row" />`
 				: '';
 
 		const expander =
 			firstColumn && row.hasChildren
-				? `<button type="button" class="mb-treetable-toggler" data-action="toggle" data-key="${this._escape(row.key)}" aria-label="Toggle row">${row.expanded ? '▾' : '▸'}</button>`
+				? `<button type="button" class="mb-treetable-toggler" part="toggler" data-action="toggle" data-key="${this._escape(row.key)}" aria-label="Toggle row">${row.expanded ? '▾' : '▸'}</button>`
 				: firstColumn
 					? '<span style="display:inline-flex;width:1.25rem"></span>'
 					: '';
@@ -245,7 +246,7 @@ export class MbTreeTable extends MbBaseComponent {
 			? `<div style="display:flex;align-items:center;gap:0.375rem;padding-inline-start:calc((var(--mb-treetable-node-indent, 1rem)) * ${Math.max(0, row.level - 1)});">${expander}${checkbox}<span>${content}</span></div>`
 			: content;
 
-		return `<td data-action="select-row" data-key="${this._escape(row.key)}" role="gridcell">${valueMarkup}</td>`;
+		return `<td part="cell" data-action="select-row" data-key="${this._escape(row.key)}" role="gridcell">${valueMarkup}</td>`;
 	}
 
 	#renderCellTemplate(field: string, node: TreeNode, key: string, fallback: unknown): string {
@@ -267,7 +268,7 @@ export class MbTreeTable extends MbBaseComponent {
 	#renderPaginator(total: number, start: number, end: number): string {
 		const prevDisabled = start <= 0;
 		const nextDisabled = end >= total;
-		return `<div class="mb-treetable-paginator">
+		return `<div class="mb-treetable-paginator" part="paginator">
 			<span>${total === 0 ? 0 : start + 1}-${end} / ${total}</span>
 			<button type="button" data-action="page-prev" ${prevDisabled ? 'disabled' : ''}>Prev</button>
 			<button type="button" data-action="page-next" ${nextDisabled ? 'disabled' : ''}>Next</button>
@@ -422,7 +423,7 @@ export class MbTreeTable extends MbBaseComponent {
 
 	#captureTemplates(): void {
 		this.#templateCache.clear();
-		const templates = this.querySelectorAll<HTMLTemplateElement>('template[data-slot]');
+		const templates = this._qsaLight<HTMLTemplateElement>('template[data-slot]');
 		templates.forEach(template => {
 			const slot = template.getAttribute('data-slot');
 			if (!slot) return;

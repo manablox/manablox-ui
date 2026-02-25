@@ -1,6 +1,7 @@
 import type { AttributeConverter } from './types.js';
 import { injectComponentStyles } from './styles.js';
-import { ensureRippleStyles } from '../utils/Ripple.js';
+import { applyShadowStyles, applySharedShadowStyles } from './shadowStyles.js';
+import { RIPPLE_CSS } from '../utils/Ripple.js';
 
 type AttributeMap = Map<string, AttributeConverter>;
 
@@ -12,6 +13,7 @@ export abstract class MbBaseComponent extends HTMLElement {
 	// Internal state
 	#mounted = false;
 	#renderPending = false;
+	#lastRenderedHtml: string | null = null;
 	#cleanupFns: Array<() => void> = [];
 	#renderCleanupFns: Array<() => void> = [];
 
@@ -22,6 +24,7 @@ export abstract class MbBaseComponent extends HTMLElement {
 
 	constructor() {
 		super();
+		this.attachShadow({ mode: 'open' });
 	}
 
 	connectedCallback(): void {
@@ -97,13 +100,23 @@ export abstract class MbBaseComponent extends HTMLElement {
 	}
 
 	protected _performRender(): void {
+		const shadowRoot = this.shadowRoot;
+		if (!shadowRoot) return;
+
 		const html = this._render();
-		// Only update DOM if content changed
-		if (this.innerHTML !== html) {
+		// Compare against the last emitted render output to avoid Shadow DOM serialization mismatches.
+		if (this.#lastRenderedHtml !== html) {
 			this.#flushRenderCleanup();
-			this.innerHTML = html;
+			shadowRoot.innerHTML = html;
+			this.#lastRenderedHtml = html;
 			this._afterRender();
 		}
+
+		const ctor = this.constructor as typeof MbBaseComponent;
+		if (ctor._componentName && ctor._componentStyles) {
+			applyShadowStyles(shadowRoot, ctor._componentName, ctor._componentStyles);
+		}
+		applySharedShadowStyles(shadowRoot, RIPPLE_CSS);
 	}
 
 	#flushRenderCleanup(): void {
@@ -241,18 +254,30 @@ export abstract class MbBaseComponent extends HTMLElement {
 
 	// Utility: query a child element
 	protected _qs<T extends HTMLElement>(selector: string): T | null {
-		return this.querySelector<T>(selector);
+		return this.shadowRoot?.querySelector<T>(selector) ?? null;
 	}
 
 	// Utility: query all child elements
 	protected _qsa<T extends HTMLElement>(selector: string): NodeListOf<T> {
+		if (this.shadowRoot) {
+			return this.shadowRoot.querySelectorAll<T>(selector);
+		}
+		return this.querySelectorAll<T>('__mb_unreachable__');
+	}
+
+	// Utility: query a child element from Light DOM only
+	protected _qsLight<T extends HTMLElement>(selector: string): T | null {
+		return this.querySelector<T>(selector);
+	}
+
+	// Utility: query all child elements from Light DOM only
+	protected _qsaLight<T extends HTMLElement>(selector: string): NodeListOf<T> {
 		return this.querySelectorAll<T>(selector);
 	}
 
 	// Attach a ripple effect to an element
 	protected _attachRipple(el: HTMLElement): void {
 		if (el.dataset.mbRipple === '1') return;
-		ensureRippleStyles();
 		el.dataset.mbRipple = '1';
 		el.classList.add('mb-ripple');
 		const handler = (e: Event) => {

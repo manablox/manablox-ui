@@ -106,29 +106,29 @@ export class MbCarousel extends MbBaseComponent {
     const renderedItems = items
       .map((item, index) => {
         const html = this.#renderItem(item, index);
-        return `<div class="mb-carousel-item" style="${this.#isVertical ? `height:${itemBasis};` : `width:${itemBasis};`}" data-index="${index}">${html}</div>`;
+        return `<div part="item" class="mb-carousel-item" style="${this.#isVertical ? `height:${itemBasis};` : `width:${itemBasis};`}" data-index="${index}">${html}</div>`;
       })
       .join('');
 
     const indicators = this.showIndicators
-      ? `<div class="mb-carousel-indicators">${this.#renderIndicators(page)}</div>`
+      ? `<div part="indicators" class="mb-carousel-indicators"><slot name="indicators">${this.#renderIndicators(page)}</slot></div>`
       : '';
 
     const prevButtonProps = this.prevButtonProps ?? {};
     const nextButtonProps = this.nextButtonProps ?? {};
 
     return `
-      <div class="${rootClasses}" data-axis="${axis}">
-        <div class="mb-carousel-header"><slot name="header"></slot></div>
-        <div class="${contentClasses}">
-          ${this.showNavigators ? `<button type="button" class="mb-carousel-prev-button ${this._escape(prevButtonProps.class ?? '')}" data-action="prev" aria-label="${this._escape(prevButtonProps.ariaLabel ?? 'Previous')}">‹</button>` : ''}
-          <div class="mb-carousel-track" style="${trackStyle}">
-            ${renderedItems}
+      <div part="root" class="${rootClasses}" data-axis="${axis}">
+        <div part="header" class="mb-carousel-header"><slot name="header"></slot></div>
+        <div part="content" class="${contentClasses}">
+          ${this.showNavigators ? `<button part="prev-button" type="button" class="mb-carousel-prev-button ${this._escape(prevButtonProps.class ?? '')}" data-action="prev" aria-label="${this._escape(prevButtonProps.ariaLabel ?? 'Previous')}">‹</button>` : ''}
+          <div part="track" class="mb-carousel-track" style="${trackStyle}">
+            ${renderedItems || '<slot></slot>'}
           </div>
-          ${this.showNavigators ? `<button type="button" class="mb-carousel-next-button ${this._escape(nextButtonProps.class ?? '')}" data-action="next" aria-label="${this._escape(nextButtonProps.ariaLabel ?? 'Next')}">›</button>` : ''}
+          ${this.showNavigators ? `<button part="next-button" type="button" class="mb-carousel-next-button ${this._escape(nextButtonProps.class ?? '')}" data-action="next" aria-label="${this._escape(nextButtonProps.ariaLabel ?? 'Next')}">›</button>` : ''}
         </div>
         ${indicators}
-        <div class="mb-carousel-footer"><slot name="footer"></slot></div>
+        <div part="footer" class="mb-carousel-footer"><slot name="footer"></slot></div>
       </div>
     `;
   }
@@ -168,7 +168,7 @@ export class MbCarousel extends MbBaseComponent {
   }
 
   #captureTemplates(): void {
-    const itemTemplate = this.querySelector<HTMLTemplateElement>('template[data-slot="item"]');
+    const itemTemplate = this._qsLight<HTMLTemplateElement>('template[data-slot="item"]');
     this.#itemTemplate = itemTemplate?.innerHTML ?? '';
   }
 

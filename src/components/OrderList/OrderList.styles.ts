@@ -1,4 +1,8 @@
 export const ORDERLIST_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-orderlist {
 	display: flex;
 	gap: var(--mb-orderlist-gap, 0.75rem);

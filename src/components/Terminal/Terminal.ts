@@ -32,12 +32,12 @@ export class MbTerminal extends MbBaseComponent {
     const outHtml = this.#history.map(e => `<div class="mb-terminal-entry">${this._escape(e.type==='cmd'?`${prompt} ${e.text}`:e.text)}</div>`).join('');
 
     return this._html`
-      <div class="mb-terminal">
-        ${welcome?`<div class="mb-terminal-welcome">${this._escape(welcome)}</div>`:''}
-        <div class="mb-terminal-output">${outHtml}</div>
-        <div class="mb-terminal-prompt-container">
-          <span class="mb-terminal-prompt">${this._escape(prompt)}</span>
-          <input class="mb-terminal-input" type="text" data-mb-input />
+      <div class="mb-terminal" part="root">
+        ${welcome?`<div class="mb-terminal-welcome" part="welcome">${this._escape(welcome)}</div>`:''}
+        <div class="mb-terminal-output" part="output">${outHtml}</div>
+        <div class="mb-terminal-prompt-container" part="prompt-container">
+          <span class="mb-terminal-prompt" part="prompt">${this._escape(prompt)}</span>
+          <input class="mb-terminal-input" part="input" type="text" data-mb-input />
         </div>
       </div>`;
   }

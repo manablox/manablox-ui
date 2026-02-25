@@ -128,7 +128,7 @@ export class MbVirtualScroller extends MbBaseComponent {
 				const itemStyle = vertical
 					? `height:${Math.max(1, mainSize)}px;${this.orientation === 'both' ? `width:${Math.max(1, crossSize)}px;` : ''}`
 					: `width:${Math.max(1, mainSize)}px;height:${Math.max(1, crossSize)}px;display:inline-block;`;
-				return `<div class="mb-virtualscroller-item" data-index="${index}" style="${itemStyle}">${markup}</div>`;
+				return `<div class="mb-virtualscroller-item" part="item" data-index="${index}" style="${itemStyle}">${markup}</div>`;
 			})
 			.join('');
 
@@ -155,11 +155,13 @@ export class MbVirtualScroller extends MbBaseComponent {
 		return this._html`
 			<div
 				class="mb-virtualscroller"
+				part="root"
 				role="list"
 				style="height:${styleHeight};${this.orientation === 'horizontal' ? 'white-space:nowrap;' : ''}"
 			>
-				<div class="mb-virtualscroller-spacer" style="${spacerStyle}"></div>
-				<div class="mb-virtualscroller-content" style="${contentStyle}">${contentItems || loader}</div>
+				<slot part="templates" hidden></slot>
+				<div class="mb-virtualscroller-spacer" part="spacer" style="${spacerStyle}"></div>
+				<div class="mb-virtualscroller-content" part="content" style="${contentStyle}">${contentItems || loader}</div>
 			</div>
 		`;
 	}
@@ -222,7 +224,7 @@ export class MbVirtualScroller extends MbBaseComponent {
 	}
 
 	#captureTemplate(): void {
-		const template = this.querySelector<HTMLTemplateElement>('template[data-slot="item"]');
+		const template = this._qsLight<HTMLTemplateElement>('template[data-slot="item"]');
 		this.#template = template?.innerHTML ?? null;
 	}
 

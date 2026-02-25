@@ -154,16 +154,16 @@ export class MbTree extends MbBaseComponent {
 		const emptyMessage = this._escape(this._str('empty-message', 'No records found'));
 
 		return this._html`
-			<div class="mb-tree">
+			<div class="mb-tree" part="root">
 				${
 					this.filter
-						? `<div class="mb-tree-filter-container"><input type="text" value="${this._escape(this.#filterValue)}" placeholder="${this._escape(this._str('filter-placeholder', 'Filter'))}" aria-label="Filter tree" /></div>`
+						? `<div class="mb-tree-filter-container" part="filter-container"><input part="filter" type="text" value="${this._escape(this.#filterValue)}" placeholder="${this._escape(this._str('filter-placeholder', 'Filter'))}" aria-label="Filter tree" /></div>`
 						: ''
 				}
-				<div class="mb-tree-container" style="max-height:${scrollHeight}">
-					${this.loading ? '<div class="mb-tree-loading-overlay" aria-live="polite">Loading...</div>' : ''}
-					<div role="tree" aria-busy="${this.loading ? 'true' : 'false'}" tabindex="0" class="mb-tree-tree" aria-multiselectable="${this.selectionMode === 'multiple' || this.selectionMode === 'checkbox' ? 'true' : 'false'}">
-						${rootHtml ? `<ul class="mb-tree-root">${rootHtml}</ul>` : `<div class="mb-tree-empty">${emptyMessage}</div>`}
+				<div class="mb-tree-container" part="container" style="max-height:${scrollHeight}">
+					${this.loading ? '<div class="mb-tree-loading-overlay" part="loading" aria-live="polite">Loading...</div>' : ''}
+					<div role="tree" aria-busy="${this.loading ? 'true' : 'false'}" tabindex="0" class="mb-tree-tree" part="tree" aria-multiselectable="${this.selectionMode === 'multiple' || this.selectionMode === 'checkbox' ? 'true' : 'false'}">
+						${rootHtml ? `<ul class="mb-tree-root" part="list">${rootHtml}</ul>` : `<div class="mb-tree-empty" part="empty">${emptyMessage}</div>`}
 					</div>
 				</div>
 			</div>
@@ -211,9 +211,10 @@ export class MbTree extends MbBaseComponent {
 		const draggable = this.dragDropScope ? 'draggable="true"' : '';
 
 		return this._html`
-			<li class="mb-tree-node" role="none" data-key="${this._escape(renderNode.key)}" data-parent-key="${this._escape(renderNode.parentKey ?? '')}" ${draggable}>
+			<li class="mb-tree-node" part="node" role="none" data-key="${this._escape(renderNode.key)}" data-parent-key="${this._escape(renderNode.parentKey ?? '')}" ${draggable}>
 				<div
 					class="${contentClasses}"
+					part="node-content"
 					data-node-content
 					data-key="${this._escape(renderNode.key)}"
 					role="treeitem"
@@ -223,18 +224,18 @@ export class MbTree extends MbBaseComponent {
 					tabindex="${renderNode.focused ? '0' : '-1'}"
 					style="padding-inline-start: calc((var(--mb-tree-node-indent, 1rem)) * ${Math.max(0, renderNode.level - 1)});"
 				>
-					<button class="mb-tree-node-toggler" type="button" data-action="toggle" data-key="${this._escape(renderNode.key)}" ${renderNode.hasChildren ? '' : 'disabled'} aria-label="Toggle node">${renderNode.expanded ? '▾' : '▸'}</button>
+					<button class="mb-tree-node-toggler" part="toggler" type="button" data-action="toggle" data-key="${this._escape(renderNode.key)}" ${renderNode.hasChildren ? '' : 'disabled'} aria-label="Toggle node">${renderNode.expanded ? '▾' : '▸'}</button>
 					${
 						this.selectionMode === 'checkbox'
-							? `<input class="mb-tree-node-checkbox" type="checkbox" data-action="checkbox" data-key="${this._escape(renderNode.key)}" ${renderNode.selected ? 'checked' : ''} ${renderNode.partial ? 'data-partial="true"' : ''} aria-label="Select node" />`
+							? `<input class="mb-tree-node-checkbox" part="checkbox" type="checkbox" data-action="checkbox" data-key="${this._escape(renderNode.key)}" ${renderNode.selected ? 'checked' : ''} ${renderNode.partial ? 'data-partial="true"' : ''} aria-label="Select node" />`
 							: ''
 					}
-					<span class="mb-tree-node-icon">${this._escape(icon)}</span>
-					<span class="mb-tree-node-label">${this._escape(node.label ?? renderNode.key)}</span>
+					<span class="mb-tree-node-icon" part="icon">${this._escape(icon)}</span>
+					<span class="mb-tree-node-label" part="label">${this._escape(node.label ?? renderNode.key)}</span>
 				</div>
 				${
 					renderNode.hasChildren
-						? `<ul class="mb-tree-node-children" role="group" ${renderNode.expanded ? '' : 'hidden'}>${renderNode.childrenHtml}</ul>`
+						? `<ul class="mb-tree-node-children" part="children" role="group" ${renderNode.expanded ? '' : 'hidden'}>${renderNode.childrenHtml}</ul>`
 						: ''
 				}
 			</li>

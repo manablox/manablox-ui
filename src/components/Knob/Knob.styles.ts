@@ -1,4 +1,8 @@
 export const KNOB_STYLES = `
+:host {
+	display: inline-block;
+}
+
 .mb-knob {
 	position: relative;
 	display: inline-flex;

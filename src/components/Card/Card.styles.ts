@@ -1,4 +1,8 @@
 export const CARD_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-card {
   background: var(--mb-card-background);
   color: var(--mb-card-color);

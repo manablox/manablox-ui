@@ -1,4 +1,8 @@
 export const DIVIDER_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-divider {
   display: flex;
   align-items: center;

@@ -165,9 +165,10 @@ export class MbInputNumber extends MbBaseComponent {
 		const inputValue = this.#editing ? this.#editingText : this.#formatValue(this.#value);
 
 		return this._html`
-			<div class="${classes}">
+			<div class="${classes}" part="root">
 				${this.showButtons && this.buttonLayout === 'horizontal' ? this.#renderDecrementButton() : ''}
 				<input
+					part="input"
 					class="mb-inputnumber-input"
 					type="text"
 					inputmode="decimal"
@@ -182,6 +183,9 @@ export class MbInputNumber extends MbBaseComponent {
 	}
 
 	protected _afterRender(): void {
+		this.#syncGeneratedIcon('increment-icon', this.incrementButtonIcon);
+		this.#syncGeneratedIcon('decrement-icon', this.decrementButtonIcon);
+
 		const input = this._qs<HTMLInputElement>('.mb-inputnumber-input');
 		if (!input) return;
 
@@ -263,7 +267,7 @@ export class MbInputNumber extends MbBaseComponent {
 
 		const className = this.buttonLayout === 'vertical' ? 'mb-inputnumber-buttons-vertical' : 'mb-inputnumber-buttons-stacked';
 		return this._html`
-			<span class="mb-inputnumber-buttons ${className}">
+			<span part="buttons" class="mb-inputnumber-buttons ${className}">
 				${this.#renderIncrementButton()}
 				${this.#renderDecrementButton()}
 			</span>
@@ -271,27 +275,47 @@ export class MbInputNumber extends MbBaseComponent {
 	}
 
 	#renderIncrementButton(): string {
-		const icon = this.incrementButtonIcon
-			? `<span class="mb-inputnumber-button-icon ${this._escape(this.incrementButtonIcon)}"></span>`
-			: '<span class="mb-inputnumber-button-icon">▲</span>';
+		const fallback = '<span part="increment-icon-fallback" class="mb-inputnumber-button-icon">▲</span>';
 
 		return this._html`
-			<button type="button" class="mb-inputnumber-button mb-inputnumber-button-inc" ${this.disabled ? 'disabled' : ''} aria-label="Increment">
-				${icon}
+			<button part="increment-button" type="button" class="mb-inputnumber-button mb-inputnumber-button-inc" ${this.disabled ? 'disabled' : ''} aria-label="Increment">
+				<slot name="increment-icon">${fallback}</slot>
 			</button>
 		`;
 	}
 
 	#renderDecrementButton(): string {
-		const icon = this.decrementButtonIcon
-			? `<span class="mb-inputnumber-button-icon ${this._escape(this.decrementButtonIcon)}"></span>`
-			: '<span class="mb-inputnumber-button-icon">▼</span>';
+		const fallback = '<span part="decrement-icon-fallback" class="mb-inputnumber-button-icon">▼</span>';
 
 		return this._html`
-			<button type="button" class="mb-inputnumber-button mb-inputnumber-button-dec" ${this.disabled ? 'disabled' : ''} aria-label="Decrement">
-				${icon}
+			<button part="decrement-button" type="button" class="mb-inputnumber-button mb-inputnumber-button-dec" ${this.disabled ? 'disabled' : ''} aria-label="Decrement">
+				<slot name="decrement-icon">${fallback}</slot>
 			</button>
 		`;
+	}
+
+	#syncGeneratedIcon(slotName: 'increment-icon' | 'decrement-icon', iconClass: string): void {
+		const normalized = iconClass.trim();
+		const manual = this._qsaLight<HTMLElement>(`[slot="${slotName}"]:not([data-mb-generated="true"])`);
+		const generated = this._qsaLight<HTMLElement>(`[slot="${slotName}"][data-mb-generated="true"]`);
+
+		if (!normalized || manual.length > 0) {
+			generated.forEach(node => node.remove());
+			return;
+		}
+
+		let iconNode = generated[0] as HTMLElement | undefined;
+		if (!iconNode) {
+			iconNode = document.createElement('i');
+			iconNode.setAttribute('slot', slotName);
+			iconNode.setAttribute('data-mb-generated', 'true');
+			this.appendChild(iconNode);
+		}
+
+		iconNode.className = normalized;
+		for (let i = 1; i < generated.length; i += 1) {
+			generated[i]?.remove();
+		}
 	}
 
 	#stepBy(direction: 1 | -1, originalEvent: Event): void {

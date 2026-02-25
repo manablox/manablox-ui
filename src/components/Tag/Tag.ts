@@ -26,12 +26,12 @@ export class MbTag extends MbBaseComponent {
     if (this.rounded) classes.push('mb-tag-rounded');
     const iconClass = this.icon ? this._escape(this.icon) : '';
 
-    const content = this.value ? this._escape(this.value) : '<slot></slot>';
+    const content = this.value ? this._escape(this.value) : '';
 
     return this._html`
-      <span class="${classes.join(' ')}" role="status">
-        ${this.icon ? `<span class="mb-tag-icon ${iconClass}"></span>` : ''}
-        <span class="mb-tag-value">${content}</span>
+      <span part="root" class="${classes.join(' ')}" role="status">
+        ${this.icon ? `<span part="icon" class="mb-tag-icon ${iconClass}"></span>` : ''}
+        <span part="value" class="mb-tag-value"><slot>${content}</slot></span>
       </span>`;
   }
 }

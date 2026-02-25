@@ -40,7 +40,7 @@ export class MbImage extends MbBaseComponent {
     const cls = this._str('image-class', '');
     const style = this._str('image-style', '');
 
-    return this._html`<div class="mb-image"><img src="${this._escape(src)}" alt="${this._escape(alt)}" ${width?`width="${this._escape(width)}"`:''} ${height?`height="${this._escape(height)}"`:''} class="${this._escape(cls)}" style="${this._escape(style)}" data-mb-img/></div>`;
+    return this._html`<div part="root" class="mb-image"><img part="image" src="${this._escape(src)}" alt="${this._escape(alt)}" ${width?`width="${this._escape(width)}"`:''} ${height?`height="${this._escape(height)}"`:''} class="${this._escape(cls)}" style="${this._escape(style)}" data-mb-img/><slot name="indicator" part="indicator"></slot></div>`;
   }
 
   protected _afterRender(): void {

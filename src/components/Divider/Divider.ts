@@ -24,9 +24,9 @@ export class MbDivider extends MbBaseComponent {
     });
 
     if (hasContent) {
-      return this._html`<div class="${classes}"><div class="mb-divider-content"><slot></slot></div></div>`;
+      return this._html`<div part="root" class="${classes}"><div part="content" class="mb-divider-content"><slot part="label"></slot></div></div>`;
     }
 
-    return this._html`<div class="${classes}"></div>`;
+    return this._html`<div part="root" class="${classes}"></div>`;
   }
 }

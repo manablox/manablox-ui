@@ -1,11 +1,15 @@
 import '../src/theme/base.css';
 import '../src/theme/components/button.css';
 import '../src/theme/components/select.css';
+import '../src/theme/components/multiselect.css';
+
 import { defineButton } from '../src/components/Button';
 import { defineSelect } from '../src/components/Select';
+import { defineMultiSelect } from '../src/components/MultiSelect';
 
 defineButton();
 defineSelect();
+defineMultiSelect();
 
 // Dark mode toggle
 const toggle = document.getElementById('theme-toggle');

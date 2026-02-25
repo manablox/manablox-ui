@@ -47,24 +47,32 @@ export class MbButton extends MbBaseComponent {
 
   protected _render(): string {
     const classes = this._buildClasses();
-    const iconLeft = this.icon && this.iconPos !== 'right';
-    const iconRight = this.icon && this.iconPos === 'right';
+    const hasIconSlot = this._qsLight<HTMLElement>('[slot="icon"]') !== null;
+    const hasIcon = hasIconSlot || Boolean(this.icon);
+    const iconLeft = hasIcon && this.iconPos !== 'right';
+    const iconRight = hasIcon && this.iconPos === 'right';
     const showBadge = this.badge !== '' && this.badge !== null;
+    const defaultLabel = this.label ? this._escape(this.label) : '';
+    const iconMarkup = this.icon ? `<i class="${this._escape(this.icon)}" part="icon"></i>` : '';
+    const loadingIconMarkup = this.loadingIcon
+      ? `<i class="${this._escape(this.loadingIcon)}" part="loading-icon"></i>`
+      : '<span class="mb-icon" part="loading-icon" aria-hidden="true"></span>';
 
     return `
       <button
         type="${this._escape(this.buttonType)}"
         class="${classes}"
+        part="root"
         ${this.disabled || this.loading ? 'disabled' : ''}
         aria-label="${this._escape(this.label || this.icon)}"
         aria-disabled="${this.disabled || this.loading}"
         ${this.loading ? 'aria-busy="true"' : ''}
       >
-        ${this.loading ? `<span class="mb-button-loading-icon mb-icon${this.loadingIcon ? ' ' + this._escape(this.loadingIcon) : ''}"></span>` : ''}
-        ${iconLeft && !this.loading ? `<span class="mb-button-icon mb-button-icon-left mb-icon ${this._escape(this.icon)}"></span>` : ''}
-        ${this.label ? `<span class="mb-button-label">${this._escape(this.label)}</span>` : '<slot></slot>'}
-        ${iconRight && !this.loading ? `<span class="mb-button-icon mb-button-icon-right mb-icon ${this._escape(this.icon)}"></span>` : ''}
-        ${showBadge ? `<span class="mb-badge${this.badgeClass ? ' ' + this._escape(this.badgeClass) : ''}${this.badgeSeverity ? ' mb-badge-' + this._escape(this.badgeSeverity) : ''}">${this._escape(this.badge)}</span>` : ''}
+        ${this.loading ? `<span class="mb-button-loading-icon">${loadingIconMarkup}</span>` : ''}
+        ${iconLeft && !this.loading ? `<span class="mb-button-icon mb-button-icon-left"><slot name="icon">${iconMarkup}</slot></span>` : ''}
+        <span class="mb-button-label" part="label"><slot>${defaultLabel}</slot></span>
+        ${iconRight && !this.loading ? `<span class="mb-button-icon mb-button-icon-right"><slot name="icon">${iconMarkup}</slot></span>` : ''}
+        ${showBadge ? `<span class="mb-badge${this.badgeClass ? ' ' + this._escape(this.badgeClass) : ''}${this.badgeSeverity ? ' mb-badge-' + this._escape(this.badgeSeverity) : ''}" part="badge">${this._escape(this.badge)}</span>` : ''}
       </button>
     `.trim();
   }
@@ -89,7 +97,8 @@ export class MbButton extends MbBaseComponent {
     if (this.size === 'large') classes.push('mb-button-lg');
     if (this.disabled) classes.push('mb-disabled');
     const hasTextContent = (this.textContent ?? '').trim().length > 0;
-    if (!this.label && !hasTextContent && this.icon) classes.push('mb-button-icon-only');
+    const hasIconSlot = this._qsLight<HTMLElement>('[slot="icon"]') !== null;
+    if (!this.label && !hasTextContent && (this.icon || hasIconSlot)) classes.push('mb-button-icon-only');
     return classes.join(' ');
   }
 }

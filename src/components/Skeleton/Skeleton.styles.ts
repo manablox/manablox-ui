@@ -1,4 +1,8 @@
 export const SKELETON_STYLES = `
+:host {
+  display: inline-block;
+}
+
 .mb-skeleton {
   background: var(--mb-skeleton-bg, #e9e9e9);
   border-radius: var(--mb-skeleton-border-radius, 0.25rem);

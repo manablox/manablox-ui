@@ -27,9 +27,9 @@ export class MbFieldset extends MbBaseComponent {
     const collapsedClass = this.collapsed ? ' collapsed' : '';
 
     return this._html`
-      <fieldset class="mb-fieldset mb-component${toggleClass}${collapsedClass}">
-        <legend class="mb-fieldset-legend${this.toggleable ? ' mb-fieldset-toggle' : ''}">${legendText}</legend>
-        <div class="mb-fieldset-content"><slot></slot></div>
+      <fieldset part="root" class="mb-fieldset mb-component${toggleClass}${collapsedClass}">
+        <legend part="legend" class="mb-fieldset-legend${this.toggleable ? ' mb-fieldset-toggle' : ''}"><slot name="legend">${legendText}</slot></legend>
+        <div part="content" class="mb-fieldset-content"><slot></slot></div>
       </fieldset>
     `;
   }

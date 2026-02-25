@@ -1,4 +1,8 @@
 export const TREETABLE_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-treetable {
 	position: relative;
 	border: 1px solid var(--mb-treetable-border-color, var(--mb-datatable-border-color, #d9dde3));

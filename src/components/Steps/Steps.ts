@@ -44,8 +44,8 @@ export class MbSteps extends MbBaseComponent {
     const items = this.#items();
 
     return this._html`
-      <nav class="mb-steps mb-component" aria-label="${this._escape(this.ariaLabel ?? 'Steps')}">
-        <ol class="mb-steps-list" role="tablist" aria-label="${this._escape(this.ariaLabel ?? 'Steps')}">
+      <nav class="mb-steps mb-component" part="root" aria-label="${this._escape(this.ariaLabel ?? 'Steps')}">
+        <ol class="mb-steps-list" part="list" role="tablist" aria-label="${this._escape(this.ariaLabel ?? 'Steps')}">
           ${items.map((item, index) => this.#renderStep(item, index, items.length)).join('')}
         </ol>
       </nav>
@@ -71,14 +71,15 @@ export class MbSteps extends MbBaseComponent {
       disabled ? 'mb-step-disabled' : '',
     ].filter(Boolean).join(' ');
     const tabIndex = index === this.#focusedIndex ? '0' : '-1';
-    const icon = item.icon ? `<span class="mb-step-number ${this._escape(item.icon)}" aria-hidden="true"></span>` : `<span class="mb-step-number">${index + 1}</span>`;
+    const icon = item.icon ? `<span class="mb-step-number ${this._escape(item.icon)}" part="step-number" aria-hidden="true"></span>` : `<span class="mb-step-number" part="step-number">${index + 1}</span>`;
 
     return `
-      <li class="${classes}" role="presentation">
-        ${index < total - 1 ? '<span class="mb-steps-separator" aria-hidden="true"></span>' : ''}
+      <li class="${classes}" part="step" role="presentation">
+        ${index < total - 1 ? '<span class="mb-steps-separator" part="separator" aria-hidden="true"></span>' : ''}
         <button
           type="button"
           class="mb-step-header-action"
+          part="step-action"
           role="tab"
           data-index="${index}"
           tabindex="${tabIndex}"
@@ -86,16 +87,16 @@ export class MbSteps extends MbBaseComponent {
           aria-current="${active ? 'step' : 'false'}"
           aria-disabled="${disabled ? 'true' : 'false'}"
         >
-          <span class="mb-step-header">${icon}</span>
-          <span class="mb-step-title">${this._escape(item.label)}</span>
-          ${item.badge ? `<span class="mb-step-subtitle">${this._escape(item.badge)}</span>` : ''}
+          <span class="mb-step-header" part="step-header">${icon}</span>
+          <span class="mb-step-title" part="step-title">${this._escape(item.label)}</span>
+          ${item.badge ? `<span class="mb-step-subtitle" part="step-subtitle">${this._escape(item.badge)}</span>` : ''}
         </button>
       </li>
     `;
   }
 
   #syncFocusable(): void {
-    const tabs = Array.from(this.querySelectorAll<HTMLElement>('.mb-step-header-action[role="tab"]'));
+    const tabs = Array.from(this._qsa<HTMLElement>('.mb-step-header-action[role="tab"]'));
     if (tabs.length === 0) return;
 
     if (this.#focusedIndex < 0 || this.#focusedIndex >= tabs.length) {
@@ -136,7 +137,7 @@ export class MbSteps extends MbBaseComponent {
   }
 
   #handleKeyDown(event: KeyboardEvent): void {
-    const tabs = Array.from(this.querySelectorAll<HTMLElement>('.mb-step-header-action[role="tab"]'));
+    const tabs = Array.from(this._qsa<HTMLElement>('.mb-step-header-action[role="tab"]'));
     if (tabs.length === 0) return;
 
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {

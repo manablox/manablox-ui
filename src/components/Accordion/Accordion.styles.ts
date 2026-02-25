@@ -1,4 +1,8 @@
 export const ACCORDION_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-accordion {
   display: block;
   width: 100%;

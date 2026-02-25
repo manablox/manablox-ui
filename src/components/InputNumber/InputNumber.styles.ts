@@ -1,4 +1,8 @@
 export const INPUTNUMBER_STYLES = `
+:host {
+	display: inline-block;
+}
+
 :root {
 	--mb-inputnumber-border: var(--mb-form-field-border, 1px solid #ccc);
 	--mb-inputnumber-bg: var(--mb-form-field-bg, #fff);
@@ -101,6 +105,14 @@ export const INPUTNUMBER_STYLES = `
 }
 
 .mb-inputnumber-button-icon {
+	pointer-events: none;
+}
+
+::slotted([slot="increment-icon"]),
+::slotted([slot="decrement-icon"]) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	pointer-events: none;
 }
 

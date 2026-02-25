@@ -40,16 +40,16 @@ export class MbPanel extends MbBaseComponent {
     const collapsedClass = this.#collapsed ? 'mb-panel-collapsed' : '';
 
     return this._html`
-      <div class="mb-panel ${collapsedClass}">
-        <div class="mb-panel-header">
-          <div class="mb-panel-header-content">
-            <slot name="icons"></slot>
-            <slot name="header">${headerAttr}</slot>
+      <div part="root" class="mb-panel ${collapsedClass}">
+        <div part="header" class="mb-panel-header">
+          <div part="header-content" class="mb-panel-header-content">
+            <slot name="icons" part="icons"></slot>
+            <slot name="header" part="header-slot">${headerAttr}</slot>
           </div>
-          ${toggleable ? `<button type="button" class="mb-panel-toggle-button" aria-expanded="${this.#collapsed ? 'false' : 'true'}">${this.#collapsed ? '+' : '−'}</button>` : ''}
+          ${toggleable ? `<button part="toggle-button" type="button" class="mb-panel-toggle-button" aria-expanded="${this.#collapsed ? 'false' : 'true'}">${this.#collapsed ? '+' : '−'}</button>` : ''}
         </div>
-        <div class="mb-panel-content"><slot></slot></div>
-        <div class="mb-panel-footer"><slot name="footer"></slot></div>
+        <div part="content" class="mb-panel-content"><slot part="content-slot"></slot></div>
+        <div part="footer" class="mb-panel-footer"><slot name="footer" part="footer-slot"></slot></div>
       </div>
     `;
   }

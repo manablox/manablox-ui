@@ -7,11 +7,14 @@ type StepperOrientation = 'horizontal' | 'vertical';
 type StepPanel = {
   value: number;
   header: string;
-  content: string;
+  panel: MbStepperPanel;
 };
+
+const HIDDEN_CONFIG_STYLES = ':host { display: none; }';
 
 export class MbStepperPanel extends MbBaseComponent {
   static readonly _componentName = 'mb-stepperpanel';
+  static readonly _componentStyles = HIDDEN_CONFIG_STYLES;
 
   protected static get attributeConverters(): Map<string, AttributeConverter> {
     return new Map([
@@ -25,7 +28,7 @@ export class MbStepperPanel extends MbBaseComponent {
   }
 
   protected _render(): string {
-    return this.innerHTML;
+    return '';
   }
 }
 
@@ -110,7 +113,7 @@ export class MbStepper extends MbBaseComponent {
       .join('');
 
     const activePanel = this.#panels[active];
-    const panelContent = activePanel?.content ?? '';
+    const panelContent = activePanel?.panel?.innerHTML ?? '';
 
     return `
       <div class="mb-stepper mb-stepper-${orientation}">
@@ -169,7 +172,7 @@ export class MbStepper extends MbBaseComponent {
   #seedPanels(): void {
     if (this.#seeded) return;
 
-    const children = Array.from(this.querySelectorAll<MbStepperPanel>('mb-stepperpanel'));
+    const children = Array.from(this._qsaLight<MbStepperPanel>('mb-stepperpanel'));
     if (!children.length) return;
 
     this.#panels = children.map((panel, index) => {
@@ -180,7 +183,7 @@ export class MbStepper extends MbBaseComponent {
       return {
         value: normalizedValue,
         header: panel.getAttribute('header') ?? `Step ${index + 1}`,
-        content: panel.innerHTML,
+        panel,
       };
     });
 

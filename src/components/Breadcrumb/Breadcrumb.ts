@@ -40,11 +40,11 @@ export class MbBreadcrumb extends MbBaseComponent {
 
   protected _render(): string {
     const items = this.#items();
-    const separator = '<li class="mb-breadcrumb-separator" aria-hidden="true">/</li>';
+    const separator = '<li class="mb-breadcrumb-separator" part="separator" aria-hidden="true">/</li>';
 
     return this._html`
-      <nav class="mb-breadcrumb mb-component" aria-label="${this._escape(this.ariaLabel ?? 'Breadcrumb')}">
-        <ol class="mb-breadcrumb-list">
+      <nav class="mb-breadcrumb mb-component" part="root" aria-label="${this._escape(this.ariaLabel ?? 'Breadcrumb')}">
+        <ol class="mb-breadcrumb-list" part="list">
           ${items.map((item, index) => this.#renderItem(item, index, index === items.length - 1)).join(separator)}
         </ol>
       </nav>
@@ -69,18 +69,18 @@ export class MbBreadcrumb extends MbBaseComponent {
     const tabindex = disabled ? '-1' : isFocused ? '0' : '-1';
     const attrs = isLast ? ' aria-current="page"' : '';
     const classes = `mb-breadcrumb-item-link${disabled ? ' mb-disabled' : ''}`;
-    const icon = item.icon ? `<span class="mb-breadcrumb-item-icon ${this._escape(item.icon)}" aria-hidden="true"></span>` : '';
-    const content = `${icon}<span class="mb-breadcrumb-item-label">${this._escape(item.label)}</span>`;
+    const icon = item.icon ? `<span class="mb-breadcrumb-item-icon ${this._escape(item.icon)}" part="item-icon" aria-hidden="true"></span>` : '';
+    const content = `${icon}<span class="mb-breadcrumb-item-label" part="item-label">${this._escape(item.label)}</span>`;
 
     const link = item.url && !disabled
-      ? `<a class="${classes}" href="${this._escape(item.url)}" data-index="${index}" tabindex="${tabindex}">${content}</a>`
-      : `<button type="button" class="${classes}" data-index="${index}" tabindex="${tabindex}"${attrs}>${content}</button>`;
+      ? `<a class="${classes}" part="item-link" href="${this._escape(item.url)}" data-index="${index}" tabindex="${tabindex}">${content}</a>`
+      : `<button type="button" class="${classes}" part="item-link" data-index="${index}" tabindex="${tabindex}"${attrs}>${content}</button>`;
 
-    return `<li class="mb-breadcrumb-item">${link}</li>`;
+    return `<li class="mb-breadcrumb-item" part="item">${link}</li>`;
   }
 
   #syncFocusable(): void {
-    const links = Array.from(this.querySelectorAll<HTMLElement>('.mb-breadcrumb-item-link:not(.mb-disabled)'));
+    const links = Array.from(this._qsa<HTMLElement>('.mb-breadcrumb-item-link:not(.mb-disabled)'));
     if (links.length === 0) return;
 
     if (this.#focusedIndex >= links.length) {
@@ -115,7 +115,7 @@ export class MbBreadcrumb extends MbBaseComponent {
   }
 
   #handleKeyDown(event: KeyboardEvent): void {
-    const links = Array.from(this.querySelectorAll<HTMLElement>('.mb-breadcrumb-item-link:not(.mb-disabled)'));
+    const links = Array.from(this._qsa<HTMLElement>('.mb-breadcrumb-item-link:not(.mb-disabled)'));
     if (links.length === 0) return;
 
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {

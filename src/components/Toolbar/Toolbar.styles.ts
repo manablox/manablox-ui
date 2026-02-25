@@ -1,4 +1,8 @@
 export const TOOLBAR_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-toolbar {
   display: flex;
   align-items: center;

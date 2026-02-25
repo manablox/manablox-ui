@@ -1,4 +1,8 @@
 export const BUTTON_STYLES = `
+:host {
+  display: inline-flex;
+}
+
 .mb-button {
   display: inline-flex;
   align-items: center;
@@ -161,6 +165,13 @@ export const BUTTON_STYLES = `
 /* Icon */
 .mb-button .mb-button-icon { font-size: var(--mb-icon-size); line-height: 1; }
 .mb-button .mb-button-loading-icon { font-size: var(--mb-icon-size); line-height: 1; }
+.mb-button [part="icon"],
+.mb-button [part="loading-icon"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
 
 /* Badge */
 .mb-badge {

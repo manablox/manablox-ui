@@ -1,6 +1,8 @@
 export const RADIOBUTTON_STYLES = `
 :host{display:inline-block}
 .mb-radiobutton{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
+.mb-radiobutton-label{display:inline-flex;align-items:center;margin-inline-start:var(--mb-radiobutton-label-gap,0.5rem)}
+.mb-radiobutton-label:empty{display:none}
 .mb-radiobutton.disabled{cursor:not-allowed;opacity:var(--mb-radiobutton-disabled-opacity,0.6)}
 .mb-radiobutton-box{width:var(--mb-radiobutton-size,1rem);height:var(--mb-radiobutton-size,1rem);border-radius:50%;border:var(--mb-radiobutton-border-width,2px) solid var(--mb-radiobutton-border-color,rgba(0,0,0,0.54));display:inline-flex;align-items:center;justify-content:center;background:var(--mb-radiobutton-bg,transparent);transition:background .12s,border-color .12s}
 .mb-radiobutton:hover .mb-radiobutton-box{border-color:var(--mb-radiobutton-border-hover-color,rgba(0,0,0,0.7))}

@@ -30,6 +30,7 @@ export class MbSelect extends MbBaseComponent {
 	protected static get attributeConverters(): Map<string, AttributeConverter> {
 		return new Map([
 			['options', 'object'],
+			['value', 'string'],
 			['option-label', 'string'],
 			['option-value', 'string'],
 			['option-disabled', 'string'],
@@ -81,13 +82,13 @@ export class MbSelect extends MbBaseComponent {
 		const onKeydown = (event: KeyboardEvent) => this.#handleKeydown(event);
 		const onFocusIn = () => {
 			this.#isFocused = true;
-			this._scheduleRender();
+			this.shadowRoot?.querySelector('.mb-select')?.classList.add('mb-focused');
 		};
 		const onFocusOut = (event: FocusEvent) => {
 			const next = event.relatedTarget as Node | null;
 			if (next && (this.contains(next) || this.#portalHost?.contains(next))) return;
 			this.#isFocused = false;
-			this._scheduleRender();
+			this.shadowRoot?.querySelector('.mb-select')?.classList.remove('mb-focused');
 		};
 
 		this.addEventListener('click', onClick);
@@ -115,7 +116,22 @@ export class MbSelect extends MbBaseComponent {
 	}
 
 	get modelValue(): unknown {
-		return this._obj<unknown>('model-value');
+		const modelValue = this.#parseAttributeValue('model-value');
+		if (modelValue !== undefined) return modelValue;
+
+		const legacyValue = this.#parseAttributeValue('value');
+		if (legacyValue === undefined) return null;
+		if (legacyValue && typeof legacyValue === 'object' && !Array.isArray(legacyValue)) {
+			const objectValue = legacyValue as Record<string, unknown>;
+			if (this.optionValue in objectValue) {
+				return objectValue[this.optionValue];
+			}
+			if ('value' in objectValue) {
+				return objectValue.value;
+			}
+		}
+
+		return legacyValue;
 	}
 	set modelValue(value: unknown) {
 		if (value == null) {
@@ -218,20 +234,22 @@ export class MbSelect extends MbBaseComponent {
 	}
 
 	#handleRootClick(event: Event): void {
-		if (this.disabled) return;
-		const target = event.target as HTMLElement;
+    if (this.disabled) return;
 
-		if (target.closest('.mb-select-clear')) {
-			event.preventDefault();
-			this.#selectValue(null, true);
-			return;
-		}
+    const composedPath = event.composedPath();
+    const isClear = composedPath.some(
+        node => node instanceof HTMLElement && node.classList.contains('mb-select-clear')
+    );
 
-		if (target === this || target.closest('.mb-select')) {
-			event.preventDefault();
-			this.#togglePanel();
-		}
-	}
+    if (isClear) {
+        event.preventDefault();
+        this.#selectValue(null, true);
+        return;
+    }
+
+    event.preventDefault();
+    this.#togglePanel();
+}
 
 	#handleKeydown(event: KeyboardEvent): void {
 		if (this.disabled) return;
@@ -291,6 +309,7 @@ export class MbSelect extends MbBaseComponent {
 
 	#openPanel(): void {
 		if (this.#isOpen || this.disabled) return;
+		this.#getRenderRows();
 		this.#isOpen = true;
 		this.#highlightedIndex = this.#resolveSelectedVisibleIndex();
 		this.#portalHost = createPortal(this.#portalKey, this, 'overlay');
@@ -425,10 +444,20 @@ export class MbSelect extends MbBaseComponent {
 
 		if (filterInput) {
 			const onInput = (event: Event) => {
-				this.#filterValue = (event.target as HTMLInputElement).value;
+				const sourceInput = event.target as HTMLInputElement;
+				const selectionStart = sourceInput.selectionStart;
+				const selectionEnd = sourceInput.selectionEnd;
+				this.#filterValue = sourceInput.value;
 				this.emit('mb-filter', { value: this.#filterValue });
 				this.#highlightedIndex = 0;
 				this.#renderOverlay();
+
+				const nextInput = this.#portalHost?.querySelector<HTMLInputElement>('.mb-select-filter');
+				if (!nextInput) return;
+				nextInput.focus();
+				if (selectionStart != null && selectionEnd != null) {
+					nextInput.setSelectionRange(selectionStart, selectionEnd);
+				}
 			};
 
 			filterInput.addEventListener('input', onInput);
@@ -621,6 +650,16 @@ export class MbSelect extends MbBaseComponent {
 			return JSON.stringify(a) === JSON.stringify(b);
 		} catch {
 			return false;
+		}
+	}
+
+	#parseAttributeValue(attrName: string): unknown | undefined {
+		const raw = this.getAttribute(attrName);
+		if (raw === null) return undefined;
+		try {
+			return JSON.parse(raw);
+		} catch {
+			return raw;
 		}
 	}
 }

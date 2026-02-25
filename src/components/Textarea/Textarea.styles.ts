@@ -1,4 +1,8 @@
 export const TEXTAREA_STYLES = `
+:host{
+	display:inline-block;
+}
+
 :root{
 	--mb-textarea-border: var(--mb-form-field-border, 1px solid #ccc);
 	--mb-textarea-bg: var(--mb-form-field-bg, #fff);

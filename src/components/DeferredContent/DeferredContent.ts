@@ -10,11 +10,11 @@ export class MbDeferredContent extends MbBaseComponent {
 
   protected _render(): string {
     const loadedClass = this._loaded ? ' mb-deferredcontent-loaded' : '';
-    const contentStyle = this._loaded ? '' : 'style="display:none"';
+    const content = this._loaded ? '<slot></slot>' : '';
 
     return this._html`
       <div class="mb-deferredcontent${loadedClass}">
-        <div class="mb-deferredcontent-wrapper" ${contentStyle}><slot></slot></div>
+        <div class="mb-deferredcontent-wrapper">${content}</div>
       </div>
     `;
   }

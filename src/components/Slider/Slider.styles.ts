@@ -1,4 +1,8 @@
 export const SLIDER_STYLES = `
+:host {
+	display: inline-block;
+}
+
 :root {
 	--mb-slider-track-bg: #e5e7eb;
 	--mb-slider-range-bg: #3b82f6;

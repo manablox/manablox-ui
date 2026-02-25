@@ -1,4 +1,8 @@
 export const CAROUSEL_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-carousel {
   position: relative;
   display: block;

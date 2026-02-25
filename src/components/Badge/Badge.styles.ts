@@ -1,4 +1,8 @@
 export const BADGE_STYLES = `
+:host{
+  display:inline-block;
+}
+
 :root{
   --mb-badge-bg: #ef4444;
   --mb-badge-color: #fff;

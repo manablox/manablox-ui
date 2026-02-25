@@ -46,18 +46,22 @@ export class MbToggleButton extends MbBaseComponent {
     const checkedCls = active ? ' mb-togglebutton-checked' : '';
     const ariaChecked = active ? 'true' : 'false';
 
-    const icon = active ? this.onIcon : this.offIcon;
     const label = active ? this.onLabel : this.offLabel;
 
     return this._html`
-      <button type="button" class="mb-togglebutton${disabledCls}${checkedCls}" role="switch" aria-checked="${ariaChecked}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.tabindex ?? '0'}">
-        ${icon ? `<span class="mb-togglebutton-icon">${this._escape(icon)}</span>` : ''}
-        <span class="mb-togglebutton-label">${this._escape(label)}</span>
+      <button part="root" type="button" class="mb-togglebutton${disabledCls}${checkedCls}" role="switch" aria-checked="${ariaChecked}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.tabindex ?? '0'}">
+        <span part="content" class="mb-togglebutton-content">
+          <slot name="icon"></slot>
+          <span part="label" class="mb-togglebutton-label"><slot name="label">${this._escape(label)}</slot></span>
+        </span>
       </button>
     `;
   }
 
   protected _afterRender(): void {
+    const iconClass = this._isActive() ? this.onIcon : this.offIcon;
+    this.#syncGeneratedIcon(iconClass);
+
     const btn = this._qs<HTMLButtonElement>('.mb-togglebutton');
     if (!btn) return;
 
@@ -93,6 +97,30 @@ export class MbToggleButton extends MbBaseComponent {
     this.checked = newVal;
     this.emit('mb-change', { value: newVal });
     this._scheduleRender();
+  }
+
+  #syncGeneratedIcon(iconClass: string): void {
+    const normalized = iconClass.trim();
+    const manual = this._qsaLight<HTMLElement>('[slot="icon"]:not([data-mb-generated="true"])');
+    const generated = this._qsaLight<HTMLElement>('[slot="icon"][data-mb-generated="true"]');
+
+    if (!normalized || manual.length > 0) {
+      generated.forEach(node => node.remove());
+      return;
+    }
+
+    let iconNode = generated[0] as HTMLElement | undefined;
+    if (!iconNode) {
+      iconNode = document.createElement('i');
+      iconNode.setAttribute('slot', 'icon');
+      iconNode.setAttribute('data-mb-generated', 'true');
+      this.appendChild(iconNode);
+    }
+
+    iconNode.className = normalized;
+    for (let i = 1; i < generated.length; i += 1) {
+      generated[i]?.remove();
+    }
   }
 }
 

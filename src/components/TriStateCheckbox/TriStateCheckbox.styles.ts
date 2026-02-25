@@ -1,9 +1,23 @@
 export const TRISTATECHECKBOX_STYLES = `
+:host {
+	display: inline-block;
+}
+
 .mb-tristatecheckbox {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+}
+
+.mb-tristatecheckbox-label {
+	display: inline-flex;
+	align-items: center;
+	margin-inline-start: var(--mb-tristatecheckbox-label-gap, 0.5rem);
+}
+
+.mb-tristatecheckbox-label:empty {
+	display: none;
 }
 
 .mb-tristatecheckbox .mb-tristatecheckbox-box {

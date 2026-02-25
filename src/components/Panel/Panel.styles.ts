@@ -1,4 +1,8 @@
 export const PANEL_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-panel {
   border: var(--mb-panel-border, 1px solid var(--mb-panel-border-color));
   border-radius: var(--mb-panel-border-radius);

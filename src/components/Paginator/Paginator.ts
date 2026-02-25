@@ -63,7 +63,7 @@ export class MbPaginator extends MbBaseComponent {
     const parts = templateKeys.map(key => this.#renderTemplatePart(key, currentPage, pageCount)).join('');
 
     return `
-      <nav class="mb-paginator" role="navigation" aria-label="Pagination">
+      <nav class="mb-paginator" part="root" role="navigation" aria-label="Pagination">
         ${parts}
       </nav>
     `;
@@ -159,27 +159,27 @@ export class MbPaginator extends MbBaseComponent {
 
   #renderTemplatePart(key: TemplateKey, currentPage: number, pageCount: number): string {
     if (key === 'FirstPageLink') {
-      return `<button type="button" class="mb-paginator-first" data-action="first" aria-label="First Page" ${currentPage === 0 ? 'disabled' : ''}>${this._escape(this.firstPageLinkIcon)}</button>`;
+      return `<button type="button" class="mb-paginator-first" part="first" data-action="first" aria-label="First Page" ${currentPage === 0 ? 'disabled' : ''}>${this._escape(this.firstPageLinkIcon)}</button>`;
     }
     if (key === 'PrevPageLink') {
-      return `<button type="button" class="mb-paginator-prev" data-action="prev" aria-label="Previous Page" ${currentPage === 0 ? 'disabled' : ''}>${this._escape(this.prevPageLinkIcon)}</button>`;
+      return `<button type="button" class="mb-paginator-prev" part="prev" data-action="prev" aria-label="Previous Page" ${currentPage === 0 ? 'disabled' : ''}>${this._escape(this.prevPageLinkIcon)}</button>`;
     }
     if (key === 'NextPageLink') {
-      return `<button type="button" class="mb-paginator-next" data-action="next" aria-label="Next Page" ${currentPage >= pageCount - 1 ? 'disabled' : ''}>${this._escape(this.nextPageLinkIcon)}</button>`;
+      return `<button type="button" class="mb-paginator-next" part="next" data-action="next" aria-label="Next Page" ${currentPage >= pageCount - 1 ? 'disabled' : ''}>${this._escape(this.nextPageLinkIcon)}</button>`;
     }
     if (key === 'LastPageLink') {
-      return `<button type="button" class="mb-paginator-last" data-action="last" aria-label="Last Page" ${currentPage >= pageCount - 1 ? 'disabled' : ''}>${this._escape(this.lastPageLinkIcon)}</button>`;
+      return `<button type="button" class="mb-paginator-last" part="last" data-action="last" aria-label="Last Page" ${currentPage >= pageCount - 1 ? 'disabled' : ''}>${this._escape(this.lastPageLinkIcon)}</button>`;
     }
     if (key === 'CurrentPageReport') {
       const report = this.#formatReport(currentPage, pageCount);
-      return `<span class="mb-paginator-current" aria-live="polite">${this._escape(report)}</span>`;
+      return `<span class="mb-paginator-current" part="current" aria-live="polite">${this._escape(report)}</span>`;
     }
     if (key === 'RowsPerPageDropdown') {
       const options = (this.rowsPerPageOptions ?? this._obj<number[]>('rows-per-page-options') ?? []).filter(n => typeof n === 'number' && n > 0);
       if (!options.length) return '';
 
       return `
-        <select class="mb-paginator-rpp-dropdown" aria-label="Rows per page">
+        <select class="mb-paginator-rpp-dropdown" part="rows-per-page" aria-label="Rows per page">
           ${options
             .map(option => `<option value="${option}" ${option === this.rows ? 'selected' : ''}>${option}</option>`)
             .join('')}
@@ -189,7 +189,7 @@ export class MbPaginator extends MbBaseComponent {
     if (key === 'JumpToPageDropdown') {
       if (pageCount <= 1) return '';
       return `
-        <select class="mb-paginator-pages-dropdown" aria-label="Jump to page">
+        <select class="mb-paginator-pages-dropdown" part="jump-to-page" aria-label="Jump to page">
           ${Array.from({ length: pageCount })
             .map((_, index) => `<option value="${index}" ${index === currentPage ? 'selected' : ''}>${index + 1}</option>`)
             .join('')}
@@ -205,7 +205,7 @@ export class MbPaginator extends MbBaseComponent {
       .map((_, offset) => {
         const page = start + offset;
         const selectedClass = page === currentPage ? ' mb-paginator-page-selected' : '';
-        return `<button type="button" class="mb-paginator-page${selectedClass}" data-page="${page}" aria-label="Page ${page + 1}" aria-current="${page === currentPage ? 'page' : 'false'}">${page + 1}</button>`;
+        return `<button type="button" class="mb-paginator-page${selectedClass}" part="page-link" data-page="${page}" aria-label="Page ${page + 1}" aria-current="${page === currentPage ? 'page' : 'false'}">${page + 1}</button>`;
       })
       .join('');
   }

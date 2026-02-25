@@ -94,6 +94,7 @@ export class MbRating extends MbBaseComponent {
 			const active = value <= displayValue;
 			return this._html`
 				<button
+					part="item"
 					type="button"
 					class="mb-rating-item ${active ? 'mb-active' : ''}"
 					data-value="${value}"
@@ -109,9 +110,9 @@ export class MbRating extends MbBaseComponent {
 		}).join('');
 
 		return this._html`
-			<div class="${classes}" role="group" aria-label="Rating">
+			<div part="root" class="${classes}" role="group" aria-label="Rating">
 				${this.cancel
-					? `<button type="button" class="mb-rating-cancel" data-value="0" role="radio" aria-checked="${this.#value == null ? 'true' : 'false'}" aria-label="Clear rating" ${this.disabled ? 'disabled' : ''} tabindex="${this.disabled ? '-1' : '0'}">${this.#renderCancelIcon()}</button>`
+					? `<button part="cancel" type="button" class="mb-rating-cancel" data-value="0" role="radio" aria-checked="${this.#value == null ? 'true' : 'false'}" aria-label="Clear rating" ${this.disabled ? 'disabled' : ''} tabindex="${this.disabled ? '-1' : '0'}">${this.#renderCancelIcon()}</button>`
 					: ''}
 				${starMarkup}
 			</div>
@@ -223,18 +224,18 @@ export class MbRating extends MbBaseComponent {
 		const trimmed = icon.trim();
 		if (!trimmed) return fallback;
 		if (trimmed.includes('<svg')) return trimmed;
-		return `<span class="mb-rating-icon ${this._escape(trimmed)}"></span>`;
+		return `<i part="icon" class="mb-rating-icon ${this._escape(trimmed)}"></i>`;
 	}
 
 	#defaultStar(filled: boolean): string {
 		if (filled) {
-			return '<span class="mb-rating-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.8l3.05 6.18 6.82.99-4.93 4.8 1.16 6.79L12 17.35l-6.1 3.21 1.16-6.79-4.93-4.8 6.82-.99L12 1.8z"></path></svg></span>';
+			return '<span part="icon" class="mb-rating-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.8l3.05 6.18 6.82.99-4.93 4.8 1.16 6.79L12 17.35l-6.1 3.21 1.16-6.79-4.93-4.8 6.82-.99L12 1.8z"></path></svg></span>';
 		}
-		return '<span class="mb-rating-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.6l2.84 5.76.24.49.54.08 6.35.92-4.6 4.49-.39.38.09.53 1.08 6.33L12.47 18.6 12 18.35l-.47.25-5.68 2.98 1.08-6.33.09-.53-.39-.38-4.6-4.49 6.35-.92.54-.08.24-.49L12 2.6z"></path></svg></span>';
+		return '<span part="icon" class="mb-rating-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.6l2.84 5.76.24.49.54.08 6.35.92-4.6 4.49-.39.38.09.53 1.08 6.33L12.47 18.6 12 18.35l-.47.25-5.68 2.98 1.08-6.33.09-.53-.39-.38-4.6-4.49 6.35-.92.54-.08.24-.49L12 2.6z"></path></svg></span>';
 	}
 
 	#defaultCancel(): string {
-		return '<span class="mb-rating-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>';
+		return '<span part="icon" class="mb-rating-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg></span>';
 	}
 }
 

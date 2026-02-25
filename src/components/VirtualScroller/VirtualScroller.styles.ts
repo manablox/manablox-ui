@@ -1,4 +1,8 @@
 export const VIRTUALSCROLLER_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-virtualscroller {
 	position: relative;
 	overflow: auto;

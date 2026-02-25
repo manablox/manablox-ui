@@ -42,7 +42,7 @@ export class MbDataView extends MbBaseComponent {
 	#templateBySlot = new Map<string, string>();
 
 	connectedCallback(): void {
-		const templates = Array.from(this.querySelectorAll<HTMLTemplateElement>(':scope > template[data-slot]'));
+		const templates = Array.from(this._qsaLight<HTMLTemplateElement>(':scope > template[data-slot]'));
 		templates.forEach(template => {
 			const slot = template.dataset.slot;
 			if (!slot) return;
@@ -100,16 +100,17 @@ export class MbDataView extends MbBaseComponent {
 						const className = this.layout === 'grid' ? 'mb-dataview-grid-item' : 'mb-dataview-list-item';
 						const itemContent = this.#renderItem(item, index);
 						const key = this.#resolveKey(item, index);
-						return `<div class="${className}" data-index="${index}" data-key="${this._escape(key)}">${itemContent}</div>`;
+						return `<div class="${className}" part="item" data-index="${index}" data-key="${this._escape(key)}">${itemContent}</div>`;
 					})
 					.join('')
-			: `<div class="mb-dataview-empty-message">${this._escape(this.emptyMessage)}</div>`;
+			: `<div class="mb-dataview-empty-message" part="empty">${this._escape(this.emptyMessage)}</div>`;
 
 		return this._html`
-			<div class="${classes}" data-layout="${this.layout}">
+			<div class="${classes}" part="root" data-layout="${this.layout}">
+				<slot part="templates" hidden></slot>
 				${this.#renderHeader()}
 				${topPaginator ? this.#renderPaginator(allItems.length) : ''}
-				<div class="mb-dataview-content">${content}</div>
+				<div class="mb-dataview-content" part="content">${content}</div>
 				${bottomPaginator ? this.#renderPaginator(allItems.length) : ''}
 				${this.#renderFooter()}
 			</div>
@@ -124,19 +125,19 @@ export class MbDataView extends MbBaseComponent {
 	#renderHeader(): string {
 		const markup = this.#templateBySlot.get('header');
 		if (!markup) return '';
-		return `<div class="mb-dataview-header">${markup}</div>`;
+		return `<div class="mb-dataview-header" part="header">${markup}</div>`;
 	}
 
 	#renderFooter(): string {
 		const markup = this.#templateBySlot.get('footer');
 		if (!markup) return '';
-		return `<div class="mb-dataview-footer">${markup}</div>`;
+		return `<div class="mb-dataview-footer" part="footer">${markup}</div>`;
 	}
 
 	#renderPaginator(totalRecords: number): string {
 		if (!this.paginator) return '';
 		const rows = this.rows > 0 ? this.rows : totalRecords || 1;
-		return `<mb-paginator first="${this.first}" rows="${rows}" total-records="${totalRecords}"></mb-paginator>`;
+		return `<mb-paginator part="paginator" first="${this.first}" rows="${rows}" total-records="${totalRecords}"></mb-paginator>`;
 	}
 
 	#pagedItems(items: DataViewItem[]): Array<{ item: DataViewItem; index: number }> {
@@ -175,7 +176,7 @@ export class MbDataView extends MbBaseComponent {
 	}
 
 	#bindPaginatorEvents(): void {
-		this.querySelectorAll('mb-paginator').forEach(paginator => {
+		this._qsa('mb-paginator').forEach(paginator => {
 			const onPage = (event: Event) => {
 				const custom = event as CustomEvent<DataViewPageDetail & { page?: number; pageCount?: number }>;
 				const detail = custom.detail;
@@ -196,7 +197,7 @@ export class MbDataView extends MbBaseComponent {
 	}
 
 	#bindItemInteractions(): void {
-		this.querySelectorAll<HTMLElement>('.mb-dataview-grid-item, .mb-dataview-list-item').forEach(itemEl => {
+		this._qsa<HTMLElement>('.mb-dataview-grid-item, .mb-dataview-list-item').forEach(itemEl => {
 			const onClick = (event: MouseEvent) => {
 				const index = Number(itemEl.dataset.index ?? '-1');
 				if (index < 0) return;

@@ -65,45 +65,48 @@
     <div class="section">
       <h2>Severity variants</h2>
       <div class="row">
-        <mb-button label="Default"></mb-button>
-        <mb-button severity="secondary" label="Secondary"></mb-button>
-        <mb-button severity="success" label="Success"></mb-button>
-        <mb-button severity="info" label="Info"></mb-button>
-        <mb-button severity="warning" label="Warning"></mb-button>
-        <mb-button severity="danger" label="Danger"></mb-button>
+        <mb-button>default</mb-button>
+        <mb-button severity="secondary">secondary</mb-button>
+        <mb-button severity="success">success</mb-button>
+        <mb-button severity="info">info</mb-button>
+        <mb-button severity="warning">warning</mb-button>
+        <mb-button severity="danger">danger</mb-button>
       </div>
     </div>
 
     <div class="section">
       <h2>Modifiers</h2>
       <div class="row">
-        <mb-button raised label="Raised"></mb-button>
-        <mb-button rounded label="Rounded"></mb-button>
-        <mb-button outlined label="Outlined"></mb-button>
-        <mb-button text label="Text"></mb-button>
+        <mb-button raised>Raised</mb-button>
+        <mb-button rounded>Rounded</mb-button>
+        <mb-button outlined>Outlined</mb-button>
+        <mb-button text>Text</mb-button>
       </div>
     </div>
 
     <div class="section">
       <h2>Sizes</h2>
       <div class="row">
-        <mb-button size="small" label="Small"></mb-button>
-        <mb-button label="Normal"></mb-button>
-        <mb-button size="large" label="Large"></mb-button>
+        <mb-button size="small">Small</mb-button>
+        <mb-button>Normal</mb-button>
+        <mb-button size="large">Large</mb-button>
       </div>
     </div>
 
     <div class="section">
       <h2>States</h2>
       <div class="row">
-        <mb-button disabled label="Disabled"></mb-button>
-        <mb-button loading label="Loading"></mb-button>
+        <mb-button disabled>Disabled</mb-button>
+        <mb-button loading>Loading</mb-button>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <mb-select options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one"></mb-select>
+    <mb-select value='{"label":"Option A","value":"a"}' options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one"></mb-select>
+    <mb-select options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one" filter></mb-select>
+
+    <mb-multiselect value='[{"label":"Option A","value":"a"}]' options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one"></mb-multiselect>
   </div>
 
   <script type="module" src="./main.ts"></script>

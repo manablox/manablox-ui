@@ -87,21 +87,22 @@ export class MbOrderList extends MbBaseComponent {
 		const filtered = this.#filteredItems();
 		const listClass = this._bool('striped-rows') ? 'mb-orderlist-list mb-orderlist-striped' : 'mb-orderlist-list';
 		return this._html`
-			<div class="mb-orderlist">
-				<div class="mb-orderlist-controls" aria-label="Reorder controls">
+			<div class="mb-orderlist" part="root">
+				<slot part="templates" hidden></slot>
+				<div class="mb-orderlist-controls" part="controls" aria-label="Reorder controls">
 					<button type="button" data-action="move-top">⏫</button>
 					<button type="button" data-action="move-up">▲</button>
 					<button type="button" data-action="move-down">▼</button>
 					<button type="button" data-action="move-bottom">⏬</button>
 				</div>
-				<div class="mb-orderlist-list-container">
-					${this._str('header') ? `<div class="mb-orderlist-header">${this._escape(this._str('header'))}</div>` : ''}
+				<div class="mb-orderlist-list-container" part="list-container">
+					${this._str('header') ? `<div class="mb-orderlist-header" part="header">${this._escape(this._str('header'))}</div>` : ''}
 					${
 						this._bool('filter')
-							? `<div class="mb-orderlist-filter-container"><input type="text" value="${this._escape(this.#filterValue)}" placeholder="${this._escape(this._str('filter-placeholder', 'Filter'))}" aria-label="Filter list" /></div>`
+							? `<div class="mb-orderlist-filter-container" part="filter-container"><input part="filter" type="text" value="${this._escape(this.#filterValue)}" placeholder="${this._escape(this._str('filter-placeholder', 'Filter'))}" aria-label="Filter list" /></div>`
 							: ''
 					}
-					<ul class="${listClass}" role="listbox" tabindex="${this._num('tabindex', 0) ?? 0}" aria-multiselectable="true">
+					<ul class="${listClass}" part="list" role="listbox" tabindex="${this._num('tabindex', 0) ?? 0}" aria-multiselectable="true">
 						${filtered.map(entry => this.#renderItemRow(entry.item, entry.index)).join('')}
 					</ul>
 				</div>
@@ -113,7 +114,7 @@ export class MbOrderList extends MbBaseComponent {
 		const selected = this.#selection.has(index);
 		const classes = ['mb-orderlist-item', selected ? 'mb-orderlist-item-selected' : ''].filter(Boolean).join(' ');
 		const content = this.#renderItemMarkup(item, index);
-		return `<li class="${classes}" data-index="${index}" role="option" aria-selected="${selected ? 'true' : 'false'}" ${this._bool('drag-drop') ? 'draggable="true"' : ''}>${content}</li>`;
+		return `<li class="${classes}" part="item" data-index="${index}" role="option" aria-selected="${selected ? 'true' : 'false'}" ${this._bool('drag-drop') ? 'draggable="true"' : ''}>${content}</li>`;
 	}
 
 	#renderItemMarkup(item: unknown, index: number): string {
@@ -291,7 +292,7 @@ export class MbOrderList extends MbBaseComponent {
 	}
 
 	#captureTemplate(): void {
-		const template = this.querySelector<HTMLTemplateElement>('template[data-slot="item"]');
+		const template = this._qsLight<HTMLTemplateElement>('template[data-slot="item"]');
 		this.#template = template?.innerHTML ?? null;
 	}
 }

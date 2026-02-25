@@ -1,4 +1,8 @@
 export const RATING_STYLES = `
+:host {
+	display: inline-block;
+}
+
 :root {
 	--mb-rating-gap: 0.35rem;
 	--mb-rating-icon-size: 1.25rem;

@@ -16,14 +16,14 @@ export class MbCard extends MbBaseComponent {
     const footer = this._escape(this.getAttribute('footer'));
 
     return this._html`
-      <div class="mb-card mb-component">
-        <div class="mb-card-header"><slot name="header">${header}</slot></div>
-        <div class="mb-card-body">
-          <div class="mb-card-title"><slot name="title">${title}</slot></div>
-          <div class="mb-card-subtitle"><slot name="subtitle">${subtitle}</slot></div>
-          <div class="mb-card-content"><slot></slot></div>
+      <div part="root" class="mb-card mb-component">
+        <div part="header" class="mb-card-header"><slot name="header" part="header-slot">${header}</slot></div>
+        <div part="body" class="mb-card-body">
+          <div part="title" class="mb-card-title"><slot name="title" part="title-slot">${title}</slot></div>
+          <div part="subtitle" class="mb-card-subtitle"><slot name="subtitle" part="subtitle-slot">${subtitle}</slot></div>
+          <div part="content" class="mb-card-content"><slot part="content-slot"></slot></div>
         </div>
-        <div class="mb-card-footer"><slot name="footer">${footer}</slot></div>
+        <div part="footer" class="mb-card-footer"><slot name="footer" part="footer-slot">${footer}</slot></div>
       </div>
     `;
   }

@@ -1,4 +1,8 @@
 export const MESSAGE_STYLES = `
+:host{
+  display:block;
+}
+
 :root{
   --mb-message-padding: .75rem;
   --mb-message-radius: .5rem;

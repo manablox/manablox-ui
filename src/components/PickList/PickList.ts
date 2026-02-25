@@ -99,9 +99,10 @@ export class MbPickList extends MbBaseComponent {
 		const rootClasses = ['mb-picklist', this._bool('striped-rows') ? 'mb-picklist-striped' : ''].filter(Boolean).join(' ');
 		const breakpoint = this._str('breakpoint', '960px');
 		return this._html`
-			<div class="${rootClasses}" data-breakpoint="${this._escape(breakpoint)}">
+			<div class="${rootClasses}" part="root" data-breakpoint="${this._escape(breakpoint)}">
+				<slot part="templates" hidden></slot>
 				${this.#renderList('source', source)}
-				<div class="mb-picklist-controls" aria-label="Move controls">
+				<div class="mb-picklist-controls" part="controls" aria-label="Move controls">
 					<button type="button" data-action="move-to-target">&gt;</button>
 					<button type="button" data-action="move-all-to-target">&gt;&gt;</button>
 					<button type="button" data-action="move-to-source">&lt;</button>
@@ -119,19 +120,19 @@ export class MbPickList extends MbBaseComponent {
 		const selection = this.#selection[type];
 		const showControls = this._bool(type === 'source' ? 'show-source-controls' : 'show-target-controls');
 		const listClass = 'mb-picklist-list';
-		return `<div class="mb-picklist-list-wrapper" data-list="${type}">
-			<div class="mb-picklist-list-container">
-				<div class="mb-picklist-header">${header}</div>
-				${showFilter ? `<div class="mb-picklist-filter-container"><input type="text" data-list-filter="${type}" value="${this._escape(this.#filters[type])}" placeholder="${placeholder}" /></div>` : ''}
-				<ul class="${listClass}" role="listbox" aria-multiselectable="true" data-list="${type}">
+		return `<div class="mb-picklist-list-wrapper" part="${type}-list-wrapper" data-list="${type}">
+			<div class="mb-picklist-list-container" part="${type}-list-container">
+				<div class="mb-picklist-header" part="${type}-header">${header}</div>
+				${showFilter ? `<div class="mb-picklist-filter-container" part="${type}-filter-container"><input part="${type}-filter" type="text" data-list-filter="${type}" value="${this._escape(this.#filters[type])}" placeholder="${placeholder}" /></div>` : ''}
+				<ul class="${listClass}" part="${type}-list" role="listbox" aria-multiselectable="true" data-list="${type}">
 					${list
 						.map(entry => {
 							const selected = selection.has(entry.index);
-							return `<li class="mb-picklist-item${selected ? ' mb-picklist-item-selected' : ''}" role="option" aria-selected="${selected ? 'true' : 'false'}" data-list="${type}" data-index="${entry.index}" ${this._bool('drag-drop') ? 'draggable="true"' : ''}>${this.#renderItem(type, entry.item, entry.index)}</li>`;
+							return `<li class="mb-picklist-item${selected ? ' mb-picklist-item-selected' : ''}" part="item" role="option" aria-selected="${selected ? 'true' : 'false'}" data-list="${type}" data-index="${entry.index}" ${this._bool('drag-drop') ? 'draggable="true"' : ''}>${this.#renderItem(type, entry.item, entry.index)}</li>`;
 						})
 						.join('')}
 				</ul>
-				${showControls ? `<div class="mb-picklist-list-controls">
+				${showControls ? `<div class="mb-picklist-list-controls" part="${type}-list-controls">
 					<button type="button" data-action="${type}-move-top">⏫</button>
 					<button type="button" data-action="${type}-move-up">▲</button>
 					<button type="button" data-action="${type}-move-down">▼</button>
@@ -379,7 +380,7 @@ export class MbPickList extends MbBaseComponent {
 	}
 
 	#captureTemplate(): void {
-		const template = this.querySelector<HTMLTemplateElement>('template[data-slot="item"]');
+		const template = this._qsLight<HTMLTemplateElement>('template[data-slot="item"]');
 		this.#template = template?.innerHTML ?? null;
 	}
 }

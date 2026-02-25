@@ -31,10 +31,10 @@ export class MbMessage extends MbBaseComponent {
     const closeIconClass = this.closeIcon ? this._escape(this.closeIcon) : '';
 
     return this._html`
-      <div class="mb-message mb-component ${severityClass}" role="alert">
-        <span class="mb-message-icon ${iconClass}"></span>
-        <div class="mb-message-text"><slot></slot></div>
-        ${this.closable ? `<button class="mb-message-close-button" aria-label="close"><span class="mb-message-close-icon ${closeIconClass}"></span></button>` : ''}
+      <div class="mb-message mb-component ${severityClass}" part="root" role="alert">
+        <span class="mb-message-icon ${iconClass}" part="icon"><slot name="icon"></slot></span>
+        <div class="mb-message-text" part="content"><slot></slot></div>
+        ${this.closable ? `<button class="mb-message-close-button" part="close-button" aria-label="close"><span class="mb-message-close-icon ${closeIconClass}" part="close-icon"></span></button>` : ''}
       </div>`;
   }
 

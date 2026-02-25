@@ -47,36 +47,11 @@ export class MbKnob extends MbBaseComponent {
 	valueColor = '';
 	textColor = '';
 
-	#listenersBound = false;
 	#dragging = false;
 	#removeDragListeners: (() => void) | null = null;
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		if (this.#listenersBound) return;
-		this.#listenersBound = true;
-
-		const onMouseDown = (event: MouseEvent) => {
-			const target = event.target as HTMLElement;
-			if (!target.closest('.mb-knob-svg')) return;
-			this.#startDrag(event);
-		};
-
-		const onTouchStart = (event: TouchEvent) => {
-			const target = event.target as HTMLElement;
-			if (!target.closest('.mb-knob-svg')) return;
-			this.#startTouchDrag(event);
-		};
-
-		const onKeyDown = (event: KeyboardEvent) => this.#onKeyDown(event);
-
-		this.addEventListener('mousedown', onMouseDown);
-		this.addEventListener('touchstart', onTouchStart, { passive: false });
-		this.addEventListener('keydown', onKeyDown);
-
-		this._addCleanup(() => this.removeEventListener('mousedown', onMouseDown));
-		this._addCleanup(() => this.removeEventListener('touchstart', onTouchStart));
-		this._addCleanup(() => this.removeEventListener('keydown', onKeyDown));
 		this._addCleanup(() => this.#removeDragListeners?.());
 	}
 
@@ -116,6 +91,7 @@ export class MbKnob extends MbBaseComponent {
 
 		return this._html`
 			<div
+				part="root"
 				class="${classes}"
 				role="slider"
 				aria-valuemin="${min}"
@@ -125,9 +101,10 @@ export class MbKnob extends MbBaseComponent {
 				tabindex="${this.disabled ? '-1' : '0'}"
 				style="${styleParts.join(';')}"
 			>
-				<svg class="mb-knob-svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+				<svg part="svg" class="mb-knob-svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
 					<g transform="rotate(${START_ANGLE} ${center} ${center})">
 						<circle
+							part="range"
 							class="mb-knob-range"
 							cx="${center}"
 							cy="${center}"
@@ -137,6 +114,7 @@ export class MbKnob extends MbBaseComponent {
 							stroke-dashoffset="0"
 						></circle>
 						<circle
+							part="value"
 							class="mb-knob-value"
 							cx="${center}"
 							cy="${center}"
@@ -147,9 +125,27 @@ export class MbKnob extends MbBaseComponent {
 						></circle>
 					</g>
 				</svg>
-				${this.showValue ? `<span class="mb-knob-label">${this._escape(labelText)}</span>` : ''}
+				${this.showValue ? `<span part="label" class="mb-knob-label">${this._escape(labelText)}</span>` : ''}
 			</div>
 		`;
+	}
+
+	protected _afterRender(): void {
+		const knob = this._qs<HTMLElement>('.mb-knob');
+		const svg = this._qs<HTMLElement>('.mb-knob-svg');
+		if (!knob || !svg) return;
+
+		const onMouseDown = (event: MouseEvent) => this.#startDrag(event);
+		const onTouchStart = (event: TouchEvent) => this.#startTouchDrag(event);
+		const onKeyDown = (event: KeyboardEvent) => this.#onKeyDown(event);
+
+		svg.addEventListener('mousedown', onMouseDown);
+		svg.addEventListener('touchstart', onTouchStart, { passive: false });
+		knob.addEventListener('keydown', onKeyDown);
+
+		this._addCleanup(() => svg.removeEventListener('mousedown', onMouseDown));
+		this._addCleanup(() => svg.removeEventListener('touchstart', onTouchStart));
+		this._addCleanup(() => knob.removeEventListener('keydown', onKeyDown));
 	}
 
 	#startDrag(event: MouseEvent): void {

@@ -1,4 +1,8 @@
 export const SCROLLPANEL_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-scrollpanel {
   position: relative;
   overflow: hidden;

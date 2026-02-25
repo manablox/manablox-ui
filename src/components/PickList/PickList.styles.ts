@@ -1,4 +1,8 @@
 export const PICKLIST_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-picklist {
 	display: flex;
 	gap: var(--mb-picklist-gap, 0.75rem);

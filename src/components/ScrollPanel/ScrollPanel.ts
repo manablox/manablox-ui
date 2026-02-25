@@ -57,14 +57,14 @@ export class MbScrollPanel extends MbBaseComponent {
     const rootStyle = [inline, tokenVars].filter(Boolean).join(';');
 
     return this._html`
-      <div class="mb-scrollpanel" style="${this._escape(rootStyle)}">
-        <div class="mb-scrollpanel-wrapper">
-          <div class="mb-scrollpanel-content"><slot></slot></div>
+      <div part="root" class="mb-scrollpanel" style="${this._escape(rootStyle)}">
+        <div part="wrapper" class="mb-scrollpanel-wrapper">
+          <div part="content" class="mb-scrollpanel-content"><slot part="default"></slot></div>
         </div>
-        <div class="mb-scrollpanel-track mb-scrollpanel-track-x" data-track="x"></div>
-        <div class="mb-scrollpanel-track mb-scrollpanel-track-y" data-track="y"></div>
-        <div class="mb-scrollpanel-bar mb-scrollpanel-bar-x" role="presentation"></div>
-        <div class="mb-scrollpanel-bar mb-scrollpanel-bar-y" role="presentation"></div>
+        <div part="track-x" class="mb-scrollpanel-track mb-scrollpanel-track-x" data-track="x"></div>
+        <div part="track-y" class="mb-scrollpanel-track mb-scrollpanel-track-y" data-track="y"></div>
+        <div part="bar-x" class="mb-scrollpanel-bar mb-scrollpanel-bar-x" role="presentation"></div>
+        <div part="bar-y" class="mb-scrollpanel-bar mb-scrollpanel-bar-y" role="presentation"></div>
       </div>
     `.trim();
   }

@@ -8,11 +8,14 @@ type SplitterStorage = 'local' | 'session';
 type SplitterPanelConfig = {
   size: number | null;
   minSize: number;
-  content: string;
+  panel: MbSplitterPanel;
 };
+
+const HIDDEN_CONFIG_STYLES = ':host { display: none; }';
 
 export class MbSplitterPanel extends MbBaseComponent {
   static readonly _componentName = 'mb-splitterpanel';
+  static readonly _componentStyles = HIDDEN_CONFIG_STYLES;
 
   protected static get attributeConverters(): Map<string, AttributeConverter> {
     return new Map([
@@ -26,7 +29,7 @@ export class MbSplitterPanel extends MbBaseComponent {
   }
 
   protected _render(): string {
-    return this.innerHTML;
+    return '';
   }
 }
 
@@ -80,7 +83,7 @@ export class MbSplitter extends MbBaseComponent {
           ? `flex: 0 0 ${basis}%;min-width:${min}%;`
           : `flex: 0 0 ${basis}%;min-height:${min}%;`;
 
-        const panelHtml = `<div class="mb-splitterpanel" data-index="${index}" style="${panelStyle}">${panel.content}</div>`;
+        const panelHtml = `<div class="mb-splitterpanel" data-index="${index}" style="${panelStyle}">${panel.panel.innerHTML}</div>`;
         if (index === this.#panels.length - 1) {
           return panelHtml;
         }
@@ -154,7 +157,7 @@ export class MbSplitter extends MbBaseComponent {
 
   #seedPanels(): void {
     if (this.#seeded) return;
-    const panels = Array.from(this.querySelectorAll<MbSplitterPanel>('mb-splitterpanel'));
+    const panels = Array.from(this._qsaLight<MbSplitterPanel>('mb-splitterpanel'));
     if (!panels.length) return;
 
     this.#panels = panels.map(panel => {
@@ -167,7 +170,7 @@ export class MbSplitter extends MbBaseComponent {
       return {
         size: Number.isFinite(size) ? Number(size) : null,
         minSize,
-        content: panel.innerHTML,
+        panel,
       };
     });
 

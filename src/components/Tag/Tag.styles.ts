@@ -1,4 +1,8 @@
 export const TAG_STYLES = `
+:host{
+  display:inline-block;
+}
+
 :root{
   --mb-tag-padding: 0.25rem .5rem;
   --mb-tag-radius: .375rem;

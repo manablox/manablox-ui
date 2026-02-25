@@ -1,4 +1,5 @@
 export const styles = `
+:host{display:block}
 .mb-metergroup{--gap:0.5rem}
 .mb-metergroup-meters{display:flex;gap:var(--gap);align-items:center}
 .mb-metergroup-meter{height:1rem;border-radius:4px;overflow:hidden}

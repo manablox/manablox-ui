@@ -1,4 +1,8 @@
 export const PROGRESSBAR_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-progressbar {
   position: relative;
   overflow: hidden;

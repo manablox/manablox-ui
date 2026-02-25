@@ -47,7 +47,7 @@ export class MbPanelMenu extends MbBaseComponent {
   protected _render(): string {
     const panels = this.#visibleItems(this.model ?? []);
     return `
-      <div class="mb-panelmenu mb-component" role="tree">
+      <div class="mb-panelmenu mb-component" part="root" role="tree">
         ${panels.map((item, index) => this.#renderPanel(item, index)).join('')}
       </div>
     `;
@@ -58,18 +58,18 @@ export class MbPanelMenu extends MbBaseComponent {
     const open = this.#expandedPanels.has(key) || item.expanded;
     const panelClass = `mb-panelmenu-panel${open ? ' mb-open' : ''}`;
     return `
-      <section class="${panelClass}" data-panel-key="${this._escape(key)}">
-        <h3 class="mb-panelmenu-header">
-          <button type="button" class="mb-panelmenu-header-content" data-panel-toggle="${this._escape(key)}" aria-expanded="${open ? 'true' : 'false'}">
-            <span class="mb-panelmenu-header-action">
-              <span class="mb-panelmenu-header-icon" aria-hidden="true">▸</span>
-              ${item.icon ? `<span class="mb-menuitem-icon ${this._escape(item.icon)}" aria-hidden="true"></span>` : ''}
-              <span class="mb-panelmenu-header-label">${this._escape(item.label)}</span>
+      <section class="${panelClass}" part="panel" data-panel-key="${this._escape(key)}">
+        <h3 class="mb-panelmenu-header" part="panel-header">
+          <button type="button" class="mb-panelmenu-header-content" part="panel-toggle" data-panel-toggle="${this._escape(key)}" aria-expanded="${open ? 'true' : 'false'}">
+            <span class="mb-panelmenu-header-action" part="panel-header-action">
+              <span class="mb-panelmenu-header-icon" part="panel-header-icon" aria-hidden="true">▸</span>
+              ${item.icon ? `<span class="mb-menuitem-icon ${this._escape(item.icon)}" part="item-icon" aria-hidden="true"></span>` : ''}
+              <span class="mb-panelmenu-header-label" part="panel-header-label">${this._escape(item.label)}</span>
             </span>
           </button>
         </h3>
-        <div class="mb-panelmenu-content" role="region">
-          <ul class="mb-panelmenu-root-list" role="group">
+        <div class="mb-panelmenu-content" part="panel-content" role="region">
+          <ul class="mb-panelmenu-root-list" part="list" role="group">
             ${this.#visibleItems(item.items ?? []).map((child, childIndex) => this.#renderItem(child, `${key}-${childIndex}`)).join('')}
           </ul>
         </div>
@@ -82,13 +82,13 @@ export class MbPanelMenu extends MbBaseComponent {
     const hasChildren = children.length > 0;
     const open = this.#expandedItems.has(key);
     return `
-      <li class="mb-menuitem${open ? ' mb-open' : ''}" role="treeitem" aria-expanded="${hasChildren ? String(open) : 'false'}" data-item-container="${this._escape(key)}">
-        <div class="mb-menuitem-content" tabindex="-1" data-item-key="${this._escape(key)}" aria-disabled="${item.disabled ? 'true' : 'false'}">
-          ${item.icon ? `<span class="mb-menuitem-icon ${this._escape(item.icon)}" aria-hidden="true"></span>` : ''}
-          ${item.url ? `<a href="${this._escape(item.url)}" target="${this._escape(item.target ?? '')}" class="mb-menuitem-link">${this._escape(item.label)}</a>` : `<span class="mb-menuitem-link">${this._escape(item.label)}</span>`}
-          ${hasChildren ? '<span class="mb-menuitem-submenu-icon" aria-hidden="true">▾</span>' : ''}
+      <li class="mb-menuitem${open ? ' mb-open' : ''}" part="item" role="treeitem" aria-expanded="${hasChildren ? String(open) : 'false'}" data-item-container="${this._escape(key)}">
+        <div class="mb-menuitem-content" part="item-content" tabindex="-1" data-item-key="${this._escape(key)}" aria-disabled="${item.disabled ? 'true' : 'false'}">
+          ${item.icon ? `<span class="mb-menuitem-icon ${this._escape(item.icon)}" part="item-icon" aria-hidden="true"></span>` : ''}
+          ${item.url ? `<a href="${this._escape(item.url)}" target="${this._escape(item.target ?? '')}" class="mb-menuitem-link" part="item-link">${this._escape(item.label)}</a>` : `<span class="mb-menuitem-link" part="item-link">${this._escape(item.label)}</span>`}
+          ${hasChildren ? '<span class="mb-menuitem-submenu-icon" part="submenu-icon" aria-hidden="true">▾</span>' : ''}
         </div>
-        ${hasChildren ? `<ul class="mb-menuitem-sublist" role="group">${children.map((child, childIndex) => this.#renderItem(child, `${key}-${childIndex}`)).join('')}</ul>` : ''}
+        ${hasChildren ? `<ul class="mb-menuitem-sublist" part="sublist" role="group">${children.map((child, childIndex) => this.#renderItem(child, `${key}-${childIndex}`)).join('')}</ul>` : ''}
       </li>
     `;
   }
@@ -145,7 +145,7 @@ export class MbPanelMenu extends MbBaseComponent {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    const focusables = Array.from(this.querySelectorAll<HTMLElement>('[data-panel-toggle], [data-item-key]'));
+    const focusables = Array.from(this._qsa<HTMLElement>('[data-panel-toggle], [data-item-key]'));
     if (!focusables.length) return;
     const active = document.activeElement as HTMLElement | null;
     let index = focusables.findIndex(el => el === active || el.contains(active));

@@ -26,9 +26,9 @@ export class MbProgressSpinner extends MbBaseComponent {
     const aria = this.ariaLabel ? `aria-label="${this._escape(this.ariaLabel)}"` : '';
 
     return this._html`
-      <div class="mb-progressspinner mb-component" role="img" ${aria}>
-        <svg class="mb-progressspinner-svg" viewBox="25 25 50 50" style="--mb-progressspinner-animation-duration:${duration}">
-          <circle class="mb-progressspinner-circle" cx="50" cy="50" r="20" fill="${fill}" stroke-width="${stroke}"></circle>
+      <div class="mb-progressspinner mb-component" part="root" role="img" ${aria}>
+        <svg class="mb-progressspinner-svg" part="svg" viewBox="25 25 50 50" style="--mb-progressspinner-animation-duration:${duration}">
+          <circle class="mb-progressspinner-circle" part="circle" cx="50" cy="50" r="20" fill="${fill}" stroke-width="${stroke}"></circle>
         </svg>
       </div>
     `;

@@ -11,10 +11,10 @@ export class MbToolbar extends MbBaseComponent {
 
   protected _render(): string {
     return this._html`
-      <div class="mb-toolbar mb-component" role="toolbar">
-        <div class="mb-toolbar-start"><slot name="start"></slot></div>
-        <div class="mb-toolbar-center"><slot name="center"></slot></div>
-        <div class="mb-toolbar-end"><slot name="end"></slot></div>
+      <div part="root" class="mb-toolbar mb-component" role="toolbar">
+        <div part="start" class="mb-toolbar-start"><slot name="start"></slot></div>
+        <div part="center" class="mb-toolbar-center"><slot name="center"></slot></div>
+        <div part="end" class="mb-toolbar-end"><slot name="end"></slot></div>
       </div>
     `;
   }

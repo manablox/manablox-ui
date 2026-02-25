@@ -1,4 +1,8 @@
 export const TIMELINE_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-timeline {
 	display: flex;
 	flex-direction: column;

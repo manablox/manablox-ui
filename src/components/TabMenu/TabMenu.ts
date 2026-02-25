@@ -49,8 +49,8 @@ export class MbTabMenu extends MbBaseComponent {
     const ariaLabelledby = this.ariaLabelledby ? ` aria-labelledby="${this._escape(this.ariaLabelledby)}"` : '';
 
     return this._html`
-      <nav class="mb-tabmenu mb-component" role="menubar"${ariaLabel}${ariaLabelledby}>
-        <ul class="mb-tabmenu-nav" role="none">
+      <nav class="mb-tabmenu mb-component" part="root" role="menubar"${ariaLabel}${ariaLabelledby}>
+        <ul class="mb-tabmenu-nav" part="list" role="none">
           ${items.map((item, index) => this.#renderItem(item, index, activeIndex)).join('')}
         </ul>
       </nav>
@@ -85,19 +85,19 @@ export class MbTabMenu extends MbBaseComponent {
       disabled ? 'mb-disabled' : '',
     ].filter(Boolean).join(' ');
     const tabindex = index === this.#focusedIndex ? '0' : '-1';
-    const icon = item.icon ? `<span class="mb-tabmenu-item-icon ${this._escape(item.icon)}" aria-hidden="true"></span>` : '';
+    const icon = item.icon ? `<span class="mb-tabmenu-item-icon ${this._escape(item.icon)}" part="tab-icon" aria-hidden="true"></span>` : '';
 
     return `
-      <li class="${classes}" role="none">
+      <li class="${classes}" part="tab" role="none">
         ${item.url && !disabled
-          ? `<a class="mb-tabmenu-item-link" role="menuitem" href="${this._escape(item.url)}" data-index="${index}" tabindex="${tabindex}" aria-current="${active ? 'page' : 'false'}" aria-disabled="${disabled ? 'true' : 'false'}">${icon}<span class="mb-tabmenu-item-label">${this._escape(item.label)}</span></a>`
-          : `<button type="button" class="mb-tabmenu-item-link" role="menuitem" data-index="${index}" tabindex="${tabindex}" aria-current="${active ? 'page' : 'false'}" aria-disabled="${disabled ? 'true' : 'false'}">${icon}<span class="mb-tabmenu-item-label">${this._escape(item.label)}</span></button>`}
+          ? `<a class="mb-tabmenu-item-link" part="tab-link" role="menuitem" href="${this._escape(item.url)}" data-index="${index}" tabindex="${tabindex}" aria-current="${active ? 'page' : 'false'}" aria-disabled="${disabled ? 'true' : 'false'}">${icon}<span class="mb-tabmenu-item-label" part="tab-label">${this._escape(item.label)}</span></a>`
+          : `<button type="button" class="mb-tabmenu-item-link" part="tab-link" role="menuitem" data-index="${index}" tabindex="${tabindex}" aria-current="${active ? 'page' : 'false'}" aria-disabled="${disabled ? 'true' : 'false'}">${icon}<span class="mb-tabmenu-item-label" part="tab-label">${this._escape(item.label)}</span></button>`}
       </li>
     `;
   }
 
   #syncFocusable(): void {
-    const items = Array.from(this.querySelectorAll<HTMLElement>('.mb-tabmenu-item-link[role="menuitem"]'));
+    const items = Array.from(this._qsa<HTMLElement>('.mb-tabmenu-item-link[role="menuitem"]'));
     if (items.length === 0) return;
 
     if (this.#focusedIndex < 0 || this.#focusedIndex >= items.length) {
@@ -133,7 +133,7 @@ export class MbTabMenu extends MbBaseComponent {
   }
 
   #handleKeyDown(event: KeyboardEvent): void {
-    const items = Array.from(this.querySelectorAll<HTMLElement>('.mb-tabmenu-item-link[role="menuitem"]'));
+    const items = Array.from(this._qsa<HTMLElement>('.mb-tabmenu-item-link[role="menuitem"]'));
     if (items.length === 0) return;
 
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {

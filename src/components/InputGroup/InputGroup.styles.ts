@@ -1,10 +1,14 @@
 export const INPUTGROUP_STYLES = `
+:host{
+	display:inline-flex;
+	width:auto;
+}
 .mb-inputgroup{
 	display:flex;
 	align-items:center;
 	gap: 0.5rem;
 }
-.mb-inputgroup > .mb-inputgroup-addon{
+::slotted(.mb-inputgroup-addon){
 	display:inline-flex;
 	align-items:center;
 	padding: 0.5rem 0.75rem;
@@ -13,7 +17,10 @@ export const INPUTGROUP_STYLES = `
 	color: var(--mb-inputgroup-addon-color, inherit);
 	border-radius: var(--mb-inputgroup-addon-radius, 4px);
 }
-.mb-inputgroup > *:not(.mb-inputgroup-addon){
+::slotted(*){
 	flex:1 1 auto;
+}
+::slotted(.mb-inputgroup-addon){
+	flex: 0 0 auto;
 }
 `;

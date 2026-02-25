@@ -1,4 +1,8 @@
 export const DATAVIEW_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-dataview {
 	display: flex;
 	flex-direction: column;

@@ -82,7 +82,8 @@ export class MbInputText extends MbBaseComponent {
 
 		const value = this._escape(this.value ?? '');
 
-		return this._html`<div class="${classes}"><input
+		return this._html`<div part="root" class="${classes}"><input
+			part="input"
 			${id ? `id="${id}"` : ''}
 			${name ? `name="${name}"` : ''}
 			type="${type}"

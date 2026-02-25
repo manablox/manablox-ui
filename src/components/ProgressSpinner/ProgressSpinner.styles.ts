@@ -1,4 +1,8 @@
 export const PROGRESSSPINNER_STYLES = `
+:host {
+  display: inline-block;
+}
+
 .mb-progressspinner {
   position: relative;
   margin: 0 auto;

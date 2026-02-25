@@ -7,7 +7,7 @@ export class MbAvatarGroup extends MbBaseComponent {
 
   protected _render(): string {
     return this._html`
-      <div class="mb-avatargroup mb-component"><slot></slot></div>
+      <div part="root" class="mb-avatargroup mb-component"><slot part="items"></slot></div>
     `;
   }
 }

@@ -55,7 +55,7 @@ export class MbTextarea extends MbBaseComponent {
 
 		const value = this._escape(this.value ?? '');
 
-		return this._html`<div class="mb-textarea ${invalid} ${fluid}"><textarea ${rows ? `rows="${rows}"` : ''} ${cols ? `cols="${cols}"` : ''} ${disabled ? 'disabled' : ''} ${readonly ? 'readonly' : ''} placeholder="${placeholder}">${value}</textarea></div>`;
+		return this._html`<div part="root" class="mb-textarea ${invalid} ${fluid}"><textarea part="textarea" ${rows ? `rows="${rows}"` : ''} ${cols ? `cols="${cols}"` : ''} ${disabled ? 'disabled' : ''} ${readonly ? 'readonly' : ''} placeholder="${placeholder}">${value}</textarea></div>`;
 	}
 
 	protected _afterRender(): void {

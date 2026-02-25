@@ -21,9 +21,9 @@ export class MbInlineMessage extends MbBaseComponent {
     const iconClass = this.icon ? this._escape(this.icon) : '';
 
     return this._html`
-      <span class="mb-inlinemessage mb-component ${severityClass}">
-        <span class="mb-inlinemessage-icon ${iconClass}"></span>
-        <slot></slot>
+      <span part="root" class="mb-inlinemessage mb-component ${severityClass}">
+        <span part="icon" class="mb-inlinemessage-icon ${iconClass}"></span>
+        <slot part="content"></slot>
       </span>`;
   }
 }

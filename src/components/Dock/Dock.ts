@@ -57,8 +57,8 @@ export class MbDock extends MbBaseComponent {
     const pos = this.#normalizePosition(this.position);
 
     return `
-      <nav class="mb-dock mb-component mb-dock-${pos}" role="menu" aria-orientation="${pos === 'left' || pos === 'right' ? 'vertical' : 'horizontal'}">
-        <ul class="mb-dock-list" role="none">
+      <nav part="root" class="mb-dock mb-component mb-dock-${pos}" role="menu" aria-orientation="${pos === 'left' || pos === 'right' ? 'vertical' : 'horizontal'}">
+        <ul part="list" class="mb-dock-list" role="none">
           ${items.map((item, index) => this.#renderItem(item, index)).join('')}
         </ul>
       </nav>
@@ -73,11 +73,11 @@ export class MbDock extends MbBaseComponent {
     const focused = index === this.#focusedIndex;
     const tooltipEvent = this.tooltipOptions?.event ?? 'hover';
     return `
-      <li class="mb-dock-item" role="none" data-dock-index="${index}">
-        <div class="mb-dock-item-content${focused ? ' mb-focus' : ''}" role="menuitem" tabindex="${focused ? '0' : '-1'}" aria-label="${this._escape(item.label)}" aria-disabled="${item.disabled ? 'true' : 'false'}" data-item-index="${index}">
-          ${item.icon ? `<span class="mb-dock-item-icon ${this._escape(item.icon)}" aria-hidden="true"></span>` : '<span class="mb-dock-item-icon" aria-hidden="true">●</span>'}
+      <li part="item" class="mb-dock-item" role="none" data-dock-index="${index}">
+        <div part="item-content" class="mb-dock-item-content${focused ? ' mb-focus' : ''}" role="menuitem" tabindex="${focused ? '0' : '-1'}" aria-label="${this._escape(item.label)}" aria-disabled="${item.disabled ? 'true' : 'false'}" data-item-index="${index}">
+          ${item.icon ? `<span part="icon" class="mb-dock-item-icon ${this._escape(item.icon)}" aria-hidden="true"></span>` : '<span part="icon" class="mb-dock-item-icon" aria-hidden="true">●</span>'}
         </div>
-        <span class="mb-dock-item-tooltip" data-tooltip-event="${tooltipEvent}">${this._escape(item.label)}</span>
+        <span part="tooltip" class="mb-dock-item-tooltip" data-tooltip-event="${tooltipEvent}">${this._escape(item.label)}</span>
       </li>
     `;
   }
@@ -129,7 +129,7 @@ export class MbDock extends MbBaseComponent {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    const items = Array.from(this.querySelectorAll<HTMLElement>('[data-item-index]'));
+    const items = Array.from(this._qsa<HTMLElement>('[data-item-index]'));
     if (!items.length) return;
 
     const horizontal = this.position === 'bottom' || this.position === 'top';
@@ -165,7 +165,7 @@ export class MbDock extends MbBaseComponent {
   }
 
   #syncFocusable(): void {
-    const items = Array.from(this.querySelectorAll<HTMLElement>('[data-item-index]'));
+    const items = Array.from(this._qsa<HTMLElement>('[data-item-index]'));
     if (!items.length) {
       this.#focusedIndex = 0;
       return;
@@ -182,7 +182,7 @@ export class MbDock extends MbBaseComponent {
   }
 
   #resetMagnification(): void {
-    this.querySelectorAll<HTMLElement>('.mb-dock-item-content').forEach(item => {
+    this._qsa<HTMLElement>('.mb-dock-item-content').forEach(item => {
       item.style.setProperty('--mb-dock-item-scale', '1');
     });
   }

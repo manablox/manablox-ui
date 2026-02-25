@@ -1,4 +1,8 @@
 export const INPUTTEXT_STYLES = `
+:host{
+	display:inline-block;
+}
+
 :root{
 	--mb-inputtext-border: var(--mb-form-field-border, 1px solid #ccc);
 	--mb-inputtext-bg: var(--mb-form-field-bg, #fff);

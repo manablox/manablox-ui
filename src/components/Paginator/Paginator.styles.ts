@@ -1,4 +1,8 @@
 export const PAGINATOR_STYLES = `
+:host {
+  display: block;
+}
+
 .mb-paginator {
   display: flex;
   align-items: center;

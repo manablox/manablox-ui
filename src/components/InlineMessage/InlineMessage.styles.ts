@@ -1,4 +1,8 @@
 export const INLINEMESSAGE_STYLES = `
+:host{
+  display:inline-block;
+}
+
 :root{
   --mb-inlinemessage-font-size: .8125rem;
   --mb-inlinemessage-gap: .5rem;

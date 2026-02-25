@@ -41,22 +41,22 @@ export class MbMeterGroup extends MbBaseComponent {
     const metersHtml = items
       .map(
         it => `
-        <div class="mb-metergroup-meter" style="${orientation==='horizontal'?`flex:${sum>0?String(it.value/sum):'0 0 0'}`:''}">
-          <div class="mb-metergroup-meter-inner" style="background:${this._escape(it.color ?? 'var(--mb-metergroup-meter-bg,#1976d2)')};width:100%;height:100%"></div>
+        <div part="meter" class="mb-metergroup-meter" style="${orientation==='horizontal'?`flex:${sum>0?String(it.value/sum):'0 0 0'}`:''}">
+          <div part="meter-fill" class="mb-metergroup-meter-inner" style="background:${this._escape(it.color ?? 'var(--mb-metergroup-meter-bg,#1976d2)')};width:100%;height:100%"></div>
         </div>`
       )
       .join('');
 
     const labelsHtml = items
       .map(it => `
-        <div class="mb-metergroup-label"><span class="mb-metergroup-color" style="background:${this._escape(it.color ?? '#ccc')}"></span><span>${this._escape(it.label)}</span></div>`)
+        <div part="label" class="mb-metergroup-label"><span part="label-color" class="mb-metergroup-color" style="background:${this._escape(it.color ?? '#ccc')}"></span><span part="label-text">${this._escape(it.label)}</span></div>`)
       .join('');
 
     return this._html`
-      <div class="mb-metergroup">
-        ${labelPos === 'start' ? `<div class="mb-metergroup-labels">${labelsHtml}</div>` : ''}
-        <div class="mb-metergroup-meters" style="flex-direction:${orientation==='vertical'?'column':'row'}">${metersHtml}</div>
-        ${labelPos === 'end' ? `<div class="mb-metergroup-labels">${labelsHtml}</div>` : ''}
+      <div part="root" class="mb-metergroup">
+        ${labelPos === 'start' ? `<div part="labels" class="mb-metergroup-labels">${labelsHtml}</div>` : ''}
+        <div part="meters" class="mb-metergroup-meters" style="flex-direction:${orientation==='vertical'?'column':'row'}">${metersHtml}</div>
+        ${labelPos === 'end' ? `<div part="labels" class="mb-metergroup-labels">${labelsHtml}</div>` : ''}
       </div>`;
   }
 }

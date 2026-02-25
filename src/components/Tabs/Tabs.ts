@@ -6,11 +6,14 @@ type TabItem = {
   value: string;
   label: string;
   disabled: boolean;
-  content: string;
+  panel: MbTabPanel | null;
 };
+
+const HIDDEN_CONFIG_STYLES = ':host { display: none; }';
 
 export class MbTabPanel extends MbBaseComponent {
   static readonly _componentName = 'mb-tabpanel';
+  static readonly _componentStyles = HIDDEN_CONFIG_STYLES;
 
   protected static get attributeConverters(): Map<string, AttributeConverter> {
     return new Map([
@@ -25,7 +28,7 @@ export class MbTabPanel extends MbBaseComponent {
   }
 
   protected _render(): string {
-    return this.innerHTML;
+    return '';
   }
 }
 
@@ -97,6 +100,7 @@ export class MbTabs extends MbBaseComponent {
         const tabId = this.#tabId(index);
         const panelId = this.#panelId(index);
         const shouldRender = !this.lazy || isActive;
+        const content = shouldRender ? (item.panel?.innerHTML ?? '') : '';
 
         return `
           <div
@@ -107,7 +111,7 @@ export class MbTabs extends MbBaseComponent {
             ${isActive ? '' : 'hidden'}
             tabindex="0"
           >
-            ${shouldRender ? item.content : ''}
+            ${content}
           </div>
         `;
       })
@@ -176,7 +180,7 @@ export class MbTabs extends MbBaseComponent {
         value: String(tab.value ?? index),
         label: String(tab.label ?? `Tab ${index + 1}`),
         disabled: Boolean(tab.disabled),
-        content: '',
+        panel: null,
       }));
       this.#seededFromChildren = false;
       return;
@@ -184,15 +188,14 @@ export class MbTabs extends MbBaseComponent {
 
     if (this.#seededFromChildren) return;
 
-    const childPanels = Array.from(this.querySelectorAll<MbTabPanel>('mb-tabpanel'));
+    const childPanels = Array.from(this._qsaLight<MbTabPanel>('mb-tabpanel'));
     if (!childPanels.length) return;
 
     this.#items = childPanels.map((panel, index) => {
       const value = panel.getAttribute('value') ?? String(index);
       const header = panel.getAttribute('header') ?? `Tab ${index + 1}`;
       const disabled = panel.hasAttribute('disabled');
-      const content = panel.innerHTML;
-      return { value, label: header, disabled, content };
+      return { value, label: header, disabled, panel };
     });
 
     this.#seededFromChildren = true;

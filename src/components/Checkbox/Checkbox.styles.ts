@@ -1,6 +1,8 @@
 export const CHECKBOX_STYLES = `
 :host{display:inline-block}
 .mb-checkbox{--size:var(--mb-checkbox-size,1rem);display:inline-flex;align-items:center;cursor:pointer;user-select:none}
+.mb-checkbox-label{display:inline-flex;align-items:center;margin-inline-start:var(--mb-checkbox-label-gap,0.5rem)}
+.mb-checkbox-label:empty{display:none}
 .mb-checkbox.disabled{cursor:not-allowed;opacity:var(--mb-checkbox-disabled-opacity,0.6)}
 .mb-checkbox-box{width:var(--size);height:var(--size);border-radius:var(--mb-checkbox-border-radius,4px);display:inline-flex;align-items:center;justify-content:center;border:var(--mb-checkbox-border-width,2px) solid var(--mb-checkbox-border-color,rgba(0,0,0,0.54));background:var(--mb-checkbox-bg,transparent);transition:background .12s,border-color .12s,box-shadow .12s}
 .mb-checkbox:hover .mb-checkbox-box{border-color:var(--mb-checkbox-border-hover-color,rgba(0,0,0,0.7))}

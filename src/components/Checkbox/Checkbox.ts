@@ -57,9 +57,10 @@ export class MbCheckbox extends MbBaseComponent {
     const inputId = this._escape(this.inputId || `${this.id || ''}`);
 
     return this._html`
-      <div class="mb-checkbox${disabledCls}${invalidCls}${checkedCls}${variantCls}${sizeCls}" role="checkbox" aria-checked="${checked ? 'true' : this.indeterminate ? 'mixed' : 'false'}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.tabindex ?? '0'}">
-        <input type="checkbox" ${checked ? 'checked' : ''} ${this.disabled ? 'disabled' : ''} ${inputId ? `id="${inputId}"` : ''} ${this.name ? `name="${this._escape(this.name)}"` : ''} />
-        <div class="mb-checkbox-box" tabindex="-1"><span class="mb-checkbox-icon">✓</span></div>
+      <div part="root" class="mb-checkbox${disabledCls}${invalidCls}${checkedCls}${variantCls}${sizeCls}" role="checkbox" aria-checked="${checked ? 'true' : this.indeterminate ? 'mixed' : 'false'}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.tabindex ?? '0'}">
+        <input part="native-input" type="checkbox" ${checked ? 'checked' : ''} ${this.disabled ? 'disabled' : ''} ${inputId ? `id="${inputId}"` : ''} ${this.name ? `name="${this._escape(this.name)}"` : ''} />
+        <div part="box" class="mb-checkbox-box" tabindex="-1"><span part="icon" class="mb-checkbox-icon">✓</span></div>
+        <span part="label" class="mb-checkbox-label"><slot name="label"></slot><slot></slot></span>
       </div>
     `;
   }

@@ -46,30 +46,6 @@ export class MbSelectButton extends MbBaseComponent {
 
 	connectedCallback(): void {
 		super.connectedCallback();
-
-		const onClick = (e: MouseEvent) => this.#handleClick(e);
-		const onKeyDown = (e: KeyboardEvent) => this.#handleKeyDown(e);
-		const onFocusIn = (e: FocusEvent) => {
-			if ((e.target as HTMLElement | null)?.closest('.mb-togglebutton')) {
-				this.emit('mb-focus');
-			}
-		};
-		const onFocusOut = (e: FocusEvent) => {
-			const related = e.relatedTarget as Node | null;
-			if (!related || !this.contains(related)) {
-				this.emit('mb-blur');
-			}
-		};
-
-		this.addEventListener('click', onClick);
-		this.addEventListener('keydown', onKeyDown);
-		this.addEventListener('focusin', onFocusIn);
-		this.addEventListener('focusout', onFocusOut);
-
-		this._addCleanup(() => this.removeEventListener('click', onClick));
-		this._addCleanup(() => this.removeEventListener('keydown', onKeyDown));
-		this._addCleanup(() => this.removeEventListener('focusin', onFocusIn));
-		this._addCleanup(() => this.removeEventListener('focusout', onFocusOut));
 	}
 
 	protected _render(): string {
@@ -83,10 +59,39 @@ export class MbSelectButton extends MbBaseComponent {
 		].filter(Boolean).join(' ');
 
 		return this._html`
-			<div class="${classes}" role="${groupRole}" aria-disabled="${this.disabled ? 'true' : 'false'}">
+			<div part="root" class="${classes}" role="${groupRole}" aria-disabled="${this.disabled ? 'true' : 'false'}">
 				${options.map((option, index) => this.#renderOption(option, index)).join('')}
 			</div>
 		`;
+	}
+
+	protected _afterRender(): void {
+		const root = this._qs<HTMLElement>('.mb-selectbutton');
+		if (!root) return;
+
+		const onClick = (e: MouseEvent) => this.#handleClick(e);
+		const onKeyDown = (e: KeyboardEvent) => this.#handleKeyDown(e);
+		const onFocusIn = (e: FocusEvent) => {
+			if ((e.target as HTMLElement | null)?.closest('.mb-togglebutton')) {
+				this.emit('mb-focus');
+			}
+		};
+		const onFocusOut = (e: FocusEvent) => {
+			const related = e.relatedTarget as Node | null;
+			if (!related || !root.contains(related)) {
+				this.emit('mb-blur');
+			}
+		};
+
+		root.addEventListener('click', onClick);
+		root.addEventListener('keydown', onKeyDown);
+		root.addEventListener('focusin', onFocusIn);
+		root.addEventListener('focusout', onFocusOut);
+
+		this._addCleanup(() => root.removeEventListener('click', onClick));
+		this._addCleanup(() => root.removeEventListener('keydown', onKeyDown));
+		this._addCleanup(() => root.removeEventListener('focusin', onFocusIn));
+		this._addCleanup(() => root.removeEventListener('focusout', onFocusOut));
 	}
 
 	#renderOption(option: NormalizedOption, index: number): string {
@@ -97,6 +102,7 @@ export class MbSelectButton extends MbBaseComponent {
 		return `
 			<button
 				type="button"
+				part="button"
 				class="mb-togglebutton${selected ? ' mb-selected' : ''}"
 				data-index="${index}"
 				role="${role}"
@@ -104,8 +110,8 @@ export class MbSelectButton extends MbBaseComponent {
 				aria-disabled="${disabled ? 'true' : 'false'}"
 				tabindex="${disabled ? '-1' : '0'}"
 			>
-				<span class="mb-togglebutton-content">
-					<span class="mb-togglebutton-label">${this._escape(option.label)}</span>
+				<span part="button-content" class="mb-togglebutton-content">
+					<span part="button-label" class="mb-togglebutton-label">${this._escape(option.label)}</span>
 				</span>
 			</button>
 		`;

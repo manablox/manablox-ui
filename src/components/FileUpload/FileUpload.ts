@@ -142,7 +142,8 @@ export class MbFileUpload extends MbBaseComponent {
 		}
 
 		const pendingCount = this.#files.filter(file => file.status === 'pending').length;
-		const listContent = this.#files.length ? this.#renderFiles() : `<div class="mb-fileupload-empty">Drag and drop files here.</div>`;
+		const listContent = this.#renderFiles();
+		const hasFiles = this.#files.length > 0;
 		return this._html`
 			<div class="mb-fileupload">
 				<div class="${wrapperClass}">
@@ -153,7 +154,9 @@ export class MbFileUpload extends MbBaseComponent {
 						<button type="button" class="mb-fileupload-btn" data-action="cancel" ${disabled || this.#files.length === 0 ? 'disabled' : ''}>${this.#renderIcon(this.cancelIcon)}${this._escape(this.cancelLabel)}</button>
 					</div>
 					<div class="mb-fileupload-content ${this.#dragOver ? 'mb-fileupload-highlight' : ''}" data-drop-zone>
-						<div class="mb-fileupload-files">${listContent}</div>
+						${hasFiles
+							? `<slot name="content"><div class="mb-fileupload-files">${listContent}</div></slot>`
+							: `<slot name="empty"><div class="mb-fileupload-empty">Drag and drop files here.</div></slot>`}
 					</div>
 				</div>
 			</div>
@@ -161,8 +164,9 @@ export class MbFileUpload extends MbBaseComponent {
 	}
 
 	protected _afterRender(): void {
-		const input = this.querySelector<HTMLInputElement>('input.mb-fileupload-input');
-		if (!input) return;
+		const root = this._qs<HTMLElement>('.mb-fileupload');
+		const input = this._qs<HTMLInputElement>('input.mb-fileupload-input');
+		if (!root || !input) return;
 
 		const onButtonClick = (event: Event) => {
 			const target = event.target as HTMLElement;
@@ -213,19 +217,19 @@ export class MbFileUpload extends MbBaseComponent {
 			this.#addFiles(dropped);
 		};
 
-		this.addEventListener('click', onButtonClick);
-		this.addEventListener('click', onRemoveClick);
+		root.addEventListener('click', onButtonClick);
+		root.addEventListener('click', onRemoveClick);
 		input.addEventListener('change', onInputChange);
 
-		const dropZone = this.querySelector<HTMLElement>('[data-drop-zone]');
+		const dropZone = this._qs<HTMLElement>('[data-drop-zone]');
 		if (dropZone) {
 			dropZone.addEventListener('dragover', onDragOver);
 			dropZone.addEventListener('dragleave', onDragLeave);
 			dropZone.addEventListener('drop', onDrop);
 		}
 
-		this._addCleanup(() => this.removeEventListener('click', onButtonClick));
-		this._addCleanup(() => this.removeEventListener('click', onRemoveClick));
+		this._addCleanup(() => root.removeEventListener('click', onButtonClick));
+		this._addCleanup(() => root.removeEventListener('click', onRemoveClick));
 		this._addCleanup(() => input.removeEventListener('change', onInputChange));
 		if (dropZone) {
 			this._addCleanup(() => dropZone.removeEventListener('dragover', onDragOver));

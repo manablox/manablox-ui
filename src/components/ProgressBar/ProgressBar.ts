@@ -24,9 +24,9 @@ export class MbProgressBar extends MbBaseComponent {
     const indClass = this.mode === 'indeterminate' || this.value == null ? ' mb-progressbar-indeterminate' : '';
 
     return this._html`
-      <div class="mb-progressbar${indClass} mb-component" role="progressbar" aria-valuemin="0" aria-valuemax="100" ${ariaNow ? `aria-valuenow="${ariaNow}"` : ''}>
-        <div class="mb-progressbar-value" style="width:${this._escape(valueWidth)}">
-          ${this.showValue && determinate ? `<span class="mb-progressbar-label">${this._escape(this.value)}%</span>` : ''}
+      <div class="mb-progressbar${indClass} mb-component" part="root" role="progressbar" aria-valuemin="0" aria-valuemax="100" ${ariaNow ? `aria-valuenow="${ariaNow}"` : ''}>
+        <div class="mb-progressbar-value" part="value" style="width:${this._escape(valueWidth)}">
+          ${this.showValue && determinate ? `<span class="mb-progressbar-label" part="label">${this._escape(this.value)}%</span>` : ''}
         </div>
       </div>
     `;

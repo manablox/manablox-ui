@@ -260,16 +260,17 @@ export class MbDataTable extends MbBaseComponent {
 		const totalRecords = this.lazy ? this.totalRecords : allRows.length;
 
 		return this._html`
-			<div class="${classes}">
+			<div class="${classes}" part="root">
+				<slot part="templates" hidden></slot>
 				${this.#renderHeader()}
 				${this.#renderPaginator(totalRecords)}
-				<div class="mb-datatable-table-container" style="${this.scrollable ? `--mb-datatable-scroll-height:${this._escape(this.scrollHeightValue)};max-height:${this._escape(this.scrollHeightValue)};` : ''}">
-					<table class="mb-datatable-table">
-						<thead class="mb-datatable-thead">${this.#renderHeaderRow(columns)}${this.#renderFilterRow(columns)}</thead>
-						<tbody class="mb-datatable-tbody">${this.#renderBody(pageRows, columns)}</tbody>
-						<tfoot class="mb-datatable-tfoot"></tfoot>
+				<div class="mb-datatable-table-container" part="container" style="${this.scrollable ? `--mb-datatable-scroll-height:${this._escape(this.scrollHeightValue)};max-height:${this._escape(this.scrollHeightValue)};` : ''}">
+					<table class="mb-datatable-table" part="table">
+						<thead class="mb-datatable-thead" part="header">${this.#renderHeaderRow(columns)}${this.#renderFilterRow(columns)}</thead>
+						<tbody class="mb-datatable-tbody" part="body">${this.#renderBody(pageRows, columns)}</tbody>
+						<tfoot class="mb-datatable-tfoot" part="footer-row"></tfoot>
 					</table>
-					${this.loading ? '<div class="mb-datatable-loading-overlay">Loading...</div>' : ''}
+					${this.loading ? '<div class="mb-datatable-loading-overlay" part="loading">Loading...</div>' : ''}
 				</div>
 				${this.#renderBottomPaginator(totalRecords)}
 				${this.#renderFooter()}
@@ -290,26 +291,26 @@ export class MbDataTable extends MbBaseComponent {
 	#renderHeader(): string {
 		const markup = this.#templateBySlot.get('header');
 		if (!markup) return '';
-		return `<div class="mb-datatable-header">${markup}</div>`;
+		return `<div class="mb-datatable-header" part="header-section">${markup}</div>`;
 	}
 
 	#renderFooter(): string {
 		const markup = this.#templateBySlot.get('footer');
 		if (!markup) return '';
-		return `<div class="mb-datatable-footer">${markup}</div>`;
+		return `<div class="mb-datatable-footer" part="footer-section">${markup}</div>`;
 	}
 
 	#renderPaginator(totalRecords: number): string {
 		if (!this.paginator) return '';
 		if (this._str('paginator-position', 'bottom') === 'bottom') return '';
-		return `<mb-paginator first="${this.first}" rows="${this.rows || totalRecords || 1}" total-records="${totalRecords}"></mb-paginator>`;
+		return `<mb-paginator part="paginator" first="${this.first}" rows="${this.rows || totalRecords || 1}" total-records="${totalRecords}"></mb-paginator>`;
 	}
 
 	#renderBottomPaginator(totalRecords: number): string {
 		if (!this.paginator) return '';
 		const position = this._str('paginator-position', 'bottom');
 		if (position === 'top') return '';
-		return `<mb-paginator first="${this.first}" rows="${this.rows || totalRecords || 1}" total-records="${totalRecords}"></mb-paginator>`;
+		return `<mb-paginator part="paginator" first="${this.first}" rows="${this.rows || totalRecords || 1}" total-records="${totalRecords}"></mb-paginator>`;
 	}
 
 	#renderHeaderRow(columns: ColumnDef[]): string {
@@ -323,38 +324,39 @@ export class MbDataTable extends MbBaseComponent {
 				return this._html`
 					<th
 						class="mb-datatable-column-header ${sortable ? 'mb-datatable-column-header-sortable' : ''} ${sorted ? 'mb-datatable-column-header-sorted' : ''}"
+						part="column-header"
 						data-field="${this._escape(column.field)}"
 						data-index="${index}"
 						style="${this._escape(headerStyle)}"
 					>
-						<span class="mb-datatable-column-header-content">
+						<span class="mb-datatable-column-header-content" part="column-header-content">
 							${this._escape(column.header ?? column.field)}
-							${sortable ? `<span class="mb-datatable-sort-icon">${sortIcon}</span>` : ''}
+							${sortable ? `<span class="mb-datatable-sort-icon" part="sort-icon">${sortIcon}</span>` : ''}
 						</span>
-						${this.#isColumnResizable(column) ? '<span class="mb-datatable-column-resizer" data-role="resizer"></span>' : ''}
+						${this.#isColumnResizable(column) ? '<span class="mb-datatable-column-resizer" part="resizer" data-role="resizer"></span>' : ''}
 					</th>
 				`;
 			})
 			.join('');
 
-		return `<tr>${cells}</tr>`;
+		return `<tr part="header-row">${cells}</tr>`;
 	}
 
 	#renderFilterRow(columns: ColumnDef[]): string {
 		if (!columns.some(column => column.filterable)) return '';
 		const cells = columns
 			.map(column => {
-				if (!column.filterable) return '<th></th>';
+				if (!column.filterable) return '<th part="filter-cell"></th>';
 				const filter = this.#filterValue(column.field);
-				return `<th><input type="text" data-filter-field="${this._escape(column.field)}" value="${this._escape(filter)}" /></th>`;
+				return `<th part="filter-cell"><input part="filter-input" type="text" data-filter-field="${this._escape(column.field)}" value="${this._escape(filter)}" /></th>`;
 			})
 			.join('');
-		return `<tr class="mb-datatable-filter-row">${cells}</tr>`;
+		return `<tr class="mb-datatable-filter-row" part="filter-row">${cells}</tr>`;
 	}
 
 	#renderBody(rows: RowData[], columns: ColumnDef[]): string {
 		if (!rows.length) {
-			return `<tr><td class="mb-datatable-empty-message" colspan="${Math.max(columns.length, 1)}">${this._escape(this.emptyMessage)}</td></tr>`;
+			return `<tr part="row"><td class="mb-datatable-empty-message" part="empty" colspan="${Math.max(columns.length, 1)}">${this._escape(this.emptyMessage)}</td></tr>`;
 		}
 
 		return rows
@@ -365,14 +367,14 @@ export class MbDataTable extends MbBaseComponent {
 					.map((column, columnIndex) => {
 						const content = this.#renderCell(column.field, row, this.first + visibleIndex);
 						const expansionToggle = this.rowExpandable && columnIndex === 0 ? this.#renderExpansionToggle(rowKey) : '';
-						return `<td class="mb-datatable-column" data-field="${this._escape(column.field)}" style="${this._escape(column.bodyStyle ?? column.style ?? '')}">${expansionToggle}${content}</td>`;
+						return `<td class="mb-datatable-column" part="cell" data-field="${this._escape(column.field)}" style="${this._escape(column.bodyStyle ?? column.style ?? '')}">${expansionToggle}${content}</td>`;
 					})
 					.join('');
 
 				const expansion = this.rowExpandable && this.#expandedKeys.has(rowKey) ? this.#renderExpansionRow(row, columns.length, this.first + visibleIndex) : '';
 
 				return `
-					<tr class="mb-datatable-row ${selectedClass}" data-row-index="${visibleIndex}" data-row-key="${this._escape(rowKey)}">${cells}</tr>
+					<tr class="mb-datatable-row ${selectedClass}" part="row" data-row-index="${visibleIndex}" data-row-key="${this._escape(rowKey)}">${cells}</tr>
 					${expansion}
 				`;
 			})
@@ -381,7 +383,7 @@ export class MbDataTable extends MbBaseComponent {
 
 	#renderExpansionToggle(rowKey: string): string {
 		const expanded = this.#expandedKeys.has(rowKey);
-		return `<button type="button" data-expand-key="${this._escape(rowKey)}" aria-label="Toggle row" style="margin-right:0.5rem">${expanded ? '▾' : '▸'}</button>`;
+		return `<button type="button" part="expander" data-expand-key="${this._escape(rowKey)}" aria-label="Toggle row" style="margin-right:0.5rem">${expanded ? '▾' : '▸'}</button>`;
 	}
 
 	#renderExpansionRow(row: RowData, colspan: number, rowIndex: number): string {
@@ -398,7 +400,7 @@ export class MbDataTable extends MbBaseComponent {
 		} else {
 			content = `<pre>${this._escape(JSON.stringify(row, null, 2))}</pre>`;
 		}
-		return `<tr class="mb-datatable-row-expansion"><td colspan="${Math.max(colspan, 1)}">${content}</td></tr>`;
+		return `<tr class="mb-datatable-row-expansion" part="expansion-row"><td part="expansion" colspan="${Math.max(colspan, 1)}">${content}</td></tr>`;
 	}
 
 	#renderCell(field: string, row: RowData, rowIndex: number): string {
@@ -495,7 +497,7 @@ export class MbDataTable extends MbBaseComponent {
 	}
 
 	#bindHeaderInteractions(): void {
-		this.querySelectorAll<HTMLElement>('th.mb-datatable-column-header[data-field]').forEach(header => {
+		this._qsa<HTMLElement>('th.mb-datatable-column-header[data-field]').forEach(header => {
 			const onClick = (event: MouseEvent) => {
 				const field = header.dataset.field;
 				if (!field) return;
@@ -509,7 +511,7 @@ export class MbDataTable extends MbBaseComponent {
 	}
 
 	#bindFilterInputs(): void {
-		this.querySelectorAll<HTMLInputElement>('input[data-filter-field]').forEach(input => {
+		this._qsa<HTMLInputElement>('input[data-filter-field]').forEach(input => {
 			const onInput = () => {
 				const field = input.dataset.filterField;
 				if (!field) return;
@@ -525,7 +527,7 @@ export class MbDataTable extends MbBaseComponent {
 	}
 
 	#bindRowInteractions(): void {
-		this.querySelectorAll<HTMLTableRowElement>('tr.mb-datatable-row[data-row-index]').forEach(row => {
+		this._qsa<HTMLTableRowElement>('tr.mb-datatable-row[data-row-index]').forEach(row => {
 			const onClick = (event: MouseEvent) => {
 				if ((event.target as HTMLElement).closest('[data-expand-key]')) return;
 				const visibleIndex = Number(row.dataset.rowIndex ?? '-1');
@@ -553,7 +555,7 @@ export class MbDataTable extends MbBaseComponent {
 	}
 
 	#bindExpansionInteractions(): void {
-		this.querySelectorAll<HTMLButtonElement>('button[data-expand-key]').forEach(button => {
+		this._qsa<HTMLButtonElement>('button[data-expand-key]').forEach(button => {
 			const onClick = () => {
 				const key = button.dataset.expandKey;
 				if (!key) return;
@@ -575,7 +577,7 @@ export class MbDataTable extends MbBaseComponent {
 	}
 
 	#bindPaginator(): void {
-		this.querySelectorAll('mb-paginator').forEach(paginator => {
+		this._qsa('mb-paginator').forEach(paginator => {
 			const onPage = (event: Event) => {
 				const custom = event as CustomEvent<{ first: number; rows: number; page: number; pageCount: number }>;
 				const detail = custom.detail;
@@ -601,7 +603,7 @@ export class MbDataTable extends MbBaseComponent {
 
 	#bindColumnResize(): void {
 		if (!this.resizableColumns && !this.columns.some(column => column.resizable)) return;
-		this.querySelectorAll<HTMLElement>('span.mb-datatable-column-resizer').forEach(resizer => {
+		this._qsa<HTMLElement>('span.mb-datatable-column-resizer').forEach(resizer => {
 			const onPointerDown = (event: PointerEvent) => {
 				event.preventDefault();
 				const th = resizer.closest<HTMLTableCellElement>('th.mb-datatable-column-header');
@@ -638,7 +640,7 @@ export class MbDataTable extends MbBaseComponent {
 	#bindColumnReorder(): void {
 		if (!this.reorderableColumns && !this.columns.some(column => column.reorderable)) return;
 
-		this.querySelectorAll<HTMLElement>('th.mb-datatable-column-header[data-index]').forEach(header => {
+		this._qsa<HTMLElement>('th.mb-datatable-column-header[data-index]').forEach(header => {
 			header.draggable = true;
 
 			const onDragStart = () => {
@@ -789,14 +791,14 @@ export class MbDataTable extends MbBaseComponent {
 	}
 
 	#cacheTemplatesAndColumns(): void {
-		const slotTemplates = Array.from(this.querySelectorAll<HTMLTemplateElement>(':scope > template[data-slot]'));
+		const slotTemplates = Array.from(this._qsaLight<HTMLTemplateElement>(':scope > template[data-slot]'));
 		slotTemplates.forEach(template => {
 			const slot = template.dataset.slot;
 			if (!slot) return;
 			this.#templateBySlot.set(slot, template.innerHTML);
 		});
 
-		const colTemplates = Array.from(this.querySelectorAll<HTMLTemplateElement>(':scope > template[data-col]'));
+		const colTemplates = Array.from(this._qsaLight<HTMLTemplateElement>(':scope > template[data-col]'));
 		colTemplates.forEach(template => {
 			const dataCol = template.dataset.col;
 			if (!dataCol) return;
@@ -804,7 +806,7 @@ export class MbDataTable extends MbBaseComponent {
 			this.#templateByColumn.set(normalized, template.innerHTML);
 		});
 
-		const nodes = Array.from(this.querySelectorAll<HTMLElement>(':scope > mb-column'));
+		const nodes = Array.from(this._qsaLight<HTMLElement>(':scope > mb-column'));
 		const childColumns: ColumnDef[] = [];
 		nodes.forEach(node => {
 				const field = node.getAttribute('field') ?? '';

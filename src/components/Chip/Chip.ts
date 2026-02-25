@@ -28,13 +28,13 @@ export class MbChip extends MbBaseComponent {
   }
 
   protected _render(): string {
-    const img = this.image ? `<img src="${this._escape(this.image)}" alt="${this._escape(this.imageAlt)}" />` : '';
-    const ic = !this.image && this.icon ? `<span class="mb-chip-icon ${this._escape(this.icon)}"></span>` : '';
-    const lbl = `<span class="mb-chip-label">${this._escape(this.label)}</span>`;
-    const removeBtn = this.removable ? `<button class="mb-chip-remove">${this._escape(this.removeIcon ?? '×')}</button>` : '';
+    const img = this.image ? `<img part="image" src="${this._escape(this.image)}" alt="${this._escape(this.imageAlt)}" />` : '';
+    const ic = !this.image && this.icon ? `<span part="icon" class="mb-chip-icon ${this._escape(this.icon)}"></span>` : '';
+    const lbl = `<span part="label" class="mb-chip-label"><slot>${this._escape(this.label)}</slot></span>`;
+    const removeBtn = this.removable ? `<button part="remove-button" class="mb-chip-remove">${this._escape(this.removeIcon ?? '×')}</button>` : '';
 
     return this._html`
-      <span class="mb-chip mb-component">
+      <span part="root" class="mb-chip mb-component">
         ${img}${ic}${lbl}${removeBtn}
       </span>
     `;

@@ -1,6 +1,4 @@
-import { injectGlobalStyles } from '../core/styles.js';
-
-const RIPPLE_CSS = `
+export const RIPPLE_CSS = `
 .mb-ripple {
 	position: relative;
 	overflow: hidden;
@@ -27,12 +25,8 @@ const RIPPLE_CSS = `
 }
 `;
 
-let rippleStylesInjected = false;
-
 export function ensureRippleStyles(): void {
-	if (rippleStylesInjected) return;
-	rippleStylesInjected = true;
-	injectGlobalStyles('ripple', RIPPLE_CSS);
+	// No-op for Shadow DOM migration compatibility.
 }
 
 /**
@@ -40,7 +34,6 @@ export function ensureRippleStyles(): void {
  * Returns a cleanup function to detach.
  */
 export function attachRipple(el: HTMLElement): () => void {
-	ensureRippleStyles();
 	el.classList.add('mb-ripple');
 
 	const handler = (e: PointerEvent) => {

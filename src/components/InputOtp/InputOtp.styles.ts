@@ -1,4 +1,8 @@
 export const INPUTOTP_STYLES = `
+:host {
+	display: inline-block;
+}
+
 :root {
 	--mb-inputotp-gap: 0.5rem;
 	--mb-inputotp-size: 2.5rem;

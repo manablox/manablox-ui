@@ -50,9 +50,10 @@ export class MbRadioButton extends MbBaseComponent {
     const inputId = this._escape(this.inputId || `${this.id || ''}`);
 
     return this._html`
-      <div class="mb-radiobutton${disabledCls}${invalidCls}${checkedCls}${variantCls}" role="radio" aria-checked="${checked ? 'true' : 'false'}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.tabindex ?? '0'}">
-        <input type="radio" ${checked ? 'checked' : ''} ${this.disabled ? 'disabled' : ''} ${inputId ? `id="${inputId}"` : ''} ${this.name ? `name="${this._escape(this.name)}"` : ''} />
-        <div class="mb-radiobutton-box" tabindex="-1"><span class="mb-radiobutton-icon"></span></div>
+      <div part="root" class="mb-radiobutton${disabledCls}${invalidCls}${checkedCls}${variantCls}" role="radio" aria-checked="${checked ? 'true' : 'false'}" aria-disabled="${this.disabled ? 'true' : 'false'}" tabindex="${this.tabindex ?? '0'}">
+        <input part="native-input" type="radio" ${checked ? 'checked' : ''} ${this.disabled ? 'disabled' : ''} ${inputId ? `id="${inputId}"` : ''} ${this.name ? `name="${this._escape(this.name)}"` : ''} />
+        <div part="box" class="mb-radiobutton-box" tabindex="-1"><span part="icon" class="mb-radiobutton-icon"></span></div>
+        <span part="label" class="mb-radiobutton-label"><slot name="label"></slot><slot></slot></span>
       </div>
     `;
   }

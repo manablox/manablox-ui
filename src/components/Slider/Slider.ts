@@ -91,9 +91,9 @@ export class MbSlider extends MbBaseComponent {
 		const rangeStyle = this.#rangeStyle(positions);
 
 		return this._html`
-			<div class="${classes}">
-				<div class="mb-slider-track" role="presentation">
-					<div class="mb-slider-range" style="${rangeStyle}"></div>
+			<div part="root" class="${classes}">
+				<div part="track" class="mb-slider-track" role="presentation">
+					<div part="range" class="mb-slider-range" style="${rangeStyle}"></div>
 					${this.#renderThumb(0, positions[0])}
 					${this.range ? this.#renderThumb(1, positions[1]) : ''}
 				</div>
@@ -164,6 +164,7 @@ export class MbSlider extends MbBaseComponent {
 
 		return this._html`
 			<button
+				part="thumb"
 				type="button"
 				class="mb-slider-thumb"
 				data-index="${index}"

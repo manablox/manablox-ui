@@ -28,9 +28,9 @@ export class MbBlockUI extends MbBaseComponent {
     const containerClass = isFull ? 'mb-blockui mb-blockui-fullscreen mb-component' : 'mb-blockui mb-component';
 
     return this._html`
-      <div class="${containerClass}" ${isFull ? '' : 'style="position:relative"'}>
-        <div class="mb-blockui-content"><slot></slot></div>
-        ${isBlocked ? `<div class="mb-blockui-mask" style="z-index:${this._escape(z)}"></div>` : ''}
+      <div part="root" class="${containerClass}" ${isFull ? '' : 'style="position:relative"'}>
+        <div part="content" class="mb-blockui-content"><slot part="default"></slot></div>
+        ${isBlocked ? `<div part="mask" class="mb-blockui-mask" style="z-index:${this._escape(z)}"></div>` : ''}
       </div>
     `;
   }

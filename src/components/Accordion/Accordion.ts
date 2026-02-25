@@ -5,31 +5,38 @@ import { ACCORDION_STYLES } from './Accordion.styles.js';
 type AccordionItem = {
   value: string;
   header: string;
-  content: string;
+  headerSlot: string | null;
+  contentSlot: string | null;
+  panel: MbAccordionContent | null;
   disabled: boolean;
 };
 
+const HIDDEN_CONFIG_STYLES = ':host { display: contents; }';
+
 export class MbAccordionPanel extends MbBaseComponent {
   static readonly _componentName = 'mb-accordionpanel';
+  static readonly _componentStyles = HIDDEN_CONFIG_STYLES;
 
   protected _render(): string {
-    return this.innerHTML;
+    return '<slot part="content"></slot>';
   }
 }
 
 export class MbAccordionHeader extends MbBaseComponent {
   static readonly _componentName = 'mb-accordionheader';
+  static readonly _componentStyles = HIDDEN_CONFIG_STYLES;
 
   protected _render(): string {
-    return this.innerHTML;
+    return '<slot part="content"></slot>';
   }
 }
 
 export class MbAccordionContent extends MbBaseComponent {
   static readonly _componentName = 'mb-accordioncontent';
+  static readonly _componentStyles = HIDDEN_CONFIG_STYLES;
 
   protected _render(): string {
-    return this.innerHTML;
+    return '<slot part="content"></slot>';
   }
 }
 
@@ -72,13 +79,22 @@ export class MbAccordion extends MbBaseComponent {
         const panelId = this.#panelId(index);
         const headerId = this.#headerId(index);
         const panelClass = `mb-accordionpanel${isOpen ? ' mb-accordionpanel-active' : ''}`;
-        const content = !this.lazy || isOpen ? item.content : '';
+        const header = item.headerSlot
+          ? `<slot name="${this._escape(item.headerSlot)}">${this._escape(item.header)}</slot>`
+          : this._escape(item.header);
+        const content =
+          !this.lazy || isOpen
+            ? item.contentSlot
+              ? `<slot name="${this._escape(item.contentSlot)}"></slot>`
+              : item.panel?.innerHTML ?? ''
+            : '';
 
         return `
-          <div class="${panelClass}" data-index="${index}" data-value="${this._escape(item.value)}">
+          <div part="panel" class="${panelClass}" data-index="${index}" data-value="${this._escape(item.value)}">
             <button
               type="button"
               id="${headerId}"
+              part="header"
               class="mb-accordionheader"
               data-index="${index}"
               data-value="${this._escape(item.value)}"
@@ -87,17 +103,18 @@ export class MbAccordion extends MbBaseComponent {
               role="button"
               ${item.disabled ? 'disabled aria-disabled="true"' : ''}
             >
-              <span class="mb-accordionheader-label">${this._escape(item.header)}</span>
-              <span class="mb-accordionheader-toggle-icon" aria-hidden="true">▶</span>
+              <span part="label" class="mb-accordionheader-label">${header}</span>
+              <span part="icon" class="mb-accordionheader-toggle-icon" aria-hidden="true">▶</span>
             </button>
             <div
               id="${panelId}"
+              part="content"
               class="mb-accordioncontent"
               role="region"
               aria-labelledby="${headerId}"
               ${isOpen ? '' : 'hidden'}
             >
-              <div class="mb-accordioncontent-inner">
+              <div part="content-inner" class="mb-accordioncontent-inner">
                 ${content}
               </div>
             </div>
@@ -106,7 +123,7 @@ export class MbAccordion extends MbBaseComponent {
       })
       .join('');
 
-    return `<div class="mb-accordion">${panels}</div>`;
+    return `<div part="root" class="mb-accordion">${panels}</div>`;
   }
 
   protected _afterRender(): void {
@@ -168,7 +185,9 @@ export class MbAccordion extends MbBaseComponent {
       this.#items = panelsFromAttr.map((panel, index) => ({
         value: String(panel.value ?? index),
         header: String(panel.header ?? `Panel ${index + 1}`),
-        content: String(panel.content ?? ''),
+        headerSlot: null,
+        contentSlot: null,
+        panel: null,
         disabled: Boolean(panel.disabled),
       }));
       this.#seededFromChildren = false;
@@ -177,7 +196,7 @@ export class MbAccordion extends MbBaseComponent {
 
     if (this.#seededFromChildren) return;
 
-    const childPanels = Array.from(this.querySelectorAll<MbAccordionPanel>('mb-accordionpanel'));
+    const childPanels = Array.from(this._qsaLight<MbAccordionPanel>('mb-accordionpanel'));
     if (!childPanels.length) return;
 
     this.#items = childPanels.map((panel, index) => {
@@ -186,8 +205,11 @@ export class MbAccordion extends MbBaseComponent {
       const headerEl = panel.querySelector<MbAccordionHeader>('mb-accordionheader');
       const contentEl = panel.querySelector<MbAccordionContent>('mb-accordioncontent');
       const header = headerEl?.textContent?.trim() || `Panel ${index + 1}`;
-      const content = contentEl?.innerHTML ?? '';
-      return { value, header, content, disabled };
+      const headerSlot = headerEl ? `panel-header-${index}` : null;
+      const contentSlot = contentEl ? `panel-content-${index}` : null;
+      if (headerEl && headerSlot) headerEl.setAttribute('slot', headerSlot);
+      if (contentEl && contentSlot) contentEl.setAttribute('slot', contentSlot);
+      return { value, header, headerSlot, contentSlot, panel: contentEl ?? null, disabled };
     });
 
     this.#seededFromChildren = true;

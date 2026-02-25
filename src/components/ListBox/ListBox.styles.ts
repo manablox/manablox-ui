@@ -1,4 +1,8 @@
 export const LISTBOX_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-listbox {
 	display: inline-flex;
 	flex-direction: column;

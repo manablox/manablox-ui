@@ -32,8 +32,6 @@ export class MbTriStateCheckbox extends MbBaseComponent {
 	ariaLabel = '';
 	ariaLabelledby = '';
 
-	#listenersBound = false;
-
 	get value(): TriStateValue {
 		const raw = this.getAttribute('value');
 		if (raw == null || raw === 'null') return null;
@@ -52,26 +50,6 @@ export class MbTriStateCheckbox extends MbBaseComponent {
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		if (this.#listenersBound) return;
-		this.#listenersBound = true;
-
-		const onClick = (event: Event) => {
-			const target = event.target as HTMLElement;
-			if (!target.closest('.mb-tristatecheckbox')) return;
-			this.#toggle();
-		};
-
-		const onKeyDown = (event: KeyboardEvent) => {
-			if (event.key === ' ' || event.key === 'Enter') {
-				event.preventDefault();
-				this.#toggle();
-			}
-		};
-
-		this.addEventListener('click', onClick);
-		this.addEventListener('keydown', onKeyDown);
-		this._addCleanup(() => this.removeEventListener('click', onClick));
-		this._addCleanup(() => this.removeEventListener('keydown', onKeyDown));
 	}
 
 	protected _render(): string {
@@ -97,6 +75,7 @@ export class MbTriStateCheckbox extends MbBaseComponent {
 
 		return this._html`
 			<div
+				part="root"
 				class="${classes}"
 				role="checkbox"
 				aria-checked="${indeterminate ? 'mixed' : checked ? 'true' : 'false'}"
@@ -106,9 +85,29 @@ export class MbTriStateCheckbox extends MbBaseComponent {
 				${this.ariaLabel ? `aria-label="${this._escape(this.ariaLabel)}"` : ''}
 				${this.ariaLabelledby ? `aria-labelledby="${this._escape(this.ariaLabelledby)}"` : ''}
 			>
-				<span class="mb-tristatecheckbox-box">${icon}</span>
+				<span part="box" class="mb-tristatecheckbox-box"><span part="icon">${icon}</span></span>
+				<span part="label" class="mb-tristatecheckbox-label"><slot name="label"></slot><slot></slot></span>
 			</div>
 		`;
+	}
+
+	protected _afterRender(): void {
+		const root = this._qs<HTMLElement>('.mb-tristatecheckbox');
+		if (!root) return;
+
+		const onClick = () => this.#toggle();
+
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key === ' ' || event.key === 'Enter') {
+				event.preventDefault();
+				this.#toggle();
+			}
+		};
+
+		root.addEventListener('click', onClick);
+		root.addEventListener('keydown', onKeyDown);
+		this._addCleanup(() => root.removeEventListener('click', onClick));
+		this._addCleanup(() => root.removeEventListener('keydown', onKeyDown));
 	}
 
 	#toggle(): void {

@@ -49,25 +49,10 @@ export class MbInputMask extends MbBaseComponent {
 	ariaLabelledby = '';
 	ariaDescribedby = '';
 
-	#listenersBound = false;
 	#maskedValue = '';
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		if (this.#listenersBound) return;
-		this.#listenersBound = true;
-
-		const onInput = (event: Event) => this.#onInput(event);
-		const onKeyDown = (event: KeyboardEvent) => this.#onKeyDown(event);
-		const onBlur = () => this.#onBlur();
-
-		this.addEventListener('input', onInput);
-		this.addEventListener('keydown', onKeyDown);
-		this.addEventListener('blur', onBlur, true);
-
-		this._addCleanup(() => this.removeEventListener('input', onInput));
-		this._addCleanup(() => this.removeEventListener('keydown', onKeyDown));
-		this._addCleanup(() => this.removeEventListener('blur', onBlur, true));
 	}
 
 	protected _render(): string {
@@ -75,20 +60,23 @@ export class MbInputMask extends MbBaseComponent {
 		this.#maskedValue = maskState.masked;
 
 		return this._html`
-			<input
-				class="mb-inputtext mb-inputmask"
-				type="text"
-				value="${this._escape(this.#maskedValue)}"
-				${this.disabled ? 'disabled' : ''}
-				${this.readonly ? 'readonly' : ''}
-				${this.placeholder ? `placeholder="${this._escape(this.placeholder)}"` : ''}
-				${this.size != null ? `size="${this.size}"` : ''}
-				${this._num('tab-index', null) != null ? `tabindex="${this._num('tab-index', null)}"` : ''}
-				${this.inputId ? `id="${this._escape(this.inputId)}"` : ''}
-				${this.ariaLabel ? `aria-label="${this._escape(this.ariaLabel)}"` : ''}
-				${this.ariaLabelledby ? `aria-labelledby="${this._escape(this.ariaLabelledby)}"` : ''}
-				${this.ariaDescribedby ? `aria-describedby="${this._escape(this.ariaDescribedby)}"` : ''}
-			/>
+			<div class="mb-inputmask-root" part="root">
+				<input
+					part="input"
+					class="mb-inputtext mb-inputmask"
+					type="text"
+					value="${this._escape(this.#maskedValue)}"
+					${this.disabled ? 'disabled' : ''}
+					${this.readonly ? 'readonly' : ''}
+					${this.placeholder ? `placeholder="${this._escape(this.placeholder)}"` : ''}
+					${this.size != null ? `size="${this.size}"` : ''}
+					${this._num('tab-index', null) != null ? `tabindex="${this._num('tab-index', null)}"` : ''}
+					${this.inputId ? `id="${this._escape(this.inputId)}"` : ''}
+					${this.ariaLabel ? `aria-label="${this._escape(this.ariaLabel)}"` : ''}
+					${this.ariaLabelledby ? `aria-labelledby="${this._escape(this.ariaLabelledby)}"` : ''}
+					${this.ariaDescribedby ? `aria-describedby="${this._escape(this.ariaDescribedby)}"` : ''}
+				/>
+			</div>
 		`;
 	}
 
@@ -98,6 +86,18 @@ export class MbInputMask extends MbBaseComponent {
 		if (input.value !== this.#maskedValue) {
 			input.value = this.#maskedValue;
 		}
+
+		const onInput = (event: Event) => this.#onInput(event);
+		const onKeyDown = (event: KeyboardEvent) => this.#onKeyDown(event);
+		const onBlur = () => this.#onBlur();
+
+		input.addEventListener('input', onInput);
+		input.addEventListener('keydown', onKeyDown);
+		input.addEventListener('blur', onBlur);
+
+		this._addCleanup(() => input.removeEventListener('input', onInput));
+		this._addCleanup(() => input.removeEventListener('keydown', onKeyDown));
+		this._addCleanup(() => input.removeEventListener('blur', onBlur));
 	}
 
 	#onInput(event: Event): void {

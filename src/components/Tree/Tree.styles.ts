@@ -1,4 +1,8 @@
 export const TREE_STYLES = `
+:host {
+	display: block;
+}
+
 .mb-tree {
 	display: flex;
 	flex-direction: column;

@@ -27,7 +27,7 @@ export class MbSkeleton extends MbBaseComponent {
     const br = this.borderRadius ? this._escape(this.borderRadius) : '';
 
     return this._html`
-      <div class="mb-skeleton mb-component${circleClass}${noAnimClass}" style="width:${this._escape(this.width)};height:${this._escape(this.height)};${br ? `border-radius:${br};` : ''}"></div>
+      <div part="root" class="mb-skeleton mb-component${circleClass}${noAnimClass}" style="width:${this._escape(this.width)};height:${this._escape(this.height)};${br ? `border-radius:${br};` : ''}"></div>
     `;
   }
 }

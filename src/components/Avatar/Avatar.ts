@@ -33,14 +33,14 @@ export class MbAvatar extends MbBaseComponent {
     const sizeClass = this.size === 'large' ? ' mb-avatar-lg' : this.size === 'xlarge' ? ' mb-avatar-xl' : '';
 
     return this._html`
-      <div class="mb-avatar${shapeClass}${sizeClass}">
+      <div part="root" class="mb-avatar${shapeClass}${sizeClass}">
         ${hasImage
-          ? `<img src="${this._escape(this.image)}" alt="${this._escape(this.imageAlt)}" />`
+          ? `<img part="image" src="${this._escape(this.image)}" alt="${this._escape(this.imageAlt)}" />`
           : hasIcon
-          ? `<i class="mb-avatar-icon ${this._escape(this.icon)}"></i>`
+          ? `<i part="icon" class="mb-avatar-icon ${this._escape(this.icon)}"></i>`
           : hasLabel
-          ? `<span class="mb-avatar-text">${this._escape(this.label)}</span>`
-          : `<slot></slot>`}
+          ? `<span part="label" class="mb-avatar-text">${this._escape(this.label)}</span>`
+          : `<slot part="content"></slot>`}
       </div>
     `;
   }

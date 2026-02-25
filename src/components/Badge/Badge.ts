@@ -27,7 +27,7 @@ export class MbBadge extends MbBaseComponent {
 
     const aria = this.value ? this._escape(this.value) : 'badge';
 
-    return this._html`<span class="${classes.join(' ')}" aria-label="${aria}">${this.value ?? ''}</span>`;
+    return this._html`<span part="root" class="${classes.join(' ')}" aria-label="${aria}"><slot part="value">${this.value ?? ''}</slot></span>`;
   }
 }
 

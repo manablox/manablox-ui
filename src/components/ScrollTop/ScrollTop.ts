@@ -29,7 +29,7 @@ export class MbScrollTop extends MbBaseComponent {
     const icon = this._str('icon', '↑');
     const target = this._str('target', 'window');
     const posClass = target === 'parent' ? 'mb-scrolltop-absolute' : 'mb-scrolltop-fixed';
-    return this._html`<div class="mb-scrolltop ${posClass}"><button class="mb-scrolltop-button mb-scrolltop-hidden" data-mb-btn>${this._escape(icon)}</button></div>`;
+    return this._html`<div class="mb-scrolltop ${posClass}" part="root"><button class="mb-scrolltop-button mb-scrolltop-hidden" part="button" data-mb-btn>${this._escape(icon)}</button></div>`;
   }
 
   protected _afterRender(): void {

@@ -130,39 +130,40 @@ export class MbListBox extends MbBaseComponent {
 			? rows
 					.map(row => {
 						if (row.type === 'group') {
-							return `<li class="mb-listbox-item-group" role="presentation">${this._escape(row.label)}</li>`;
+							return `<li class="mb-listbox-item-group" part="group" role="presentation">${this._escape(row.label)}</li>`;
 						}
 						const selected = this.#isSelected(row.item.value);
 						const selectedClass = selected ? ' mb-selected' : '';
 						const highlightedClass = this.#highlightedIndex === row.index ? ' mb-highlighted' : '';
 						return `<li
 							class="mb-listbox-item${selectedClass}${highlightedClass}"
+							part="option"
 							data-option-index="${row.index}"
 							role="option"
 							aria-selected="${selected ? 'true' : 'false'}"
 							aria-disabled="${row.item.disabled ? 'true' : 'false'}"
 						>
-							<span>${this._escape(row.item.label)}</span>
-							${this.checkmark && selected ? '<span>✓</span>' : ''}
+							<span part="option-label">${this._escape(row.item.label)}</span>
+							${this.checkmark && selected ? '<span part="checkmark">✓</span>' : ''}
 						</li>`;
 					})
 					.join('')
-			: `<li class="mb-listbox-empty-message">${emptyMessage}</li>`;
+			: `<li class="mb-listbox-empty-message" part="empty">${emptyMessage}</li>`;
 
 		const invalidClass = this.invalid ? 'mb-invalid' : '';
 		const disabledClass = this.disabled ? 'mb-disabled' : '';
 
 		return this._html`
-			<div class="mb-listbox ${invalidClass} ${disabledClass}">
+			<div class="mb-listbox ${invalidClass} ${disabledClass}" part="root">
 				${
 					this.filter
 						? `<div class="mb-listbox-header">
-							<input class="mb-listbox-filter" type="text" value="${this._escape(this.#filterValue)}" placeholder="${filterPlaceholder}" ${this.disabled ? 'disabled' : ''} />
+							<input class="mb-listbox-filter" part="filter" type="text" value="${this._escape(this.#filterValue)}" placeholder="${filterPlaceholder}" ${this.disabled ? 'disabled' : ''} />
 						</div>`
 						: ''
 				}
-				<div class="mb-listbox-items-wrapper" style="max-height:${scrollHeight}">
-					<ul id="${this.#listId}" class="mb-listbox-list" role="listbox" tabindex="0" ${this.multiple ? 'aria-multiselectable="true"' : ''}>
+				<div class="mb-listbox-items-wrapper" part="list-wrapper" style="max-height:${scrollHeight}">
+					<ul id="${this.#listId}" class="mb-listbox-list" part="list" role="listbox" tabindex="0" ${this.multiple ? 'aria-multiselectable="true"' : ''}>
 						${listMarkup}
 					</ul>
 				</div>

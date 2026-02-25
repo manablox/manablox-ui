@@ -87,6 +87,7 @@ export class MbInputOtp extends MbBaseComponent {
 			const value = this.#chars[index] ?? '';
 			return this._html`
 				<input
+					part="input"
 					class="mb-inputotp-input"
 					type="${this.mask ? 'password' : 'text'}"
 					maxlength="1"
@@ -99,7 +100,7 @@ export class MbInputOtp extends MbBaseComponent {
 			`;
 		}).join('');
 
-		return `<div class="${classes}">${inputs}</div>`;
+		return `<div class="${classes}" part="root">${inputs}</div>`;
 	}
 
 	protected _afterRender(): void {
