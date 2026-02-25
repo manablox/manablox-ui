@@ -5,9 +5,7 @@ import { ACCORDION_STYLES } from './Accordion.styles.js';
 type AccordionItem = {
   value: string;
   header: string;
-  headerSlot: string | null;
-  contentSlot: string | null;
-  panel: MbAccordionContent | null;
+  contentHtml: string;
   disabled: boolean;
 };
 
@@ -79,15 +77,8 @@ export class MbAccordion extends MbBaseComponent {
         const panelId = this.#panelId(index);
         const headerId = this.#headerId(index);
         const panelClass = `mb-accordionpanel${isOpen ? ' mb-accordionpanel-active' : ''}`;
-        const header = item.headerSlot
-          ? `<slot name="${this._escape(item.headerSlot)}">${this._escape(item.header)}</slot>`
-          : this._escape(item.header);
-        const content =
-          !this.lazy || isOpen
-            ? item.contentSlot
-              ? `<slot name="${this._escape(item.contentSlot)}"></slot>`
-              : item.panel?.innerHTML ?? ''
-            : '';
+        const header = this._escape(item.header);
+        const content = !this.lazy || isOpen ? item.contentHtml : '';
 
         return `
           <div part="panel" class="${panelClass}" data-index="${index}" data-value="${this._escape(item.value)}">
@@ -185,9 +176,7 @@ export class MbAccordion extends MbBaseComponent {
       this.#items = panelsFromAttr.map((panel, index) => ({
         value: String(panel.value ?? index),
         header: String(panel.header ?? `Panel ${index + 1}`),
-        headerSlot: null,
-        contentSlot: null,
-        panel: null,
+        contentHtml: panel.content == null ? '' : String(panel.content),
         disabled: Boolean(panel.disabled),
       }));
       this.#seededFromChildren = false;
@@ -205,11 +194,8 @@ export class MbAccordion extends MbBaseComponent {
       const headerEl = panel.querySelector<MbAccordionHeader>('mb-accordionheader');
       const contentEl = panel.querySelector<MbAccordionContent>('mb-accordioncontent');
       const header = headerEl?.textContent?.trim() || `Panel ${index + 1}`;
-      const headerSlot = headerEl ? `panel-header-${index}` : null;
-      const contentSlot = contentEl ? `panel-content-${index}` : null;
-      if (headerEl && headerSlot) headerEl.setAttribute('slot', headerSlot);
-      if (contentEl && contentSlot) contentEl.setAttribute('slot', contentSlot);
-      return { value, header, headerSlot, contentSlot, panel: contentEl ?? null, disabled };
+      const contentHtml = contentEl?.innerHTML ?? '';
+      return { value, header, contentHtml, disabled };
     });
 
     this.#seededFromChildren = true;

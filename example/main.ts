@@ -2,14 +2,20 @@ import '../src/theme/base.css';
 import '../src/theme/components/button.css';
 import '../src/theme/components/select.css';
 import '../src/theme/components/multiselect.css';
+import '../src/theme/components/dialog.css';
+import '../src/theme/components/accordion.css';
 
 import { defineButton } from '../src/components/Button';
 import { defineSelect } from '../src/components/Select';
 import { defineMultiSelect } from '../src/components/MultiSelect';
+import { defineDialog } from '../src/components/Dialog';
+import { defineAccordion } from '../src/components/Accordion';
 
 defineButton();
 defineSelect();
 defineMultiSelect();
+defineDialog();
+defineAccordion();
 
 // Dark mode toggle
 const toggle = document.getElementById('theme-toggle');

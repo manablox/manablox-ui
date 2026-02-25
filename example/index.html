@@ -102,11 +102,48 @@
     </div>
   </div>
 
-  <div class="section">
-    <mb-select value='{"label":"Option A","value":"a"}' options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one"></mb-select>
-    <mb-select options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one" filter></mb-select>
+  <div class="container">
+    <div class="section">
+      <mb-select value='{"label":"Option A","value":"a"}'
+        options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]'
+        placeholder="Choose one"></mb-select>
+      <mb-select options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one"
+        filter></mb-select>
 
-    <mb-multiselect value='[{"label":"Option A","value":"a"}]' options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]' placeholder="Choose one"></mb-multiselect>
+      <mb-multiselect value='[{"label":"Option A","value":"a"}]'
+        options='[{"label":"Option A","value":"a"},{"label":"Option B","value":"b"}]'
+        placeholder="Choose one"></mb-multiselect>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <mb-button id="open-dialog" severity="primary"
+        onclick="document.querySelector('#my-dialog').setAttribute('visible', '')">Open Dialog</mb-button>
+      <mb-dialog id="my-dialog" header="My Dialog" modal closable>
+        <p>Dialog content here</p>
+        <div slot="footer">
+          <mb-button label="Close" outlined
+            onclick="document.querySelector('#my-dialog').removeAttribute('visible')"></mb-button>
+          <mb-button label="Save" severity="primary"></mb-button>
+        </div>
+      </mb-dialog>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <mb-accordion>
+        <mb-accordionpanel value="0">
+          <mb-accordionheader>Section 1</mb-accordionheader>
+          <mb-accordioncontent>Content of section 1</mb-accordioncontent>
+        </mb-accordionpanel>
+        <mb-accordionpanel value="1">
+          <mb-accordionheader>Section 2</mb-accordionheader>
+          <mb-accordioncontent>Content of section 2</mb-accordioncontent>
+        </mb-accordionpanel>
+      </mb-accordion>
+    </div>
   </div>
 
   <script type="module" src="./main.ts"></script>

@@ -1,5 +1,7 @@
 # ManaBlox UI
 
+DISCLAIMER: Dont use this anywhere now. It is just a under heavy development package, which will break every day.
+
 ManaBlox UI is a compact, framework-agnostic web components library for building UI with a consistent Aura theme.
 
 Package: `manablox-ui` · Language: TypeScript (ESM-only) · Package manager: `pnpm`
@@ -8,13 +10,21 @@ Package: `manablox-ui` · Language: TypeScript (ESM-only) · Package manager: `p
 
 ## Introduction
 
-ManaBlox UI provides a suite of native Web Components (custom elements) that use a single Aura theme and simple, attribute-driven APIs. Components use light DOM (no Shadow DOM) so styles are injected into the document head and can be themed via CSS variables.
+ManaBlox UI provides a suite of native Web Components (custom elements) that use a single Aura theme and simple, attribute-driven APIs. Components use **Shadow DOM** for encapsulation, which guarantees internal structure is isolated and enables native `<slot>` support for composing content.
+
+Each component renders into its own shadow root. Styling works through:
+
+- "**CSS custom properties** (`--mb-*`) — inherit through the shadow boundary and are the primary theming API."
+- "**`::part()` selectors** — allow consumers to style specific internal parts from outside (e.g. `mb-button::part(label)`)."
+- "**Global CSS** on `:root` / theme token sheets continues to work normally."
 
 - Tag prefix: `mb-` (example: `<mb-button>`, `<mb-dialog>`)
 - CSS class prefix: `mb-`
 - CSS variable prefix: `--mb-`
 - Theme: Aura — import with `import 'manablox-ui/theme/aura.css'`
 - Dark mode: add `data-mb-theme="dark"` to `<html>` or any ancestor
+- Slots: components accept light-DOM children via named and default <slot> elements
+- Parts: internal elements expose part="..." attributes for external styling via ::part()
 
 Output files (package build):
 - `dist/index.js` (ESM runtime)
@@ -107,7 +117,40 @@ document.documentElement.setAttribute('data-mb-theme', 'dark');
 document.documentElement.removeAttribute('data-mb-theme');
 ```
 
-Because components use light DOM, their styling is controlled through the injected `aura.css` and CSS variables that begin with `--mb-`.
+Because components use Shadow DOM, theming is done through CSS custom properties (`--mb-*`), which inherit through shadow roots automatically. The `aura.css` theme defines these tokens on `:root`.
+
+**Styling internal elements from outside** — use `::part()`:
+
+```css
+/* Change label font on all buttons */
+mb-button::part(label) {
+  font-weight: 700;
+}
+/* Style the select trigger */
+mb-select::part(root) {
+  border-radius: 0;
+}
+```
+
+> **Note:** Global class selectors like `.mb-button` no longer reach inside shadow roots. Use `::part()` and CSS variables for all customization.
+
+**Slot-based content composition:**
+
+```html
+<!-- default slot -->
+<mb-button>Click me</mb-button>
+
+<!-- named slots -->
+<mb-dialog header="Confirm">
+  <p>Are you sure?</p>
+  <div slot="footer">
+    <mb-button outlined>Cancel</mb-button>
+    <mb-button severity="danger">Delete</mb-button>
+  </div>
+</mb-dialog>
+```
+
+Slotted content stays in light DOM and retains access to your global stylesheets, so icon fonts (e.g. PrimeIcons) work as normal inside slotted content.
 
 ---
 
@@ -140,10 +183,15 @@ Notes about attributes and props:
 - Boolean attributes: presence = true. Setting `attr="false"` is treated as false by the runtime when handled explicitly. You can remove the attribute to set false from JS.
 - JSON attributes: pass stringified JSON (for `options`, `columns`, `value`, etc.).
 - Events are custom events prefixed with `mb-` (for example `mb-change`).
+- Slotted content: place light-DOM children inside the element; the component projects them via named or default slots.
+- Internal styles cannot be overridden with class selectors; use CSS variables (--mb-*) and ::part() instead.
 
 ### Button
 
 Props (as HTML attributes): `label`, `icon`, `icon-pos` ("left"|"right"), `severity` ("secondary"|"success"|"info"|"warning"|"danger"|"contrast"), `raised`, `rounded`, `text`, `outlined`, `link`, `size` ("small"|"large"), `disabled`, `loading`, `badge`, `badge-severity`
+
+Slots: default (label text), `icon`
+Parts: `root`, `label`, `icon`, `loading-icon`, `badge`
 
 Examples:
 
@@ -152,11 +200,19 @@ Examples:
 <mb-button label="Delete" severity="danger" outlined></mb-button>
 <mb-button loading>Loading...</mb-button>
 <mb-button icon="pi pi-check" icon-pos="right" label="Confirm"></mb-button>
+
+<!-- icon via named slot — icon font applies in light DOM -->
+<mb-button>
+  <i slot="icon" class="pi pi-check"></i>
+  Confirm
+</mb-button>
 ```
 
 ### Select / MultiSelect
 
-Props: `options` (JSON array), `value` (string or JSON for objects), `placeholder`, `disabled`, `filter`, `filter-placeholder`
+Props: `options` (JSON array), `model-value or value` (string or JSON for objects), `placeholder`, `disabled`, `filter`, `filter-placeholder`
+
+The dropdown overlay is rendered into a portal on `document.body` and styled via globally injected CSS, so it is unaffected by shadow encapsulation.
 
 Example:
 
