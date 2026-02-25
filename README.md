@@ -520,7 +520,3 @@ function App() {
 | Misc | Badge, Tag, Chip, Inplace, DeferredContent, ScrollTop, MeterGroup, Skeleton, ProgressBar, ProgressSpinner, Terminal |
 
 Use the tag prefix `mb-` for all components (for instance `<mb-button>`, `<mb-dialog>`).
-
----
-
-If you'd like, I can add a small demo `index.html` and a Vite starter configured with `manablox-ui` to help you prototype quickly — tell me which you'd prefer (Vanilla or Vite + React).
