@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import { copyFileSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { resolve, dirname } from 'node:path';
+import { copyFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import dts from 'vite-plugin-dts';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
