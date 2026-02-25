@@ -1,5 +1,6 @@
 import type { AttributeConverter } from './types.js';
 import { injectComponentStyles } from './styles.js';
+import { ensureRippleStyles } from '../utils/Ripple.js';
 
 type AttributeMap = Map<string, AttributeConverter>;
 
@@ -54,13 +55,31 @@ export abstract class MbBaseComponent extends HTMLElement {
 		if (converter) {
 			const propName = this._attrToProp(name);
 			const converted = this._convertAttribute(newValue, converter);
-			// Use Object.assign pattern to avoid ts errors on dynamic prop set
-			(this as unknown as Record<string, unknown>)[propName] = converted;
+			if (this._canSetProperty(propName)) {
+				// Use Object.assign pattern to avoid ts errors on dynamic prop set
+				(this as unknown as Record<string, unknown>)[propName] = converted;
+			}
 		}
 
 		if (this.#mounted) {
 			this._scheduleRender();
 		}
+	}
+
+	// Guard dynamic property assignment to avoid throwing on getter-only properties.
+	protected _canSetProperty(propName: string): boolean {
+		let proto: object | null = this;
+		while (proto) {
+			const descriptor = Object.getOwnPropertyDescriptor(proto, propName);
+			if (descriptor) {
+				if ('set' in descriptor) {
+					return typeof descriptor.set === 'function';
+				}
+				return Boolean(descriptor.writable);
+			}
+			proto = Object.getPrototypeOf(proto);
+		}
+		return true;
 	}
 
 	// Abstract: subclasses implement this to produce their Light DOM HTML string
@@ -233,6 +252,7 @@ export abstract class MbBaseComponent extends HTMLElement {
 	// Attach a ripple effect to an element
 	protected _attachRipple(el: HTMLElement): void {
 		if (el.dataset.mbRipple === '1') return;
+		ensureRippleStyles();
 		el.dataset.mbRipple = '1';
 		el.classList.add('mb-ripple');
 		const handler = (e: Event) => {
@@ -245,17 +265,24 @@ export abstract class MbBaseComponent extends HTMLElement {
 			const ripple = document.createElement('span');
 			ripple.className = 'mb-ink';
 			ripple.style.cssText = `width:${size}px;height:${size}px;top:${y}px;left:${x}px`;
+			el.querySelectorAll('.mb-ink').forEach(node => node.remove());
 			el.appendChild(ripple);
 
 			// Force reflow
 			void ripple.offsetWidth;
 			ripple.classList.add('mb-ink-active');
 
+			let cleaned = false;
 			const cleanup = () => {
+				if (cleaned) return;
+				cleaned = true;
 				ripple.removeEventListener('animationend', cleanup);
+				ripple.removeEventListener('transitionend', cleanup);
 				ripple.remove();
 			};
 			ripple.addEventListener('animationend', cleanup);
+			ripple.addEventListener('transitionend', cleanup);
+			window.setTimeout(cleanup, 500);
 		};
 
 		el.addEventListener('pointerdown', handler);

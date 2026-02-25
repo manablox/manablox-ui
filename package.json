@@ -24,7 +24,8 @@
     "build": "vite build && tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint . --ext .ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "dev": "vite --config vite.dev.config.ts"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.5",

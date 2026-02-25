@@ -2,7 +2,6 @@ import type { AttributeConverter, SelectOption } from '../../core/types.js';
 import { MbBaseComponent } from '../../core/MbBaseComponent.js';
 import { createDefine } from '../../core/define.js';
 import { createPortal, removePortal } from '../../overlay/PortalManager.js';
-import { startAutoPosition } from '../../overlay/Positioning.js';
 import { SELECT_STYLES } from './Select.styles.js';
 
 type SelectSize = 'small' | 'large' | '';
@@ -228,7 +227,7 @@ export class MbSelect extends MbBaseComponent {
 			return;
 		}
 
-		if (target.closest('.mb-select-trigger') || target.closest('.mb-select-dropdown')) {
+		if (target === this || target.closest('.mb-select')) {
 			event.preventDefault();
 			this.#togglePanel();
 		}
@@ -296,15 +295,6 @@ export class MbSelect extends MbBaseComponent {
 		this.#highlightedIndex = this.#resolveSelectedVisibleIndex();
 		this.#portalHost = createPortal(this.#portalKey, this, 'overlay');
 		this.#renderOverlay();
-
-		const trigger = this._qs<HTMLElement>('.mb-select') ?? this;
-		const panel = this.#portalHost.querySelector<HTMLElement>('.mb-select-overlay');
-		if (trigger && panel) {
-			this.#positionCleanup = startAutoPosition(trigger, panel, {
-				placement: 'bottom-start',
-				offsetDistance: 4,
-			});
-		}
 
 		const onDocDown = (event: MouseEvent) => {
 			const target = event.target as Node;
@@ -380,6 +370,52 @@ export class MbSelect extends MbBaseComponent {
 		`;
 
 		this.#bindOverlayListeners();
+		this.#syncOverlayPosition();
+	}
+
+	#syncOverlayPosition(): void {
+		if (!this.#isOpen || !this.#portalHost) return;
+
+		const panel = this.#portalHost.querySelector<HTMLElement>('.mb-select-overlay');
+		if (!panel) return;
+
+		// Clean up any previous auto-update
+		this.#positionCleanup?.();
+		this.#positionCleanup = null;
+
+		const position = () => {
+			// Use the custom element itself as the reference (it is always in the DOM)
+			const rect = this.getBoundingClientRect();
+			const panelRect = panel.getBoundingClientRect();
+			const viewportHeight = window.innerHeight;
+
+			// Decide: open below or above (flip if not enough space below)
+			const spaceBelow = viewportHeight - rect.bottom;
+			const openAbove = spaceBelow < panelRect.height + 8 && rect.top > panelRect.height + 8;
+
+			const top = openAbove ? rect.top - panelRect.height - 4 : rect.bottom + 4;
+
+			Object.assign(panel.style, {
+				position: 'fixed',
+				left: `${rect.left}px`,
+				top: `${top}px`,
+				minWidth: `${rect.width}px`,
+			});
+		};
+
+		// Apply immediately (synchronous)
+		position();
+
+		// Re-apply on scroll/resize for auto-update behavior
+		const onScroll = () => position();
+		const onResize = () => position();
+		window.addEventListener('scroll', onScroll, { passive: true, capture: true });
+		window.addEventListener('resize', onResize, { passive: true });
+
+		this.#positionCleanup = () => {
+			window.removeEventListener('scroll', onScroll, true);
+			window.removeEventListener('resize', onResize);
+		};
 	}
 
 	#bindOverlayListeners(): void {
